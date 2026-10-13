@@ -1,0 +1,777 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Monsun Bridge</title>
+<meta name="description" content="Monsun Bridge — Team DATAVENGERS, DOSM Datathon 2026 finalist (Universiti Malaya). A costed, evidence-graded plan for east-coast tourism workers through the Northeast Monsoon, with an 8-page Power BI dashboard.">
+<meta property="og:title" content="Monsun Bridge">
+<meta property="og:description" content="The monsoon is predictable. So is the plan. DOSM Datathon 2026 · Team DATAVENGERS · Universiti Malaya.">
+<meta property="og:image" content="img/dash-1.jpg">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23E2B64A'/%3E%3Ctext x='32' y='42' font-family='Inter,Arial' font-weight='800' font-size='28' text-anchor='middle' fill='%230B1F4D'%3EMB%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700;800;900&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
+<style>html{color-scheme:light}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<style>
+/* Layout: bright, airy landing page in the deck's navy-and-gold identity with Aceternity-style motion — spotlight + aurora hero, flip-words tagline, moving-border CTA, 3D tilt cards, lens magnifier on the dashboard, tracing-beam timeline, rubric rings. */
+:root{
+  --bg:#f6f8ff; --bg2:#ffffff; --bg3:#eef2fc; --fg:#0b1f4d; --fg2:#4a5578; --fg3:#7b86a8; --line:rgba(11,31,77,.10); --line2:rgba(11,31,77,.22);
+  --navy:#0b1f4d; --gold:#c9951e; --gold2:#e2b64a; --gold3:#f3d57f; --blue:#1e6bff; --blue2:#5b9bff; --teal:#0fb5a3; --red:#d62f22; --violet:#7c5cff;
+  --obs:#1f8a4c; --der:#1479a3; --mod:#c65a11; --scn:#a0357f;
+  --glass:rgba(255,255,255,.72); --glassb:rgba(255,255,255,.9); --shadow:0 20px 60px rgba(11,31,77,.08),0 1px 2px rgba(11,31,77,.06);
+  --display:"Inter Tight","Inter",system-ui,sans-serif; --body:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif; --mono:"JetBrains Mono",ui-monospace,Menlo,monospace; --r:20px;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){ --bg:#070d1f; --bg2:#0d1630; --bg3:#121c3a; --fg:#eef2ff; --fg2:#a3add0; --fg3:#7682a8; --line:rgba(160,180,255,.14); --line2:rgba(160,180,255,.3); --gold:#e2b64a; --gold2:#f3d57f; --blue:#5b9bff; --teal:#46d3c2; --red:#ff6b5f; --obs:#4fcf86; --der:#4fc1e9; --mod:#ff9a4d; --scn:#e07ac8; --glass:rgba(255,255,255,.05); --glassb:rgba(255,255,255,.08); --shadow:0 20px 60px rgba(0,0,0,.4); color-scheme:dark } }
+:root[data-theme="dark"]{ --bg:#070d1f; --bg2:#0d1630; --bg3:#121c3a; --fg:#eef2ff; --fg2:#a3add0; --fg3:#7682a8; --line:rgba(160,180,255,.14); --line2:rgba(160,180,255,.3); --gold:#e2b64a; --gold2:#f3d57f; --blue:#5b9bff; --teal:#46d3c2; --red:#ff6b5f; --obs:#4fcf86; --der:#4fc1e9; --mod:#ff9a4d; --scn:#e07ac8; --glass:rgba(255,255,255,.05); --glassb:rgba(255,255,255,.08); --shadow:0 20px 60px rgba(0,0,0,.4); color-scheme:dark }
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:16px;line-height:1.6;margin:0;overflow-x:hidden}
+h1,h2,h3{font-family:var(--display);margin:0;line-height:1.05;letter-spacing:-.02em;text-wrap:balance;color:var(--fg)}
+h2{font-size:clamp(2rem,4.4vw,3.4rem);font-weight:800}
+h3{font-size:1.15rem;font-weight:700}
+p{margin:0}
+a{color:var(--blue)}
+img{max-width:100%}
+.wrap{max-width:1180px;margin-inline:auto;padding-inline:22px}
+.eyebrow{display:inline-flex;align-items:center;gap:.6em;font-size:.72rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--gold)}
+.eyebrow::before{content:"";width:22px;height:2px;background:linear-gradient(90deg,var(--gold),var(--gold3))}
+.num{font-family:var(--display);font-variant-numeric:tabular-nums;letter-spacing:-.03em;font-weight:800}
+.grade{display:inline-flex;align-items:center;gap:.4em;font-size:.66rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
+.grade::before{content:"";width:.75em;height:.75em;clip-path:polygon(25% 0,75% 0,100% 50%,75% 100%,25% 100%,0 50%);background:currentColor}
+.g-obs{color:var(--obs)}.g-der{color:var(--der)}.g-mod{color:var(--mod)}.g-scn{color:var(--scn)}
+.shine{background:linear-gradient(100deg,var(--gold) 0%,var(--gold2) 35%,#fff0c2 50%,var(--gold2) 65%,var(--gold) 100%);background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 6s linear infinite}
+@keyframes shine{to{background-position:-220% 0}}
+.glass{background:var(--glass);border:1px solid var(--line);border-radius:var(--r);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:var(--shadow)}
+section{position:relative;padding-block:clamp(72px,9vw,120px)}
+.head{max-width:66ch;margin-bottom:40px}
+.head p{color:var(--fg2);margin-top:14px;font-size:1.05rem;max-width:60ch}
+.head h2{margin-top:14px}
+.rv{will-change:transform,opacity}
+.rv.in{animation:rise .9s cubic-bezier(.2,.7,.2,1) both}
+@keyframes rise{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.rv.in,.shine,.marq .track,.spot,.aurora i,.mb::before,.beam,.meteor,.flip span{animation:none!important}}
+
+/* progress + nav */
+.prog{position:fixed;left:0;top:env(safe-area-inset-top,0px);height:3px;width:0;z-index:50;background:linear-gradient(90deg,var(--gold2),var(--blue),var(--teal))}
+.nav{position:fixed;inset-inline:0;top:0;z-index:40;padding-top:env(safe-area-inset-top,0px);transition:transform .35s,background .3s,border-color .3s,box-shadow .3s;border-bottom:1px solid transparent}
+.nav.on{background:var(--glass);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-color:var(--line);box-shadow:0 10px 30px rgba(11,31,77,.06)}
+.nav.hide{transform:translateY(-110%)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:14px;min-height:66px;flex-wrap:wrap;padding-block:8px}
+.brand{display:flex;align-items:center;gap:12px;font-family:var(--display);font-weight:800;letter-spacing:.1em;font-size:.95rem;text-decoration:none;color:var(--fg)}
+.brand i{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,var(--gold3),var(--gold2) 60%,var(--gold));display:grid;place-items:center;color:var(--navy);font-size:.8rem;font-weight:900;box-shadow:0 8px 24px rgba(226,182,74,.35)}
+.brand span{color:var(--gold)}
+.nav nav{display:flex;gap:2px;flex-wrap:wrap}
+.nav nav a{color:var(--fg2);text-decoration:none;font-size:.86rem;font-weight:500;padding:8px 12px;border-radius:10px;transition:background .2s,color .2s}
+.nav nav a:hover,.nav nav a:focus-visible{color:var(--fg);background:var(--bg3)}
+.btn{display:inline-flex;align-items:center;gap:.5em;padding:13px 24px;border-radius:999px;font-weight:600;text-decoration:none;font-size:.95rem;position:relative;transition:transform .2s,box-shadow .2s;color:var(--fg)}
+.btn:hover{transform:translateY(-2px)}
+.btn.p{background:linear-gradient(135deg,var(--gold3),var(--gold2) 55%,var(--gold));color:var(--navy);box-shadow:0 10px 30px rgba(201,149,30,.3)}
+.btn.p:hover{box-shadow:0 16px 40px rgba(201,149,30,.45)}
+.btn.s{border:1px solid var(--line2);background:var(--glassb)}
+.btn.sm{padding:9px 16px;font-size:.84rem}
+.btn:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+/* moving-border button (Aceternity) */
+.mb{position:relative;padding:2px;border-radius:999px;overflow:hidden;display:inline-block;isolation:isolate}
+.mb::before{content:"";position:absolute;inset:-150%;background:conic-gradient(from 0deg,transparent 0 60%,var(--blue) 75%,var(--gold2) 85%,transparent 95%);animation:spin 3.2s linear infinite;z-index:-1}
+.mb .btn{background:var(--bg2);display:inline-flex;border-radius:999px;margin:0;color:var(--fg)}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* hero */
+.hero{padding-block:160px 100px;overflow:hidden;position:relative;background:linear-gradient(180deg,var(--bg2),var(--bg))}
+.aurora{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.aurora i{position:absolute;border-radius:50%;filter:blur(80px);opacity:.55}
+.aurora .a1{width:60vw;height:60vw;max-width:820px;max-height:820px;left:-16vw;top:-30vw;background:radial-gradient(circle,rgba(91,155,255,.75),rgba(91,155,255,0) 62%);animation:drift1 18s ease-in-out infinite alternate}
+.aurora .a2{width:52vw;height:52vw;max-width:720px;max-height:720px;right:-14vw;top:-14vw;background:radial-gradient(circle,rgba(243,213,127,.9),rgba(243,213,127,0) 62%);animation:drift2 22s ease-in-out infinite alternate}
+.aurora .a3{width:46vw;height:46vw;max-width:600px;left:28vw;bottom:-28vw;background:radial-gradient(circle,rgba(70,211,194,.6),rgba(70,211,194,0) 62%);opacity:.4;animation:drift1 26s ease-in-out infinite alternate-reverse}
+.aurora .a4{width:30vw;height:30vw;max-width:420px;right:20vw;bottom:-10vw;background:radial-gradient(circle,rgba(124,92,255,.5),rgba(124,92,255,0) 62%);opacity:.35;animation:drift2 20s ease-in-out infinite alternate-reverse}
+@keyframes drift1{to{transform:translate(8vw,6vw) scale(1.12)}}
+@keyframes drift2{to{transform:translate(-6vw,8vw) scale(.92)}}
+.dots{position:absolute;inset:0;pointer-events:none;background-image:radial-gradient(var(--line2) 1px,transparent 1px);background-size:26px 26px;opacity:.5;mask-image:radial-gradient(ellipse 70% 60% at 50% 35%,#000 20%,transparent 100%);-webkit-mask-image:radial-gradient(ellipse 70% 60% at 50% 35%,#000 20%,transparent 100%)}
+.spot{position:absolute;left:-10%;top:-40%;width:70%;height:160%;pointer-events:none;background:conic-gradient(from 200deg at 50% 0%,transparent 40%,rgba(255,255,255,.75) 50%,transparent 60%);filter:blur(30px);opacity:.7;transform-origin:50% 0;animation:sweep 9s ease-in-out infinite alternate;mix-blend-mode:screen}
+@keyframes sweep{from{transform:rotate(-14deg)}to{transform:rotate(14deg)}}
+#rain{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:.45}
+.hero .wrap{position:relative;display:grid;grid-template-columns:1.2fr .85fr;gap:48px;align-items:center}
+.chip{display:inline-flex;align-items:center;gap:10px;padding:7px 14px 7px 9px;border-radius:999px;border:1px solid var(--line2);background:var(--glassb);font-size:.76rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--fg2);box-shadow:var(--shadow)}
+.chip b{position:relative;width:9px;height:9px;border-radius:50%;background:var(--teal)}
+.chip b::after{content:"";position:absolute;inset:-5px;border-radius:50%;border:1.5px solid var(--teal);animation:ping 1.8s ease-out infinite}
+@keyframes ping{from{transform:scale(.5);opacity:1}to{transform:scale(1.6);opacity:0}}
+.hero h1{font-size:clamp(3rem,8.6vw,6.4rem);font-weight:900;margin-top:22px;line-height:.98;position:relative}
+.hero h1 .w{display:inline-block}
+.spark{position:absolute;width:6px;height:6px;border-radius:50%;background:var(--gold2);box-shadow:0 0 12px var(--gold2);animation:spark 2.6s ease-in-out infinite;pointer-events:none}
+@keyframes spark{0%,100%{opacity:0;transform:scale(.3)}50%{opacity:1;transform:scale(1)}}
+.tag{font-family:var(--display);font-size:clamp(1.3rem,2.6vw,1.9rem);font-weight:600;margin-top:18px;color:var(--fg)}
+.flip{display:inline-grid;vertical-align:bottom;text-align:left}
+.flip span{grid-area:1/1;color:var(--blue);animation:flip 9s infinite;opacity:0;transform:translateY(60%);white-space:nowrap}
+.flip span:nth-child(2){animation-delay:3s}.flip span:nth-child(3){animation-delay:6s}
+@keyframes flip{0%{opacity:0;transform:translateY(60%);filter:blur(6px)}6%,30%{opacity:1;transform:none;filter:none}36%,100%{opacity:0;transform:translateY(-60%);filter:blur(6px)}}
+.lede{color:var(--fg2);max-width:56ch;margin-top:18px;font-size:1.06rem}
+.cta{display:flex;gap:14px;flex-wrap:wrap;margin-top:30px;align-items:center}
+.meta{display:flex;gap:22px;flex-wrap:wrap;margin-top:34px;color:var(--fg3);font-size:.78rem;letter-spacing:.08em;text-transform:uppercase}
+.meta b{color:var(--fg2);font-weight:600}
+.stack{position:relative;display:grid;gap:14px;perspective:1200px}
+.stat{padding:20px 22px;transform-style:preserve-3d;transition:transform .5s cubic-bezier(.2,.7,.2,1),border-color .3s;position:relative;overflow:hidden}
+.stat::after{content:"";position:absolute;inset:0;background:radial-gradient(260px circle at var(--mx,50%) var(--my,50%),rgba(226,182,74,.22),transparent 60%);opacity:0;transition:opacity .3s;pointer-events:none}
+.stat:hover::after{opacity:1}
+.stat .k{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--fg3);font-weight:600;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.stat .v{font-size:2.3rem;color:var(--fg);margin-top:6px;line-height:1}
+.stat .d{color:var(--fg2);font-size:.86rem;margin-top:6px}
+.stat.gold .v{color:var(--gold)}
+.stack .fine{font-size:.76rem;color:var(--fg3);padding-inline:6px}
+/* monsoon atmosphere: clouds, lightning, sea, island, boat */
+:root{--sil:#0b1f4d;--sea1:rgba(30,107,255,.14);--sea2:rgba(11,31,77,.22);--sea3:var(--bg2);--cloud:rgba(170,186,215,.55)}
+:root[data-theme="dark"]{--sil:#050b1c;--sea1:rgba(91,155,255,.18);--sea2:rgba(11,31,77,.7);--cloud:rgba(120,140,190,.25)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--sil:#050b1c;--sea1:rgba(91,155,255,.18);--sea2:rgba(11,31,77,.7);--cloud:rgba(120,140,190,.25)}}
+.hero{padding-bottom:150px}
+.clouds{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.clouds i{position:absolute;border-radius:50%;background:var(--cloud);filter:blur(28px);animation:cloud linear infinite}
+.clouds .c1{width:520px;height:150px;top:4%;left:-30%;animation-duration:70s;opacity:.8}
+.clouds .c2{width:380px;height:120px;top:14%;left:-20%;animation-duration:95s;animation-delay:-30s;opacity:.7}
+.clouds .c3{width:640px;height:170px;top:-2%;left:-40%;animation-duration:120s;animation-delay:-70s;opacity:.6}
+.clouds .c4{width:300px;height:100px;top:26%;left:-15%;animation-duration:85s;animation-delay:-50s;opacity:.5}
+@keyframes cloud{to{transform:translateX(160vw)}}
+.flash{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 60% 50% at 70% 10%,rgba(255,255,255,.9),transparent 70%);opacity:0;animation:flash 13s infinite;mix-blend-mode:screen}
+@keyframes flash{0%,88%,100%{opacity:0}89%{opacity:.35}90%{opacity:.04}91.5%{opacity:.45}93%{opacity:0}}
+.sea{position:absolute;left:0;right:0;bottom:-2px;height:150px;pointer-events:none;overflow:hidden}
+.sea .wv{position:absolute;left:0;bottom:0;width:200%;height:120px;animation:wavex linear infinite}
+.sea .w1{fill:var(--sea1);animation-duration:14s;bottom:30px;z-index:1}
+.sea .w2{fill:var(--sea2);animation-duration:9s;animation-direction:reverse;bottom:14px;z-index:1}
+.sea .w3{fill:var(--sea3);animation-duration:7s;height:70px;z-index:3}
+@keyframes wavex{to{transform:translateX(-50%)}}
+.sea .island{position:absolute;right:3%;bottom:30px;width:min(460px,56vw);height:auto;animation:bob 6s ease-in-out infinite;z-index:2}
+.sea .boat{transform-origin:56px 130px;animation:rock 3.2s ease-in-out infinite}
+@keyframes rock{0%,100%{transform:rotate(-4deg) translateY(0)}50%{transform:rotate(4deg) translateY(-4px)}}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(3px)}}
+.season{margin-top:26px;padding:14px 18px;max-width:560px}
+.season .sk{display:flex;justify-content:space-between;gap:12px;align-items:baseline;font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;color:var(--fg3);font-weight:600;flex-wrap:wrap}
+.season .sk b{font-family:var(--display);font-size:1rem;color:var(--blue);letter-spacing:0;text-transform:none}
+.sbar{position:relative;height:10px;border-radius:999px;background:var(--bg3);margin-top:10px;overflow:visible}
+.sbar .win{position:absolute;top:0;bottom:0;border-radius:999px;background:linear-gradient(90deg,var(--blue2),var(--blue));left:33.3%;width:37%;transform-origin:left;animation:fill2 1.4s .8s cubic-bezier(.2,.7,.2,1) both}
+@keyframes fill2{from{transform:scaleX(0)}}
+.sbar .now{position:absolute;top:-5px;width:20px;height:20px;border-radius:50%;background:var(--gold2);border:3px solid var(--bg2);box-shadow:0 0 0 4px rgba(226,182,74,.3);transform:translateX(-50%)}
+.sbar .now::after{content:"";position:absolute;inset:-8px;border-radius:50%;border:2px solid var(--gold2);animation:ping 1.8s ease-out infinite}
+.season .sl{display:flex;justify-content:space-between;font-size:.68rem;color:var(--fg3);margin-top:8px;font-family:var(--mono)}
+@media (max-width:640px){.sea .island{width:70vw;right:-4%}.season .sk b{font-size:.9rem}}
+
+/* marquee */
+.marq{border-block:1px solid var(--line);background:var(--bg2);overflow:hidden;padding-block:16px;mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent);-webkit-mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent)}
+.marq .track{display:flex;gap:48px;width:max-content;animation:marq 38s linear infinite;white-space:nowrap}
+.marq:hover .track{animation-play-state:paused}
+.marq span{font-size:.8rem;letter-spacing:.16em;text-transform:uppercase;color:var(--fg3);font-weight:600;display:inline-flex;gap:14px;align-items:center}
+.marq span::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--gold2)}
+@keyframes marq{to{transform:translateX(-50%)}}
+
+/* problem */
+.problem{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+.steps{display:grid;gap:12px;margin-top:26px}
+.step{display:grid;grid-template-columns:44px 1fr;gap:16px;padding:16px 18px;border-radius:16px;transition:transform .3s}
+.step:hover{transform:translateX(6px)}
+.step i{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;font-family:var(--display);font-weight:800;color:var(--navy);background:linear-gradient(135deg,var(--gold3),var(--gold2))}
+.step b{display:block;color:var(--fg);font-family:var(--display)}
+.step p{color:var(--fg2);font-size:.95rem;margin-top:3px}
+.clock{padding:26px}
+.clock .k{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--fg3);font-weight:600}
+.months{display:grid;grid-template-columns:repeat(12,1fr);gap:4px;margin-top:16px}
+.months div{aspect-ratio:1/1.5;border-radius:8px;background:var(--bg3);border:1px solid var(--line);display:grid;place-items:end center;padding-bottom:6px;font-size:.7rem;color:var(--fg3);font-weight:600;position:relative;overflow:hidden}
+.months div.on::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(30,107,255,0),var(--blue));transform:translateY(100%);animation:fill 1.2s .2s cubic-bezier(.2,.7,.2,1) forwards}
+.months div.on{color:#fff;border-color:var(--blue)}
+.months div.on span{position:relative}
+@keyframes fill{to{transform:none}}
+.clock .big{display:flex;gap:28px;flex-wrap:wrap;margin-top:18px}
+.clock .big div b{display:block;font-size:2rem;color:var(--fg);line-height:1}
+.clock .big div span{font-size:.8rem;color:var(--fg2)}
+.clock p{color:var(--fg2);font-size:.9rem;margin-top:14px}
+.bigq{font-family:var(--display);font-size:clamp(1.5rem,2.8vw,2.1rem);font-weight:700;line-height:1.25;color:var(--fg);border-left:4px solid var(--gold2);padding-left:20px}
+.bigq small{display:block;font-family:var(--body);font-weight:400;font-size:1rem;color:var(--fg2);margin-top:12px}
+
+/* bento findings with 3D tilt */
+.bento{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;perspective:1400px}
+.card{position:relative;padding:26px;overflow:hidden;min-width:0;display:flex;flex-direction:column;gap:12px;transition:transform .35s cubic-bezier(.2,.7,.2,1),box-shadow .35s;transform-style:preserve-3d}
+.card::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1.5px;background:radial-gradient(340px circle at var(--mx,50%) var(--my,50%),var(--gold2),transparent 55%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:0;transition:opacity .3s;pointer-events:none}
+.card:hover::before{opacity:1}
+.card:hover{box-shadow:0 30px 80px rgba(11,31,77,.14)}
+.card>*{transform:translateZ(20px)}
+.card .k{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--fg3);font-weight:600}
+.card .v{font-size:clamp(2.4rem,4vw,3.4rem);line-height:1;color:var(--fg)}
+.card .v.red{color:var(--red)}.card .v.gold{color:var(--gold)}.card .v.blue{color:var(--blue)}
+.card p{color:var(--fg2);font-size:.95rem}
+.card.wide{grid-column:span 2}
+.bars{display:grid;gap:10px;margin-top:6px}
+.bar{display:grid;grid-template-columns:120px 1fr 56px;gap:12px;align-items:center;font-size:.85rem;color:var(--fg2)}
+.bar .t{height:12px;border-radius:999px;background:var(--bg3);overflow:hidden}
+.bar .t i{display:block;height:100%;width:0;border-radius:999px;transition:width 1.4s cubic-bezier(.2,.7,.2,1)}
+.bar.e .t i{background:linear-gradient(90deg,#ff8a7a,var(--red))}
+.bar.w .t i{background:linear-gradient(90deg,#7fb6ff,var(--blue))}
+.in .bar.e .t i{width:64%}.in .bar.w .t i{width:97.7%}
+.bar b{color:var(--fg);text-align:right;font-family:var(--display)}
+.card .foot{margin-top:auto;display:flex;gap:14px;flex-wrap:wrap;align-items:center;font-size:.78rem;color:var(--fg3);font-family:var(--mono)}
+
+/* dashboard: lamp header + device + lens */
+.dash{background:linear-gradient(180deg,var(--bg),var(--bg2) 30%,var(--bg))}
+.lamp{position:relative;text-align:center;padding-top:40px;margin-bottom:34px}
+.lamp::before{content:"";position:absolute;left:50%;top:0;width:min(560px,80%);height:2px;transform:translateX(-50%);background:linear-gradient(90deg,transparent,var(--blue),var(--gold2),transparent);box-shadow:0 0 30px 6px rgba(91,155,255,.35)}
+.lamp::after{content:"";position:absolute;left:50%;top:2px;width:min(700px,90%);height:220px;transform:translateX(-50%);background:conic-gradient(from 90deg at 50% 0%,transparent 20%,rgba(91,155,255,.22) 40%,rgba(226,182,74,.2) 60%,transparent 80%);filter:blur(24px);pointer-events:none;z-index:0}
+.lamp>*{position:relative;z-index:1}
+.lamp h2{margin-top:14px}
+.lamp p{color:var(--fg2);max-width:62ch;margin:14px auto 0;font-size:1.05rem}
+.device{position:relative;border-radius:24px;padding:12px;background:linear-gradient(180deg,#132452,#0b1f4d);border:1px solid rgba(255,255,255,.12);box-shadow:0 50px 120px rgba(11,31,77,.35),0 0 0 1px rgba(255,255,255,.04) inset}
+.device::before{content:"";position:absolute;left:50%;top:-1px;width:40%;height:1px;transform:translateX(-50%);background:linear-gradient(90deg,transparent,var(--gold2),transparent)}
+.dbar{display:flex;align-items:center;gap:8px;padding:4px 8px 12px}
+.dbar i{width:10px;height:10px;border-radius:50%}
+.dbar i:nth-child(1){background:#ff6b5f}.dbar i:nth-child(2){background:#f8c35a}.dbar i:nth-child(3){background:#4fcf86}
+.dbar span{margin-left:auto;font-family:var(--mono);font-size:.72rem;color:#9fb0d8}
+.screen{position:relative;border-radius:12px;overflow:hidden;background:#0a1226;aspect-ratio:2575/1482;max-width:100%;cursor:crosshair}
+.screen img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .45s ease,transform .6s ease;transform:scale(1.015)}
+.screen img.on{opacity:1;transform:none}
+.lens{position:absolute;width:220px;height:220px;border-radius:50%;border:2px solid rgba(255,255,255,.9);box-shadow:0 20px 50px rgba(0,0,0,.45),0 0 0 6px rgba(226,182,74,.35);background-repeat:no-repeat;pointer-events:none;opacity:0;transition:opacity .2s;transform:translate(-50%,-50%);z-index:3}
+.screen:hover .lens{opacity:1}
+.screen .zoom{position:absolute;right:12px;bottom:12px;border:1px solid rgba(255,255,255,.3);background:rgba(11,31,77,.75);color:#fff;font:inherit;font-size:.78rem;font-weight:600;padding:8px 12px;border-radius:8px;cursor:pointer;backdrop-filter:blur(8px);z-index:4}
+.screen .zoom:hover{border-color:var(--gold2);color:var(--gold2)}
+.thumbs{display:grid;grid-template-columns:repeat(8,1fr);gap:10px;margin-top:16px}
+.thumb{position:relative;border:1px solid var(--line);border-radius:12px;padding:0;background:var(--bg2);cursor:pointer;overflow:hidden;text-align:left;color:var(--fg2);font:inherit;transition:transform .25s,border-color .25s,box-shadow .25s}
+.thumb img{display:block;width:100%;aspect-ratio:2575/1482;object-fit:cover;opacity:.8;transition:opacity .25s}
+.thumb span{display:block;padding:8px 10px;font-size:.72rem;font-weight:600;letter-spacing:.04em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.thumb span b{color:var(--gold);font-family:var(--display);margin-right:6px}
+.thumb[aria-selected="true"]{border-color:var(--gold2);transform:translateY(-4px);color:var(--fg);box-shadow:0 12px 30px rgba(201,149,30,.25)}
+.thumb[aria-selected="true"] img,.thumb:hover img{opacity:1}
+.thumb:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.cap{display:grid;grid-template-columns:auto 1fr auto;gap:18px;align-items:center;margin-top:18px;padding:16px 20px}
+.cap .nb{display:flex;gap:8px}
+.cap .nb button{width:42px;height:42px;border-radius:50%;border:1px solid var(--line2);background:var(--bg2);color:var(--fg);font:inherit;font-size:1.1rem;cursor:pointer;transition:background .2s,border-color .2s,transform .2s}
+.cap .nb button:hover{background:var(--gold2);color:var(--navy);border-color:var(--gold2);transform:scale(1.06)}
+.cap .q b{display:block;font-family:var(--display);font-size:1.1rem;color:var(--fg)}
+.cap .q span{color:var(--fg2);font-size:.95rem}
+.cap .nb button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.lb{position:fixed;inset:0;z-index:60;background:rgba(5,10,30,.9);display:grid;place-items:center;padding:24px;backdrop-filter:blur(10px)}
+.lb img{max-width:100%;max-height:90vh;border-radius:10px;box-shadow:0 30px 100px rgba(0,0,0,.7)}
+.lb button{position:absolute;top:calc(18px + env(safe-area-inset-top,0px));right:18px;width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,.4);background:rgba(255,255,255,.1);color:#fff;font-size:1.2rem;cursor:pointer}
+.dnotes{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:22px}
+.dnotes div{padding:16px 18px;font-size:.9rem;color:var(--fg2)}
+.dnotes div b{display:block;color:var(--fg);font-family:var(--display);margin-bottom:4px}
+
+/* rubric: rings + meteors */
+.fmt{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:26px}
+.fmt div{padding:10px 16px;border-radius:999px;font-size:.84rem;color:var(--fg2);display:flex;gap:8px;align-items:center}
+.fmt div b{color:var(--fg);font-family:var(--display)}
+.rub{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+.rc{position:relative;padding:20px 18px;min-width:0;overflow:hidden;display:flex;flex-direction:column;gap:12px;transition:transform .35s}
+.rc:hover{transform:translateY(-6px)}
+.meteor{position:absolute;top:-10px;width:2px;height:60px;background:linear-gradient(180deg,var(--gold2),transparent);transform:rotate(35deg);opacity:0;animation:meteor 4.5s linear infinite;pointer-events:none}
+@keyframes meteor{0%{transform:translate(0,-80px) rotate(35deg);opacity:0}10%{opacity:1}60%{opacity:0}100%{transform:translate(-140px,240px) rotate(35deg);opacity:0}}
+.ring{position:relative;width:92px;height:92px}
+.ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+.ring circle{fill:none;stroke-width:8;stroke-linecap:round}
+.ring .bgc{stroke:var(--bg3)}
+.ring .fgc{stroke:url(#gg);stroke-dasharray:263;stroke-dashoffset:263;transition:stroke-dashoffset 1.4s cubic-bezier(.2,.7,.2,1)}
+.in .ring .fgc{stroke-dashoffset:var(--o)}
+.ring b{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--display);font-weight:800;font-size:1.25rem;color:var(--fg)}
+.rc .code{font-family:var(--mono);font-size:.7rem;color:var(--gold);letter-spacing:.08em}
+.rc h3{font-size:1rem}
+.rc ul{margin:0;padding:0;list-style:none;display:grid;gap:5px}
+.rc li{font-size:.8rem;color:var(--fg2);display:grid;grid-template-columns:auto 1fr;gap:8px;align-items:baseline}
+.rc li code{font-family:var(--mono);font-size:.66rem;color:var(--fg3);padding:1px 6px;border:1px solid var(--line);border-radius:6px}
+.rc .where{margin-top:auto;display:flex;gap:6px;flex-wrap:wrap}
+.rc .where a{font-size:.68rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--fg2);text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:4px 10px;transition:border-color .2s,color .2s}
+.rc .where a:hover{border-color:var(--gold2);color:var(--gold)}
+.awards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:18px}
+.award{padding:18px 20px;display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:center;position:relative;overflow:hidden}
+.award i{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,var(--gold3),var(--gold2));color:var(--navy);font-weight:900;font-family:var(--display)}
+.award b{display:block;color:var(--fg);font-family:var(--display)}
+.award span{font-size:.8rem;color:var(--fg2)}
+.award small{display:block;font-family:var(--mono);font-size:.68rem;color:var(--fg3);margin-top:4px}
+
+/* method */
+.grades{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.gc{padding:20px;min-width:0;transition:transform .3s}
+.gc:hover{transform:translateY(-4px)}
+.gc h3{margin-top:10px;font-size:1rem}
+.gc p{color:var(--fg2);font-size:.88rem;margin-top:6px}
+.score{margin-top:18px;padding:26px}
+.parts{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:18px}
+.pt{padding:14px;border-radius:14px;border:1px solid var(--line);background:var(--bg2);min-width:0;transition:transform .25s,border-color .25s}
+.pt:hover{transform:translateY(-3px);border-color:var(--blue2)}
+.pt .num{font-size:1.7rem;color:var(--blue)}
+.pt .num.neg{color:var(--red)}
+.pt b{display:block;color:var(--fg);margin-top:4px;font-size:.92rem}
+.pt span{font-size:.78rem;color:var(--fg3)}
+.rule2{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:center;margin-top:14px;padding:14px 16px;border-radius:14px;border:1px solid rgba(214,47,34,.3);background:rgba(214,47,34,.05);font-size:.9rem;color:var(--fg2)}
+.rule2 i{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;color:var(--red);border:1px solid rgba(214,47,34,.5);font-weight:800;background:var(--bg2)}
+
+/* rollout: tracing beam timeline */
+.tlw{position:relative;display:grid;grid-template-columns:60px 1fr;gap:20px}
+.trace{position:relative}
+.trace::before{content:"";position:absolute;left:29px;top:0;bottom:0;width:2px;background:var(--line)}
+.trace .beam{position:absolute;left:29px;top:0;width:2px;height:0;background:linear-gradient(180deg,var(--gold2),var(--blue),var(--teal));box-shadow:0 0 16px var(--blue2);transition:height .2s linear}
+.trace .dot{position:absolute;left:22px;width:16px;height:16px;border-radius:50%;background:var(--bg2);border:3px solid var(--line2);transition:border-color .3s,box-shadow .3s}
+.trace .dot.lit{border-color:var(--gold2);box-shadow:0 0 0 6px rgba(226,182,74,.18)}
+.stages{display:grid;gap:18px}
+.stg{padding:22px 24px;position:relative;min-width:0;display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:center}
+.stg .k{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--fg3);font-weight:600}
+.stg h3{margin-top:6px;color:var(--fg);font-size:1.3rem}
+.stg p{color:var(--fg2);font-size:.92rem;margin-top:8px}
+.gate{padding:14px 16px;border-radius:14px;background:linear-gradient(135deg,rgba(243,213,127,.25),rgba(226,182,74,.12));border:1px solid rgba(201,149,30,.35);font-size:.9rem;color:var(--fg)}
+.gate b{display:block;color:var(--gold);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;margin-bottom:4px}
+.pill{display:inline-flex;gap:8px;align-items:center;border:1px solid rgba(201,149,30,.5);color:var(--gold);background:var(--bg2);border-radius:999px;padding:6px 14px;font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin-bottom:18px}
+
+/* team */
+.team{display:grid;grid-template-columns:1.1fr 1fr;gap:40px;align-items:start}
+.people{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:22px}
+.person{padding:18px;display:flex;gap:14px;align-items:center;transition:transform .3s}
+.person:hover{transform:translateY(-3px)}
+.person i{width:46px;height:46px;border-radius:50%;flex:none;display:grid;place-items:center;font-family:var(--display);font-weight:800;color:var(--navy);background:linear-gradient(135deg,var(--gold3),var(--gold2))}
+.person b{display:block;color:var(--fg);font-family:var(--display)}
+.person span{font-size:.82rem;color:var(--fg3)}
+.adv{display:flex;gap:16px;align-items:center;margin-top:12px;padding:18px}
+.adv img{width:64px;height:64px;object-fit:contain}
+.adv b{display:block;color:var(--fg);font-family:var(--display)}
+.adv span{font-size:.85rem;color:var(--fg2)}
+.src{display:grid;gap:8px;margin-top:22px}
+.src>div{display:grid;grid-template-columns:1fr auto;gap:12px;padding:12px 14px;border-radius:12px;font-size:.9rem;align-items:center;text-align:left;transition:transform .25s}
+.src>div:hover{transform:translateX(6px)}
+.src>div>div{display:flex;align-items:center;gap:10px;min-width:0}
+.src span{color:var(--fg3);font-size:.76rem;font-family:var(--mono);white-space:nowrap}
+.src>div b{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--obs);flex:none;box-shadow:0 0 0 4px rgba(31,138,76,.15)}
+
+/* extra motion: cursor glow, beams, word reveal, claims marquee, thumb border, dividers */
+.cglow{position:fixed;left:0;top:0;width:520px;height:520px;border-radius:50%;pointer-events:none;z-index:0;background:radial-gradient(circle,rgba(91,155,255,.16),rgba(226,182,74,.08) 40%,transparent 70%);transform:translate(-50%,-50%);transition:opacity .4s;opacity:0;filter:blur(10px)}
+body:hover .cglow{opacity:1}
+.beams{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:.7}
+.beams path{fill:none;stroke-width:1.5;stroke-dasharray:180 900;stroke-dashoffset:1080;animation:beamrun 7s linear infinite}
+.beams path:nth-child(2){animation-delay:1.8s}.beams path:nth-child(3){animation-delay:3.4s}.beams path:nth-child(4){animation-delay:5s}
+@keyframes beamrun{to{stroke-dashoffset:0}}
+.head h2 .w,.lamp h2 .w{display:inline-block;opacity:1}
+.in h2 .w{animation:wordin .7s cubic-bezier(.2,.7,.2,1) both;animation-delay:calc(var(--i)*60ms)}
+@keyframes wordin{from{opacity:0;transform:translateY(18px) rotateX(-40deg);filter:blur(4px)}to{opacity:1;transform:none;filter:none}}
+.claims{overflow:hidden;padding-block:8px 0;mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.claims .track{display:flex;gap:16px;width:max-content;animation:marq 46s linear infinite}
+.claims:hover .track{animation-play-state:paused}
+.claim{width:380px;padding:20px 22px;flex:none;display:grid;gap:8px}
+.claim .k{font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-weight:700}
+.claim b{font-family:var(--display);color:var(--fg);font-size:1.02rem}
+.claim p{color:var(--fg2);font-size:.88rem;white-space:normal}
+.thumb::after{content:"";position:absolute;inset:-40%;background:conic-gradient(from 0deg,transparent 0 70%,var(--gold2) 85%,var(--blue2) 92%,transparent 100%);animation:spin 2.6s linear infinite;opacity:0;transition:opacity .25s;z-index:-1}
+.thumb{isolation:isolate;z-index:0}
+.thumb:hover::after{opacity:1}
+.divline{height:1px;margin-inline:auto;max-width:1180px;position:relative;background:var(--line);overflow:visible}
+.divline::after{content:"";position:absolute;top:-1px;left:0;width:160px;height:3px;border-radius:999px;background:linear-gradient(90deg,transparent,var(--gold2),var(--blue2),transparent);animation:slideline 5s ease-in-out infinite;filter:blur(.5px)}
+@keyframes slideline{0%{left:0;opacity:0}10%{opacity:1}90%{opacity:1}100%{left:calc(100% - 160px);opacity:0}}
+.device{transform-origin:50% 0;will-change:transform}
+.mag{transition:transform .25s cubic-bezier(.2,.7,.2,1)}
+
+footer{border-top:1px solid var(--line);padding-block:28px;font-size:.8rem;color:var(--fg3);background:var(--bg2)}
+footer .wrap{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center;justify-content:space-between}
+.ledger{display:flex;flex-wrap:wrap;gap:14px;align-items:center}
+
+@media (max-width:1000px){
+  .hero .wrap,.problem,.team{grid-template-columns:1fr}
+  .bento{grid-template-columns:1fr 1fr}.card.wide{grid-column:span 2}
+  .thumbs{grid-template-columns:repeat(4,1fr)}
+  .rub{grid-template-columns:repeat(2,1fr)}.awards{grid-template-columns:1fr}
+  .parts{grid-template-columns:repeat(3,1fr)}
+  .stg{grid-template-columns:1fr}
+}
+@media (max-width:640px){
+  .hero{padding-top:120px}
+  .bento,.dnotes,.grades,.people,.rub{grid-template-columns:1fr}.card.wide{grid-column:auto}
+  .thumbs{grid-template-columns:repeat(2,1fr)}
+  .parts{grid-template-columns:1fr 1fr}
+  .cap{grid-template-columns:1fr}
+  .bar{grid-template-columns:90px 1fr 50px}
+  .nav nav{display:none}
+  .tlw{grid-template-columns:1fr}.trace{display:none}
+}
+</style>
+</head>
+<body>
+<div class="prog" id="prog"></div>
+<div class="cglow" id="cglow" aria-hidden="true"></div>
+<div class="nav" id="nav">
+  <div class="wrap">
+    <a class="brand" href="#top"><i>MB</i>MONSUN <span>BRIDGE</span></a>
+    <nav aria-label="Sections"><a href="#findings">Findings</a><a href="#dashboard">Dashboard</a><a href="#rubric">Rubric</a><a href="#method">Method</a><a href="#rollout">Rollout</a><a href="#team">Team</a></nav>
+    <a class="btn p sm mag" href="#dashboard">Open the dashboard →</a>
+  </div>
+</div>
+
+<section class="hero" id="top">
+  <div class="aurora"><i class="a1"></i><i class="a2"></i><i class="a3"></i><i class="a4"></i></div>
+  <div class="dots"></div>
+  <div class="spot"></div>
+  <svg class="beams" viewBox="0 0 1440 800" preserveAspectRatio="none" aria-hidden="true">
+    <defs><linearGradient id="bg1" x1="0" x2="1"><stop offset="0" stop-color="#1e6bff" stop-opacity="0"/><stop offset=".5" stop-color="#1e6bff"/><stop offset="1" stop-color="#e2b64a" stop-opacity="0"/></linearGradient></defs>
+    <path stroke="url(#bg1)" d="M-50,120 C400,160 700,20 1500,260"/>
+    <path stroke="url(#bg1)" d="M-50,420 C300,300 900,560 1500,380"/>
+    <path stroke="url(#bg1)" d="M-50,680 C500,560 800,760 1500,600"/>
+    <path stroke="url(#bg1)" d="M200,-20 C500,300 400,500 900,820"/>
+  </svg>
+  <canvas id="rain" aria-hidden="true"></canvas>
+  <div class="wrap">
+    <div>
+      <span class="chip"><b></b>DOSM Datathon 2026 · Finalist · Universiti Malaya</span>
+      <h1 id="h1"><span class="w">MONSUN</span> <span class="w shine">BRIDGE</span></h1>
+      <p class="tag">The monsoon is predictable. So is the <span class="flip" aria-label="plan"><span>plan.</span><span>cost.</span><span>rollout.</span></span></p>
+      <p class="lede">Every November the Northeast Monsoon closes the islands of Malaysia's east coast. Boats stop, jetties shut, and thousands of tourism workers stop earning for four and a half months. Monsun Bridge plans that transition before the window opens, built only from open Malaysian official statistics.</p>
+      <div class="cta"><a class="btn p mag" href="#dashboard">Explore the 8-page dashboard</a><span class="mb mag"><a class="btn" href="#findings">Read the three findings</a></span></div>
+      <div class="season glass" id="season">
+        <div class="sk"><span>Northeast Monsoon · climatological window 9 Nov → 22 Mar</span><b id="sdays">—</b></div>
+        <div class="sbar" id="sbar"></div>
+        <div class="sl"><span>Jul</span><span>Nov</span><span>Mar</span><span>Jun</span></div>
+      </div>
+      <div class="meta"><div>Team <b>DATAVENGERS</b></div><div>ID <b>IPTA-093</b></div><div>Stack <b>Power BI · Python · 7 official datasets</b></div></div>
+    </div>
+    <div class="stack" id="stack">
+      <div class="stat glass gold"><div class="k"><span>Workers in the planning cohort</span><span class="grade g-mod">Modelled</span></div><div class="v num" data-count="13703">0</div><div class="d">Besut · Marang · Kuala Nerus · Rompin</div></div>
+      <div class="stat glass"><div class="k"><span>Worker-months of exposure</span><span class="grade g-mod">Modelled</span></div><div class="v num" data-count="52655">0</div><div class="d">Over a 133-day window dated by METMalaysia</div></div>
+      <div class="stat glass"><div class="k"><span>Cost per worker-month covered</span><span class="grade g-scn">Scenario</span></div><div class="v"><span class="num" data-count="887" data-prefix="RM ">RM 0</span></div><div class="d">Break-even once 30–35% of participants are placed</div></div>
+      <div class="fine">Planning figures under stated assumptions. Not official counts, not a budget.</div>
+    </div>
+  </div>
+  <div class="clouds" aria-hidden="true"><i class="c1"></i><i class="c2"></i><i class="c3"></i><i class="c4"></i></div>
+  <div class="flash" aria-hidden="true"></div>
+  <div class="sea" aria-hidden="true">
+    <svg class="island" viewBox="0 0 520 150" preserveAspectRatio="xMaxYMax meet">
+      <path d="M180,150 L180,118 C230,100 270,74 340,72 C400,70 440,92 520,104 L520,150 Z" fill="var(--sil)"/>
+      <g fill="var(--sil)"><path d="M352,76 C354,58 346,44 336,38 C350,40 360,50 362,64 C366,50 378,42 390,42 C378,48 370,58 368,70 C376,60 390,56 402,58 C390,62 380,70 374,78 Z"/><rect x="366" y="76" width="4" height="16"/><path d="M440,92 C442,78 436,68 428,64 C438,66 446,74 448,84 C452,74 462,68 472,68 C462,72 456,80 454,90 Z"/><rect x="446" y="90" width="3" height="10"/></g>
+      <g class="jetty" fill="var(--sil)"><rect x="96" y="112" width="110" height="4"/><rect x="104" y="116" width="3" height="16"/><rect x="134" y="116" width="3" height="18"/><rect x="164" y="116" width="3" height="18"/><rect x="194" y="116" width="3" height="14"/></g>
+      <g class="boat"><path d="M18,124 L26,136 L86,136 L94,124 Z" fill="var(--sil)"/><rect x="54" y="100" width="3" height="24" fill="var(--sil)"/><path d="M57,102 L82,122 L57,122 Z" fill="var(--sil)" opacity=".85"/></g>
+    </svg>
+    <svg class="wv w1" viewBox="0 0 2880 120" preserveAspectRatio="none"><path d="M0,60 C240,100 480,20 720,60 C960,100 1200,20 1440,60 C1680,100 1920,20 2160,60 C2400,100 2640,20 2880,60 L2880,120 L0,120 Z"/></svg>
+    <svg class="wv w2" viewBox="0 0 2880 120" preserveAspectRatio="none"><path d="M0,70 C240,30 480,110 720,70 C960,30 1200,110 1440,70 C1680,30 1920,110 2160,70 C2400,30 2640,110 2880,70 L2880,120 L0,120 Z"/></svg>
+    <svg class="wv w3" viewBox="0 0 2880 120" preserveAspectRatio="none"><path d="M0,80 C240,110 480,50 720,80 C960,110 1200,50 1440,80 C1680,110 1920,50 2160,80 C2400,110 2640,50 2880,80 L2880,120 L0,120 Z"/></svg>
+  </div>
+</section>
+
+<div class="marq" aria-hidden="true"><div class="track">
+  <span>DOSM Domestic Tourism Survey</span><span>METMalaysia Monsoon Reviews</span><span>DOF Marine Fish Landings</span><span>MASCO 2020</span><span>Labour Force by District</span><span>Household Income by District</span><span>Tourism Satellite Account 2024</span><span>118 official records</span><span>0 fabricated values</span>
+  <span>DOSM Domestic Tourism Survey</span><span>METMalaysia Monsoon Reviews</span><span>DOF Marine Fish Landings</span><span>MASCO 2020</span><span>Labour Force by District</span><span>Household Income by District</span><span>Tourism Satellite Account 2024</span><span>118 official records</span><span>0 fabricated values</span>
+</div></div>
+
+<section id="problem">
+  <div class="wrap problem">
+    <div class="rv">
+      <span class="eyebrow">The problem</span>
+      <h2>The shock is dated. And invisible in the national numbers.</h2>
+      <div class="steps">
+        <div class="step glass"><i>1</i><div><b>A national authority dates it in advance</b><p>METMalaysia reviews and publishes every Northeast Monsoon window. The 2024/25 season ran 133 days; reviewed seasons run 132 to 138.</p></div></div>
+        <div class="step glass"><i>2</i><div><b>The national series never flinches</b><p>Visitors move inland and west, so national tourism demand holds. The loss is district-level and occupational. It reaches no indicator.</p></div></div>
+        <div class="step glass"><i>3</i><div><b>Nobody counts the workers</b><p>Malaysia publishes no register of tourism workers and no measure of their income loss. We count what can be observed: worker-months of exposure.</p></div></div>
+      </div>
+    </div>
+    <div class="rv">
+      <div class="clock glass">
+        <div class="k">Monsoon clock · Northeast Monsoon 2024/25</div>
+        <div class="months" id="months"></div>
+        <div class="big"><div><b class="num">133</b><span>days, 13 Nov 2024 → 25 Mar 2025 · <span class="grade g-obs">Observed</span></span></div><div><b class="num">0.93</b><span>Monsoon Share of Q1 2025 · <span class="grade g-der">Derived</span></span></div></div>
+        <p>Quarterly statistics cannot see a window that opens mid-November. Monsoon Share weights each quarter by the days it spends inside the published window, so a dated event becomes a statistical weight.</p>
+      </div>
+      <p class="bigq" style="margin-top:22px">“For a boat operator in Besut the monsoon is not a slow season. It is a stop.”<small>A shock that a national authority dates in advance should be the easiest kind to plan for. Nothing plans for it.</small></p>
+    </div>
+  </div>
+</section>
+
+<section id="findings">
+  <div class="wrap">
+    <div class="head rv"><span class="eyebrow">Three findings</span><h2>The obvious answer is wrong. The right one is priced. Our failures are published.</h2></div>
+    <div class="bento">
+      <article class="card glass wide rv tilt">
+        <div class="k">Finding 1 · the intuitive answer fails</div>
+        <div class="v num red" data-tick="-35.4" data-suffix="%" data-dec="1">−35.4%</div>
+        <h3>“Go fishing” is the wrong advice, and the data says so twice</h3>
+        <p>We compared the east coast against the sheltered west coast as a control across five monsoon seasons. Marine fisheries share the monsoon; they do not hedge it. So every co-seasonal pathway gets allocation weight zero.</p>
+        <div class="bars">
+          <div class="bar e"><span>East coast</span><div class="t"><i></i></div><b>64.0%</b></div>
+          <div class="bar w"><span>West coast</span><div class="t"><i></i></div><b>97.7%</b></div>
+        </div>
+        <div class="foot"><span class="grade g-der">Derived</span><span>p = 0.00062</span><span>95% CI −46.8 → −21.7</span><span>permutation p = 0.0083</span></div>
+      </article>
+      <article class="card glass rv tilt">
+        <div class="k">Finding 2 · what coverage costs</div>
+        <div class="v num gold" data-tick="887" data-prefix="RM ">RM 887</div>
+        <h3>Per worker-month, arithmetic shown</h3>
+        <p>One training month plus two support months for 2,741 participants: RM 7.30M. It returns what it costs once roughly a third are placed at their destination group's median wage.</p>
+        <div class="foot"><span class="grade g-scn">Scenario</span><span>every multiplier is a slicer</span></div>
+      </article>
+      <article class="card glass rv tilt">
+        <div class="k">Finding 3 · where our own analysis fails</div>
+        <div class="v num">0 / 20</div>
+        <h3>Weights never flip a recommendation</h3>
+        <p>Stress any scoring weight by ±50% and nothing moves. One analyst setting moves 4 of 20 top-ranked pathways. We publish that, and the forecast that does not beat the benchmark.</p>
+        <div class="foot"><span class="grade g-der">Derived</span><span>1 index withdrawn</span></div>
+      </article>
+      <article class="card glass wide rv tilt">
+        <div class="k">The device · a score you can decompose</div>
+        <div class="v num blue" data-tick="0.77" data-dec="2">0.77</div>
+        <h3>Besut boat operator → Marine Operations Assistant</h3>
+        <p>0.40 × 0.96 task overlap + 0.20 × 0.93 reachable + 0.20 × 0.80 runs in the monsoon + 0.10 × 0.55 sector capacity − retraining 0.017. Linear form, known weights: every contribution is exact, not an estimate. Runner-up 0.34.</p>
+        <div class="foot"><span class="grade g-der">Derived</span><span>TF-IDF → truncated SVD → cosine</span><span>148 pathways · 20 worker groups</span></div>
+      </article>
+    </div>
+  </div>
+  <div class="wrap" style="margin-top:34px"><span class="eyebrow">The four claims the dashboard defends</span></div>
+  <div class="claims" aria-label="The four claims" style="margin-top:14px"><div class="track" id="claims">
+    <div class="claim glass"><span class="k">Claim 1 · Observed</span><b>The shock is predictable and officially dated.</b><p>METMalaysia has reviewed and published the Northeast Monsoon window for each season; 2024/25 ran 133 days against a 132-day climatological mean.</p></div>
+    <div class="claim glass"><span class="k">Claim 2 · Derived</span><b>The harm is invisible in national statistics.</b><p>Visitors redistribute inland and west, so the disruption is district-level and occupational. It has to be measured in worker-months, not visitor counts.</p></div>
+    <div class="claim glass"><span class="k">Claim 3 · Derived</span><b>The obvious answer is wrong, and we tested it.</b><p>Routing stranded boat crews into fishing fails: in Terengganu and Pahang every non-monsoon month of 2023 out-landed every monsoon month. Exact U = 0, p = 0.0025.</p></div>
+    <div class="claim glass"><span class="k">Claim 4 · Scenario</span><b>The plan is priced, and its break-even is stated.</b><p>Coverage costs RM 887 per worker-month. The programme returns what it costs once roughly a third of participants are placed at the published median wage.</p></div>
+  </div></div>
+</section>
+<div class="divline"></div>
+
+<section id="dashboard" class="dash">
+  <div class="wrap">
+    <div class="lamp rv"><span class="eyebrow">The product</span><h2>Eight pages. One argument.</h2><p>When the window opens, who is exposed, where they can go, and what coverage costs. Built in Power BI Desktop with every table embedded: it opens with no database, no API key and no internet connection. Hover the screen to magnify; click a thumbnail to change page.</p></div>
+    <div class="device rv">
+      <div class="dbar"><i></i><i></i><i></i><span id="dname">MonsunBridge.pbix · page 00</span></div>
+      <div class="screen" id="screen"><div class="lens" id="lens"></div><button type="button" class="zoom" id="zoom">⤢ Full screen</button></div>
+    </div>
+    <div class="thumbs" id="thumbs" role="tablist" aria-label="Dashboard pages"></div>
+    <div class="cap glass">
+      <div class="nb"><button type="button" id="prev" aria-label="Previous page">←</button><button type="button" id="next" aria-label="Next page">→</button></div>
+      <div class="q"><b id="ctitle"></b><span id="cq"></span></div>
+      <span class="grade" id="cgrade"></span>
+    </div>
+    <div class="dnotes">
+      <div class="glass"><b>Every figure carries its grade</b>The same four colours run across all eight pages, so a reader sees which numbers were observed and which were set.</div>
+      <div class="glass"><b>Move something</b>Page 04 exposes the one unobservable planning parameter as a slicer. Reject the default and the page shows the consequence of your own value.</div>
+      <div class="glass"><b>Page 06 exists to attack the analysis</b>Tests that fail are reported beside the ones that pass, including the −40.3% figure we withdrew.</div>
+    </div>
+  </div>
+</section>
+
+<div class="divline"></div>
+<section id="rubric">
+  <div class="wrap">
+    <div class="head rv"><span class="eyebrow">DOSM Datathon 2026 · final-round rubric</span><h2>Five criteria, twenty-five sub-criteria. Each one answered on this page.</h2><p>Judges score every sub-criterion 0–10 (Lemah → Cemerlang) and weight the five components to 100%. The rings show the weights; the chips link to where this entry answers each line.</p></div>
+    <div class="fmt rv"><div class="glass"><b>10 min</b> project pitch</div><div class="glass"><b>Live demo</b> inside the pitch</div><div class="glass"><b>5 min</b> Q&amp;A with the panel</div><div class="glass"><b>0–10</b> per sub-criterion</div></div>
+    <svg width="0" height="0" aria-hidden="true"><defs><linearGradient id="gg" x1="0" x2="1"><stop offset="0" stop-color="#e2b64a"/><stop offset="1" stop-color="#1e6bff"/></linearGradient></defs></svg>
+    <div class="rub rv" id="rub">
+      <div class="rc glass" style="--o:210"><span class="meteor" style="left:70%;animation-delay:.4s"></span><div class="ring"><svg viewBox="0 0 100 100"><circle class="bgc" cx="50" cy="50" r="42"/><circle class="fgc" cx="50" cy="50" r="42"/></svg><b>20%</b></div><div class="code">C1 · PJT1–PJT5</div><h3>Presentation &amp; command of the project</h3><ul><li><code>PJT1</code>Clear, structured delivery</li><li><code>PJT2</code>Command of problem, objectives, solution</li><li><code>PJT3</code>Logical flow, on time</li><li><code>PJT4</code>Method and results explained with confidence</li><li><code>PJT5</code>Evidence-based answers in Q&amp;A</li></ul><div class="where"><a href="#problem">Problem</a><a href="#findings">Findings</a></div></div>
+      <div class="rc glass" style="--o:197"><span class="meteor" style="left:40%;animation-delay:1.6s"></span><div class="ring"><svg viewBox="0 0 100 100"><circle class="bgc" cx="50" cy="50" r="42"/><circle class="fgc" cx="50" cy="50" r="42"/></svg><b>25%</b></div><div class="code">C2 · DEM1–DEM5</div><h3>Product &amp; dashboard demonstration</h3><ul><li><code>DEM1</code>Runs smoothly, live</li><li><code>DEM2</code>Intuitive navigation and UX</li><li><code>DEM3</code>Visuals carry the findings</li><li><code>DEM4</code>Professional, fit for real use</li><li><code>DEM5</code>Value for the target users</li></ul><div class="where"><a href="#dashboard">Dashboard</a></div></div>
+      <div class="rc glass" style="--o:210"><span class="meteor" style="left:80%;animation-delay:2.4s"></span><div class="ring"><svg viewBox="0 0 100 100"><circle class="bgc" cx="50" cy="50" r="42"/><circle class="fgc" cx="50" cy="50" r="42"/></svg><b>20%</b></div><div class="code">C3 · ANL1–ANL5</div><h3>Quality of analysis &amp; justification</h3><ul><li><code>ANL1</code>Accurate, aligned to the problem</li><li><code>ANL2</code>Appropriate statistical methods</li><li><code>ANL3</code>Findings backed by data and evidence</li><li><code>ANL4</code>Rationale explained clearly</li><li><code>ANL5</code>Critical thinking, meaningful insight</li></ul><div class="where"><a href="#findings">Findings</a><a href="#method">Method</a></div></div>
+      <div class="rc glass" style="--o:197"><span class="meteor" style="left:55%;animation-delay:3.1s"></span><div class="ring"><svg viewBox="0 0 100 100"><circle class="bgc" cx="50" cy="50" r="42"/><circle class="fgc" cx="50" cy="50" r="42"/></svg><b>25%</b></div><div class="code">C4 · IMP1–IMP5</div><h3>Impact, effectiveness &amp; feasibility</h3><ul><li><code>IMP1</code>Real-world application</li><li><code>IMP2</code>Solves a real social or economic issue</li><li><code>IMP3</code>Implementation, users, benefits</li><li><code>IMP4</code>Potential to scale and integrate</li><li><code>IMP5</code>Theme and SDG alignment</li></ul><div class="where"><a href="#rollout">Rollout</a></div></div>
+      <div class="rc glass" style="--o:237"><span class="meteor" style="left:65%;animation-delay:.9s"></span><div class="ring"><svg viewBox="0 0 100 100"><circle class="bgc" cx="50" cy="50" r="42"/><circle class="fgc" cx="50" cy="50" r="42"/></svg><b>10%</b></div><div class="code">C5 · INV1–INV5</div><h3>Creativity &amp; innovation</h3><ul><li><code>INV1</code>Non-routine approach</li><li><code>INV2</code>Unique idea and identity</li><li><code>INV3</code>Attractive, professional, impactful</li><li><code>INV4</code>A wow factor</li><li><code>INV5</code>Relevant AI, ML, geospatial, automation</li></ul><div class="where"><a href="#method">Method</a><a href="#top">Identity</a></div></div>
+    </div>
+    <div class="awards rv">
+      <div class="award glass"><i>★</i><div><b>Pitching Excellence Award</b><span>Confident delivery, a live product, analysis aligned to the problem, a clear implementation path.</span><small>PJT4 · DEM1 · ANL1 · IMP3 · INV3</small></div></div>
+      <div class="award glass"><i>◆</i><div><b>Critical Thinking &amp; Defence Award</b><span>Every answer traced to a number, a test or a page, including the ones that went against us.</span><small>PJT5</small></div></div>
+      <div class="award glass"><i>◇</i><div><b>AI-Driven Innovation Award</b><span>A transparent machine-learning score that can be decomposed, stress-tested, and refused.</span><small>INV5</small></div></div>
+    </div>
+  </div>
+</section>
+
+<div class="divline"></div>
+<section id="method">
+  <div class="wrap">
+    <div class="head rv"><span class="eyebrow">Method</span><h2>Four grades. One weighting device. No hidden assumptions.</h2><p>118 official records across seven open datasets. Three downloads carry a SHA-256 checksum and a retrieval date, so the exact bytes can be verified. Nothing is simulated, fabricated or synthetic.</p></div>
+    <div class="grades rv">
+      <div class="gc glass"><span class="grade g-obs">Observed</span><h3>A published official value</h3><p>The 2024/25 window ran 133 days (METMalaysia).</p></div>
+      <div class="gc glass"><span class="grade g-der">Derived</span><h3>A formula or test over observed inputs</h3><p>Monsoon Share 0.93 for Q1 2025; the −35.4% retention gap.</p></div>
+      <div class="gc glass"><span class="grade g-mod">Modelled</span><h3>A planning output on declared assumptions</h3><p>The 13,703-worker cohort and 52,655 worker-months.</p></div>
+      <div class="gc glass"><span class="grade g-scn">Scenario</span><h3>A parameter the reader sets</h3><p>RM 887 per worker-month. Move the slicer and it moves.</p></div>
+    </div>
+    <div class="score glass rv">
+      <span class="eyebrow">Skill Bridge · how a destination is scored for a worker</span>
+      <p style="margin-top:12px;color:var(--fg2)">Five parts, weighted and added. MASCO task text → TF-IDF → truncated SVD → cosine similarity, then four feasibility terms with declared weights.</p>
+      <div class="parts">
+        <div class="pt"><div class="num">0.40</div><b>Task overlap</b><span>how much of the current job carries over</span></div>
+        <div class="pt"><div class="num">0.20</div><b>Reachable</b><span>from the worker's own district</span></div>
+        <div class="pt"><div class="num">0.20</div><b>Runs in the monsoon</b><span>measured for fishing, a setting elsewhere</span></div>
+        <div class="pt"><div class="num">0.10</div><b>Sector capacity</b><span>a proxy, not a vacancy count</span></div>
+        <div class="pt"><div class="num neg">−0.10</div><b>Retraining</b><span>months of bridging ÷ 3</span></div>
+      </div>
+      <div class="rule2"><i>0</i><div><b>Two guardrails.</b> Co-seasonal fishing, processing and aquaculture receive zero allocation whatever their score. Every other pathway is a ranking, not a placement: employers confirm vacancies before anyone is enrolled.</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="divline"></div>
+<section id="rollout">
+  <div class="wrap">
+    <div class="rv"><span class="pill">Proposed · subject to partner agreement</span></div>
+    <div class="head rv"><span class="eyebrow">Rollout</span><h2>Start in Besut. Validate. Expand.</h2><p>No new agency, no new survey, no new law. Every phase runs on an institution that already exists and already publishes.</p></div>
+    <div class="tlw">
+      <div class="trace" id="trace"><div class="beam" id="beam"></div></div>
+      <div class="stages" id="stages">
+        <div class="stg glass rv"><div><div class="k">Stage 1 · indicative season 2026/27</div><h3>Besut pilot</h3><p>100 proposed participants, RM 266,200 indicative budget. Verify workers, employer vacancies and training; record placements, months worked and wages.</p></div><div class="gate"><b>Expansion gate</b>At least 43 of 100 placed, under a rule fixed in advance.</div></div>
+        <div class="stg glass rv"><div><div class="k">Stage 2 · indicative season 2027/28</div><h3>Four-district rollout</h3><p>Besut, Marang, Kuala Nerus and Rompin. Modelled planning cohort 13,703; at 20% participation about 2,741 participants, RM 7.30M.</p></div><div class="gate"><b>Expansion gate</b>Proceed only after the pilot passes and employers reconfirm seasonal vacancies.</div></div>
+        <div class="stg glass rv"><div><div class="k">Stage 3 · 2028/29 onward</div><h3>Wider district adoption</h3><p>Extend to districts with available official data: DOSM measures the district, METMalaysia dates the window. Recalibrate and evaluate each expansion.</p></div><div class="gate"><b>Expansion gate</b>Validate locally before expanding. No national adoption is implied.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divline"></div>
+<section id="team">
+  <div class="wrap team">
+    <div class="rv">
+      <span class="eyebrow">Team DATAVENGERS · IPTA-093</span>
+      <h2>Universiti Malaya</h2>
+      <div class="people">
+        <div class="person glass"><i>HW</i><div><b>Howard Woon Hao Zhe</b><span>DATAVENGERS</span></div></div>
+        <div class="person glass"><i>LS</i><div><b>Leow Shen En</b><span>DATAVENGERS</span></div></div>
+        <div class="person glass"><i>WE</i><div><b>Wong En Sheng</b><span>DATAVENGERS</span></div></div>
+        <div class="person glass"><i>LJ</i><div><b>Ling Jing Jie</b><span>DATAVENGERS</span></div></div>
+      </div>
+      <div class="adv glass"><img src="img/um_logo.png" alt="Universiti Malaya crest"><div><b>Assoc. Prof. Dr Norjihan binti Abdul Ghani</b><span>Advisor · Department of Information Systems, Universiti Malaya</span></div></div>
+    </div>
+    <div class="rv">
+      <span class="eyebrow">Official sources</span>
+      <h3 style="margin-top:12px;font-size:1.4rem">Seven open datasets. All Malaysian. All verifiable.</h3>
+      <div class="src">
+        <div class="glass"><div><b></b>Domestic Tourism Survey, quarterly</div><span>DOSM</span></div>
+        <div class="glass"><div><b></b>Northeast Monsoon seasonal reviews</div><span>METMalaysia</span></div>
+        <div class="glass"><div><b></b>Principal Labour Force by district</div><span>DOSM · data.gov.my</span></div>
+        <div class="glass"><div><b></b>Household Income by district</div><span>DOSM · data.gov.my</span></div>
+        <div class="glass"><div><b></b>Monthly Marine Fish Landings by state</div><span>DOF · data.gov.my</span></div>
+        <div class="glass"><div><b></b>MASCO 2020 occupational task descriptions</div><span>MOHR</span></div>
+        <div class="glass"><div><b></b>Tourism Satellite Account 2024</div><span>DOSM</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="ledger"><strong style="color:var(--fg2)">Evidence ledger</strong><span class="grade g-obs">Observed</span><span class="grade g-der">Derived</span><span class="grade g-mod">Modelled</span><span class="grade g-scn">Scenario</span></div>
+    <div>Monsun Bridge · DOSM Datathon 2026 · Universiti Malaya. Figures are planning estimates under stated assumptions, not official counts.</div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script>
+(function(){
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  /* nav + progress */
+  var nav=document.getElementById('nav'),prog=document.getElementById('prog'),lastY=0;
+  function onScroll(){var y=window.scrollY;nav.classList.toggle('on',y>24);nav.classList.toggle('hide',y>lastY&&y>400);lastY=y;
+    var h=document.documentElement.scrollHeight-window.innerHeight;prog.style.width=(h>0?Math.min(100,y/h*100):0)+'%';beamUpdate()}
+  window.addEventListener('scroll',onScroll,{passive:true});
+
+  /* reveal on enter (visible at rest) */
+  var rv=document.querySelectorAll('.rv');
+  if('IntersectionObserver' in window && !reduce){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.15});
+    rv.forEach(function(el){io.observe(el)});
+  } else { rv.forEach(function(el){el.classList.add('in')}); }
+
+  /* spotlight + 3D tilt */
+  document.querySelectorAll('.card,.stat').forEach(function(c){
+    c.addEventListener('pointermove',function(e){var r=c.getBoundingClientRect();c.style.setProperty('--mx',(e.clientX-r.left)+'px');c.style.setProperty('--my',(e.clientY-r.top)+'px');
+      if(!reduce){var rx=((e.clientY-r.top)/r.height-.5)*-7,ry=((e.clientX-r.left)/r.width-.5)*9;c.style.transform='perspective(1200px) rotateX('+rx+'deg) rotateY('+ry+'deg) translateY(-4px)'}});
+    c.addEventListener('pointerleave',function(){c.style.transform=''});
+  });
+
+  /* sparkles on the title */
+  var h1=document.getElementById('h1');
+  if(!reduce){for(var i=0;i<14;i++){var s=document.createElement('i');s.className='spark';s.style.left=(Math.random()*100)+'%';s.style.top=(Math.random()*100)+'%';s.style.animationDelay=(Math.random()*2.6)+'s';s.style.width=s.style.height=(3+Math.random()*5)+'px';h1.appendChild(s)}}
+
+  /* count-up */
+  function fmt(n){return n.toLocaleString('en-MY')}
+  document.querySelectorAll('[data-count]').forEach(function(el){
+    var end=parseInt(el.getAttribute('data-count'),10),pre=el.getAttribute('data-prefix')||'';
+    if(reduce||!window.gsap){el.textContent=pre+fmt(end);return}
+    var o={v:0};gsap.to(o,{v:end,duration:1.8,delay:.4,ease:'power3.out',onUpdate:function(){el.textContent=pre+fmt(Math.round(o.v))}});
+  });
+
+  /* hero entrance */
+  if(window.gsap&&!reduce){
+    gsap.from('.hero h1 .w',{y:50,opacity:0,duration:1,stagger:.14,ease:'power3.out'});
+    gsap.from('.hero .tag,.hero .lede,.hero .cta,.hero .meta,.hero .chip',{y:18,opacity:0,duration:.8,stagger:.1,delay:.5,ease:'power2.out'});
+    gsap.from('#stack .stat',{x:36,opacity:0,duration:.9,stagger:.12,delay:.6,ease:'power3.out'});
+  }
+
+  /* rain */
+  var cv=document.getElementById('rain');
+  if(cv&&cv.getContext&&!reduce){
+    var ctx=cv.getContext('2d'),drops=[],W,H;
+    function size(){W=cv.width=cv.offsetWidth;H=cv.height=cv.offsetHeight;drops=[];for(var i=0;i<90;i++)drops.push({x:Math.random()*W,y:Math.random()*H,l:8+Math.random()*18,s:1.5+Math.random()*2.5,o:.1+Math.random()*.3})}
+    size();window.addEventListener('resize',size);
+    var t0=performance.now();
+    (function draw(now){var g=.55+.45*Math.pow(Math.sin((now-t0)/2600),2);/* gusts */var wind=.35+1.1*g;ctx.clearRect(0,0,W,H);ctx.lineWidth=1.2;
+      drops.forEach(function(d){ctx.strokeStyle='rgba(30,107,255,'+(d.o*(.6+.6*g))+')';ctx.beginPath();ctx.moveTo(d.x,d.y);ctx.lineTo(d.x-d.l*wind*.6,d.y+d.l*(1+g*.6));ctx.stroke();d.y+=d.s*(1.6+2.2*g);d.x-=d.s*wind;if(d.y>H||d.x<-30){d.y=-20;d.x=Math.random()*(W+200)}});
+      /* wind streaks */ctx.lineWidth=1;for(var k=0;k<4;k++){var yy=(H*.15+k*H*.2)+Math.sin((now-t0)/900+k)*12,xx=((now-t0)*(.35+k*.08)+k*400)%(W+400)-200;var gr=ctx.createLinearGradient(xx,0,xx+260,0);gr.addColorStop(0,'rgba(91,155,255,0)');gr.addColorStop(.5,'rgba(91,155,255,'+(.18*g)+')');gr.addColorStop(1,'rgba(91,155,255,0)');ctx.strokeStyle=gr;ctx.beginPath();ctx.moveTo(xx,yy);ctx.quadraticCurveTo(xx+130,yy-10,xx+260,yy+4);ctx.stroke()}
+      requestAnimationFrame(draw)})(t0);
+  }
+
+  /* months */
+  var ms='JASONDJFMAMJ'.split(''),mb=document.getElementById('months');
+  ms.forEach(function(m,i){var d=document.createElement('div');d.innerHTML='<span>'+m+'</span>';if(i>=4&&i<=8)d.className='on';mb.appendChild(d)});
+
+  /* dashboard viewer + lens */
+  var pages=[
+    ['00','Executive Summary','What is at stake, what it costs, and the two thresholds at which it pays for itself.','g-mod','Modelled'],
+    ['01','Monsoon Clock','When does the east-coast tourism window close, and why does the national series not show it?','g-obs','Observed'],
+    ['02','Exposure Map','Who enters the planning envelope, and where should verification begin?','g-mod','Modelled'],
+    ['03','Skill Bridge','Which pathways are transferable, feasible and seasonally defensible, and exactly why?','g-der','Derived'],
+    ['04','Action Planner','What can government cover, at what planning cost, before the window opens?','g-scn','Scenario'],
+    ['05','Risk, Cost and Return','What is at stake in ringgit, and at what assumption level does the programme pay for itself?','g-scn','Scenario'],
+    ['06','Robustness and Validation','A control group, a held-out test year, and the perturbations that do change the recommendation.','g-der','Derived'],
+    ['07','Evidence and Model Card','Every source, every assumption, every third-party component, and what is not claimed.','g-obs','Observed']
+  ];
+  var screen=document.getElementById('screen'),lens=document.getElementById('lens'),thumbs=document.getElementById('thumbs'),ct=document.getElementById('ctitle'),cq=document.getElementById('cq'),cg=document.getElementById('cgrade'),dn=document.getElementById('dname'),cur=0,imgs=[];
+  pages.forEach(function(p,i){
+    var im=document.createElement('img');im.src='img/dash-'+(i+1)+'.jpg';im.alt='Monsun Bridge dashboard, page '+p[0]+': '+p[1];im.loading=i?'lazy':'eager';screen.insertBefore(im,screen.firstChild);imgs.push(im);
+    var b=document.createElement('button');b.type='button';b.className='thumb';b.setAttribute('role','tab');b.innerHTML='<img src="img/dash-'+(i+1)+'.jpg" alt="" loading="lazy"><span><b>'+p[0]+'</b>'+p[1]+'</span>';b.addEventListener('click',function(){show(i)});thumbs.appendChild(b);
+  });
+  function show(i){
+    cur=(i+pages.length)%pages.length;var p=pages[cur];
+    imgs.forEach(function(im,k){im.classList.toggle('on',k===cur)});
+    Array.prototype.forEach.call(thumbs.children,function(t,k){t.setAttribute('aria-selected',k===cur?'true':'false')});
+    ct.textContent=p[0]+' / '+p[1];cq.textContent=p[2];cg.className='grade '+p[3];cg.textContent=p[4];dn.textContent='MonsunBridge.pbix · page '+p[0];
+    lens.style.backgroundImage='url(img/dash-'+(cur+1)+'.jpg)';
+  }
+  screen.addEventListener('pointermove',function(e){if(e.pointerType==='touch')return;var r=screen.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top,z=2.2;
+    lens.style.left=x+'px';lens.style.top=y+'px';lens.style.backgroundSize=(r.width*z)+'px '+(r.height*z)+'px';lens.style.backgroundPosition=(-x*z+110)+'px '+(-y*z+110)+'px'});
+  document.getElementById('prev').addEventListener('click',function(){show(cur-1)});
+  document.getElementById('next').addEventListener('click',function(){show(cur+1)});
+  document.addEventListener('keydown',function(e){if(e.key==='ArrowLeft')show(cur-1);if(e.key==='ArrowRight')show(cur+1);if(e.key==='Escape')closeLb()});
+  var m=(location.hash||'').match(/^#page(\d)$/);show(m?parseInt(m[1],10):0);
+  var lb=null;function closeLb(){if(lb){lb.remove();lb=null}}
+  document.getElementById('zoom').addEventListener('click',function(){
+    closeLb();lb=document.createElement('div');lb.className='lb';lb.innerHTML='<img src="img/dash-'+(cur+1)+'.jpg" alt="'+imgs[cur].alt+'"><button type="button" aria-label="Close">✕</button>';
+    lb.addEventListener('click',function(e){if(e.target===lb||e.target.tagName==='BUTTON')closeLb()});document.body.appendChild(lb);
+  });
+
+  /* tracing beam for the rollout timeline */
+  var trace=document.getElementById('trace'),beam=document.getElementById('beam'),stages=document.getElementById('stages'),dots=[];
+  if(trace&&stages){Array.prototype.forEach.call(stages.children,function(s){var d=document.createElement('div');d.className='dot';trace.appendChild(d);dots.push([d,s])});}
+  function beamUpdate(){if(!trace||!stages)return;var r=stages.getBoundingClientRect(),vh=window.innerHeight,p=Math.min(1,Math.max(0,(vh*.7-r.top)/r.height));
+    var th=trace.getBoundingClientRect().height;beam.style.height=(p*th)+'px';
+    dots.forEach(function(x){var sr=x[1].getBoundingClientRect();var top=sr.top-r.top+sr.height/2;x[0].style.top=(top-8)+'px';x[0].classList.toggle('lit',top<=p*r.height+12)});}
+
+
+  /* monsoon season strip: climatological 9 Nov → 22 Mar */
+  (function(){var now=new Date(),y=now.getFullYear();function d(yy,m,dd){return new Date(yy,m,dd)}
+    var on=d(y,10,9),off=d(y+1,2,22),prevOn=d(y-1,10,9),prevOff=d(y,2,22),msd=864e5,txt;
+    if(now>=prevOn&&now<prevOff){txt='Window open · day '+Math.ceil((now-prevOn)/msd)+' of ~132'}
+    else if(now<on){txt='Next window opens in '+Math.ceil((on-now)/msd)+' days'}
+    else if(now<off){txt='Window open · day '+Math.ceil((now-on)/msd)+' of ~132'}
+    else{txt='Next window opens in '+Math.ceil((d(y+1,10,9)-now)/msd)+' days'}
+    document.getElementById('sdays').textContent=txt;
+    var start=d(now.getMonth()>=6?y:y-1,6,1),end=d(start.getFullYear()+1,6,1),pos=Math.min(1,Math.max(0,(now-start)/(end-start)));
+    var bar=document.getElementById('sbar');bar.innerHTML='<div class="win"></div><div class="now" style="left:'+(pos*100).toFixed(1)+'%" title="today"></div>';})();
+  /* duplicate claims track for seamless loop */
+  var ctr=document.getElementById('claims');if(ctr){ctr.innerHTML+=ctr.innerHTML}
+  /* word reveal on section titles */
+  document.querySelectorAll('.head h2,.lamp h2').forEach(function(h){var words=h.textContent.split(' ');h.innerHTML=words.map(function(w,i){return '<span class="w" style="--i:'+i+'">'+w+'</span>'}).join(' ')});
+  /* number tickers on findings */
+  if('IntersectionObserver' in window&&window.gsap&&!reduce){
+    var tio=new IntersectionObserver(function(es){es.forEach(function(e){if(!e.isIntersecting)return;tio.unobserve(e.target);var el=e.target,end=parseFloat(el.getAttribute('data-tick')),dec=parseInt(el.getAttribute('data-dec')||'0',10),pre=el.getAttribute('data-prefix')||'',suf=el.getAttribute('data-suffix')||'';
+      var o={v:0};gsap.to(o,{v:end,duration:1.6,ease:'power3.out',onUpdate:function(){var v=o.v,s=(dec?Math.abs(v).toFixed(dec):Math.round(Math.abs(v)).toLocaleString('en-MY'));el.textContent=(v<0?'−':'')+pre+s+suf}})})},{threshold:.5});
+    document.querySelectorAll('[data-tick]').forEach(function(el){tio.observe(el)});
+  }
+  /* cursor glow + magnetic buttons + hero parallax */
+  var glow=document.getElementById('cglow');
+  if(!reduce){
+    window.addEventListener('pointermove',function(e){if(e.pointerType==='touch')return;glow.style.transform='translate('+(e.clientX-260)+'px,'+(e.clientY-260)+'px)';
+      var st=document.getElementById('stack');if(st){var dx=(e.clientX/window.innerWidth-.5)*14,dy=(e.clientY/window.innerHeight-.5)*10;st.style.transform='translate('+dx+'px,'+dy+'px)'}},{passive:true});
+    document.querySelectorAll('.mag').forEach(function(b){b.addEventListener('pointermove',function(e){var r=b.getBoundingClientRect();b.style.transform='translate('+((e.clientX-r.left-r.width/2)*.18)+'px,'+((e.clientY-r.top-r.height/2)*.3)+'px)'});b.addEventListener('pointerleave',function(){b.style.transform=''})});
+  }
+  /* device scroll tilt (container scroll animation) */
+  var dev=document.querySelector('.device');
+  function devTilt(){if(!dev||reduce)return;var r=dev.getBoundingClientRect(),vh=window.innerHeight,p=Math.min(1,Math.max(0,(vh-r.top)/(vh*.75)));var rx=16*(1-p),sc=.94+.06*p;dev.style.transform='perspective(1400px) rotateX('+rx+'deg) scale('+sc+')'}
+  window.addEventListener('scroll',devTilt,{passive:true});devTilt();
+  window.addEventListener('resize',beamUpdate);onScroll();
+})();
+</script>
+</body>
+</html>
