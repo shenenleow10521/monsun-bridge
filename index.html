@@ -379,6 +379,54 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center;justif
   .nav nav{display:none}
   .tlw{grid-template-columns:1fr}.trace{display:none}
 }
+
+/* interactive: action planner + skill bridge explorer */
+.inter{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.panel{padding:24px;min-width:0;display:grid;gap:16px;align-content:start}
+.panel h3{font-size:1.15rem}
+.panel .sub{color:var(--fg2);font-size:.9rem;margin-top:-8px}
+.ctl{display:grid;gap:6px}
+.ctl label{display:flex;justify-content:space-between;font-size:.82rem;color:var(--fg2);font-weight:500}
+.ctl label b{color:var(--fg);font-family:var(--display);font-variant-numeric:tabular-nums}
+.ctl input[type=range]{width:100%;accent-color:var(--blue);height:26px;cursor:pointer}
+.ctls{display:grid;grid-template-columns:1fr 1fr;gap:12px 20px}
+.chk{display:flex;gap:8px;flex-wrap:wrap}
+.chk label{display:inline-flex;gap:6px;align-items:center;font-size:.82rem;padding:6px 10px;border:1px solid var(--line);border-radius:999px;cursor:pointer;background:var(--bg2);color:var(--fg2)}
+.chk input{accent-color:var(--blue)}
+.chk label:has(input:checked){border-color:var(--blue);color:var(--fg)}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.kpi{padding:12px 14px;border-radius:12px;background:var(--bg2);border:1px solid var(--line);min-width:0}
+.kpi .k{font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--fg3);font-weight:600}
+.kpi .v{font-family:var(--display);font-weight:800;font-size:1.25rem;color:var(--fg);font-variant-numeric:tabular-nums;letter-spacing:-.02em;margin-top:2px;transition:color .2s}
+.kpi .v.hi{color:var(--blue)}
+.be{display:grid;gap:8px}
+.be .row{display:grid;grid-template-columns:150px 1fr 64px;gap:12px;align-items:center;font-size:.84rem;color:var(--fg2)}
+.be .t{height:10px;border-radius:999px;background:var(--bg3);overflow:hidden}
+.be .t i{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,var(--gold3),var(--gold));transition:width .5s cubic-bezier(.2,.7,.2,1)}
+.be b{font-family:var(--display);color:var(--fg);text-align:right}
+.sel{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.sel select{width:100%;font:inherit;font-size:.9rem;padding:10px 12px;border-radius:10px;border:1px solid var(--line2);background:var(--bg2);color:var(--fg)}
+.rank{display:grid;gap:7px}
+.rrow2{display:grid;grid-template-columns:200px 1fr 54px;gap:10px;align-items:center;font-size:.84rem;color:var(--fg2);cursor:pointer;padding:3px 6px;border-radius:8px;border:1px solid transparent}
+.rrow2:hover,.rrow2.on{background:var(--bg2);border-color:var(--line)}
+.rrow2 .t{height:14px;border-radius:999px;background:var(--bg3);overflow:hidden}
+.rrow2 .t i{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,var(--blue2),var(--blue));transition:width .6s cubic-bezier(.2,.7,.2,1)}
+.rrow2.co .t i{background:linear-gradient(90deg,#ff8a7a,var(--red))}
+.rrow2 b{font-family:var(--display);color:var(--fg);text-align:right}
+.rrow2 .n{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rrow2.co .n::after{content:" · co-seasonal → 0";color:var(--red);font-size:.72rem}
+.decomp{padding:14px 16px;border-radius:12px;background:var(--bg2);border:1px solid var(--line)}
+.decomp .h{display:flex;justify-content:space-between;align-items:baseline;gap:10px;font-size:.84rem;color:var(--fg2);flex-wrap:wrap}
+.decomp .h b{font-family:var(--display);color:var(--fg);font-size:1rem}
+.decomp .h .sc{font-family:var(--display);font-weight:800;font-size:1.5rem;color:var(--blue)}
+.decomp .parts2{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-top:10px}
+.decomp .p{padding:8px;border-radius:8px;background:var(--bg3);text-align:center;min-width:0}
+.decomp .p b{display:block;font-family:var(--display);font-size:1rem;color:var(--fg)}
+.decomp .p.neg b{color:var(--red)}
+.decomp .p span{font-size:.64rem;color:var(--fg3);text-transform:uppercase;letter-spacing:.06em}
+.decomp .warn{margin-top:10px;font-size:.82rem;color:var(--red);font-weight:600}
+@media (max-width:1000px){.inter{grid-template-columns:1fr}}
+@media (max-width:640px){.kpis{grid-template-columns:1fr 1fr}.ctls,.sel{grid-template-columns:1fr}.rrow2{grid-template-columns:120px 1fr 48px}.be .row{grid-template-columns:110px 1fr 56px}.decomp .parts2{grid-template-columns:repeat(3,1fr)}}
 </style>
 </head>
 <body>
@@ -387,7 +435,7 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center;justif
 <div class="nav" id="nav">
   <div class="wrap">
     <a class="brand" href="#top"><i>MB</i>MONSUN <span>BRIDGE</span></a>
-    <nav aria-label="Sections"><a href="#findings">Findings</a><a href="#dashboard">Dashboard</a><a href="#rubric">Rubric</a><a href="#method">Method</a><a href="#rollout">Rollout</a><a href="#team">Team</a></nav>
+    <nav aria-label="Sections"><a href="#findings">Findings</a><a href="#dashboard">Dashboard</a><a href="#try">Try it</a><a href="#rubric">Rubric</a><a href="#method">Method</a><a href="#rollout">Rollout</a><a href="#team">Team</a></nav>
     <a class="btn p sm mag" href="#dashboard">Open the dashboard →</a>
   </div>
 </div>
@@ -537,6 +585,54 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center;justif
   </div>
 </section>
 
+
+<div class="divline"></div>
+<section id="try">
+  <div class="wrap">
+    <div class="head rv"><span class="eyebrow">Try it · live inputs</span><h2>Move the settings. Watch the plan move.</h2><p>Two of the dashboard's pages, rebuilt here with the same formulas so you can change the inputs from your phone. Every control is a <span class="grade g-scn">Scenario</span>: a planning setting, not an observed value. The Power BI file remains the system of record.</p></div>
+    <div class="inter">
+      <div class="panel glass rv">
+        <h3>Action Planner · dashboard page 04</h3>
+        <p class="sub">What can government cover, at what planning cost, before the window opens?</p>
+        <div class="chk" id="dists">
+          <label><input type="checkbox" value="Besut" checked>Besut</label><label><input type="checkbox" value="Marang" checked>Marang</label><label><input type="checkbox" value="Rompin" checked>Rompin</label><label><input type="checkbox" value="Kuala Nerus" checked>Kuala Nerus</label>
+        </div>
+        <div class="ctls">
+          <div class="ctl"><label>Participation rate <b id="v_rate">20%</b></label><input type="range" id="rate" min="5" max="50" step="1" value="20"></div>
+          <div class="ctl"><label>Training months <b id="v_train">1</b></label><input type="range" id="train" min="0" max="3" step="0.5" value="1"></div>
+          <div class="ctl"><label>Support months <b id="v_sup">2</b></label><input type="range" id="sup" min="0" max="4" step="0.5" value="2"></div>
+          <div class="ctl"><label>Unit cost per month <b id="v_unit">RM 1,100</b></label><input type="range" id="unit" min="600" max="1800" step="50" value="1100"></div>
+          <div class="ctl"><label>Stipend as share of unit cost <b id="v_stip">60%</b></label><input type="range" id="stip" min="30" max="100" step="5" value="60"></div>
+          <div class="ctl"><label>Administration overhead <b id="v_adm">10%</b></label><input type="range" id="adm" min="0" max="25" step="1" value="10"></div>
+        </div>
+        <div class="kpis">
+          <div class="kpi"><div class="k">Participants</div><div class="v" id="o_part">—</div></div>
+          <div class="kpi"><div class="k">Programme cost</div><div class="v hi" id="o_cost">—</div></div>
+          <div class="kpi"><div class="k">Worker-months covered</div><div class="v" id="o_wm">—</div></div>
+          <div class="kpi"><div class="k">Cost per worker-month</div><div class="v hi" id="o_cpwm">—</div></div>
+        </div>
+        <div class="be">
+          <div class="ctl"><label>Break-even placement rate, by destination wage anchor <span style="font-weight:400">cost per worker-month ÷ median monthly wage</span></label></div>
+          <div class="row"><span>Clerical support <em style="color:var(--fg3);font-style:normal">RM 2,931</em></span><div class="t"><i id="b1"></i></div><b id="t1">—</b></div>
+          <div class="row"><span>Services &amp; sales <em style="color:var(--fg3);font-style:normal">RM 2,561</em></span><div class="t"><i id="b2"></i></div><b id="t2">—</b></div>
+          <div class="row"><span>Craft &amp; trades <em style="color:var(--fg3);font-style:normal">RM 2,510</em></span><div class="t"><i id="b3"></i></div><b id="t3">—</b></div>
+        </div>
+        <p class="sub" id="o_note">Exposure covered: — of 52,655 worker-months. Arithmetic, not a measured return: placement duration and the counterfactual wage are unobserved.</p>
+      </div>
+      <div class="panel glass rv">
+        <h3>Skill Bridge · dashboard page 03</h3>
+        <p class="sub">Pick a worker group. See where the ranking sends them, where it refuses, and why.</p>
+        <div class="sel">
+          <select id="sdist" aria-label="District"><option>Besut</option><option>Marang</option><option>Rompin</option><option>Kuala Nerus</option></select>
+          <select id="socc" aria-label="Occupation"><option>Boat Operator</option><option>Dive Instructor</option><option>Snorkel Guide</option><option>Homestay Operator</option><option>Tourism Vendor</option></select>
+        </div>
+        <div class="rank" id="rank"></div>
+        <div class="decomp" id="decomp"></div>
+        <p class="sub">Score = 0.40 × task overlap + 0.20 × reachable + 0.20 × runs in the monsoon + 0.10 × sector capacity − 0.10 × (retraining months ÷ 3). Co-seasonal destinations keep their score but receive allocation 0. A ranking, not a placement.</p>
+      </div>
+    </div>
+  </div>
+</section>
 <div class="divline"></div>
 <section id="rubric">
   <div class="wrap">
@@ -749,6 +845,40 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center;justif
     document.getElementById('sdays').textContent=txt;
     var start=d(now.getMonth()>=6?y:y-1,6,1),end=d(start.getFullYear()+1,6,1),pos=Math.min(1,Math.max(0,(now-start)/(end-start)));
     var bar=document.getElementById('sbar');bar.innerHTML='<div class="win"></div><div class="now" style="left:'+(pos*100).toFixed(1)+'%" title="today"></div>';})();
+
+  /* ── interactive: action planner ── */
+  var D={'Besut':[4944,21603.4],'Marang':[3276,12167.6],'Rompin':[2418,9509.1],'Kuala Nerus':[3065,9375.0]};
+  function $(id){return document.getElementById(id)}
+  function rm(n){return 'RM '+Math.round(n).toLocaleString('en-MY')}
+  function plan(){
+    var sel=Array.prototype.filter.call(document.querySelectorAll('#dists input'),function(c){return c.checked}).map(function(c){return c.value});
+    var workers=0,wme=0;sel.forEach(function(k){workers+=D[k][0];wme+=D[k][1]});
+    var rate=+$('rate').value/100,tr=+$('train').value,su=+$('sup').value,unit=+$('unit').value,st=+$('stip').value/100,adm=+$('adm').value/100;
+    $('v_rate').textContent=Math.round(rate*100)+'%';$('v_train').textContent=tr;$('v_sup').textContent=su;$('v_unit').textContent=rm(unit);$('v_stip').textContent=Math.round(st*100)+'%';$('v_adm').textContent=Math.round(adm*100)+'%';
+    var part=Math.round(workers*rate),cpp=(tr*unit+su*unit*st)*(1+adm),cost=part*cpp,wm=part*(tr+su),cpwm=wm?cost/wm:0;
+    $('o_part').textContent=part.toLocaleString('en-MY');$('o_cost').textContent=cost>=1e6?'RM '+(cost/1e6).toFixed(2)+'M':rm(cost);$('o_wm').textContent=Math.round(wm).toLocaleString('en-MY');$('o_cpwm').textContent=wm?rm(cpwm):'—';
+    [[2931,'b1','t1'],[2561,'b2','t2'],[2510,'b3','t3']].forEach(function(a){var r=wm?cpwm/a[0]:0;$(a[1]).style.width=Math.min(100,r*100)+'%';$(a[2]).textContent=wm?(r*100).toFixed(1)+'%':'—'});
+    $('o_note').textContent='Exposure covered: '+Math.round(wm).toLocaleString('en-MY')+' of '+Math.round(wme).toLocaleString('en-MY')+' worker-months ('+(wme?(wm/wme*100).toFixed(1):0)+'%). Arithmetic, not a measured return: placement duration and the counterfactual wage are unobserved.';
+  }
+  ['rate','train','sup','unit','stip','adm'].forEach(function(id){$(id).addEventListener('input',plan)});
+  Array.prototype.forEach.call(document.querySelectorAll('#dists input'),function(c){c.addEventListener('change',plan)});
+  plan();
+  /* ── interactive: skill bridge explorer ── */
+  var PW={"Rompin|Boat Operator":[["Marine Operations Assistant",0.9631,0.883,0.8,0.55,0.5,false,0.7602,1,0.3926],["Mainland Heritage Guide",0.1399,0.76,0.8,0.48,2.58,false,0.33,2,0.1704],["Coastal Safety Assistant",0.0563,0.902,0.8,0.45,2.83,false,0.3136,3,0.162],["Market Sales Operator",0.0,0.779,0.8,0.7,3.0,false,0.2858,4,0.1476],["Coastal Fishery Crew",0.0,0.827,0.639,0.58,3.0,true,0.2512,5,0.0],["Fish Processing Operator",0.0247,0.722,0.639,0.65,2.93,true,0.2494,6,0.0],["Aquaculture Operator",0.0,0.788,0.639,0.62,3.0,true,0.2474,7,0.0],["Guest Service Coordinator",0.0,0.684,0.8,0.5,3.0,false,0.2468,8,0.1275]],"Rompin|Dive Instructor":[["Coastal Safety Assistant",0.8966,0.902,0.8,0.45,0.5,false,0.7274,1,0.3871],["Aquaculture Operator",0.3072,0.788,0.639,0.62,2.08,true,0.4009,2,0.0],["Marine Operations Assistant",0.0792,0.883,0.8,0.55,2.76,false,0.3313,3,0.1763],["Market Sales Operator",0.0064,0.779,0.8,0.7,2.98,false,0.289,4,0.1538],["Guest Service Coordinator",0.0486,0.684,0.8,0.5,2.85,false,0.2712,5,0.1443],["Mainland Heritage Guide",0.0,0.76,0.8,0.48,3.0,false,0.26,6,0.1384],["Coastal Fishery Crew",0.0,0.827,0.639,0.58,3.0,true,0.2512,7,0.0],["Fish Processing Operator",0.0,0.722,0.639,0.65,3.0,true,0.2372,8,0.0]],"Rompin|Snorkel Guide":[["Coastal Safety Assistant",0.4557,0.902,0.8,0.45,1.63,false,0.5133,1,0.3823],["Coastal Fishery Crew",0.0959,0.827,0.639,0.58,2.71,true,0.2992,2,0.0],["Marine Operations Assistant",0.0,0.883,0.8,0.55,3.0,false,0.2916,3,0.2172],["Market Sales Operator",0.0105,0.779,0.8,0.7,2.97,false,0.291,4,0.2167],["Aquaculture Operator",0.0004,0.788,0.639,0.62,3.0,true,0.2476,5,0.0],["Guest Service Coordinator",0.0,0.684,0.8,0.5,3.0,false,0.2468,6,0.1838],["Fish Processing Operator",0.0,0.722,0.639,0.65,3.0,true,0.2372,7,0.0]],"Rompin|Homestay Operator":[["Mainland Heritage Guide",0.1918,0.76,0.8,0.48,2.42,false,0.3561,1,0.2837],["Marine Operations Assistant",0.0587,0.883,0.8,0.55,2.82,false,0.3211,2,0.2558],["Coastal Safety Assistant",0.0102,0.902,0.8,0.45,2.97,false,0.2905,3,0.2314],["Market Sales Operator",0.0034,0.779,0.8,0.7,2.99,false,0.2875,4,0.229],["Aquaculture Operator",0.0295,0.788,0.639,0.62,2.91,true,0.2622,5,0.0],["Coastal Fishery Crew",0.0129,0.827,0.639,0.58,2.96,true,0.2577,6,0.0],["Fish Processing Operator",0.0,0.722,0.639,0.65,3.0,true,0.2372,7,0.0]],"Rompin|Tourism Vendor":[["Marine Operations Assistant",0.0301,0.883,0.8,0.55,2.91,false,0.3066,1,0.2683],["Coastal Safety Assistant",0.0121,0.902,0.8,0.45,2.96,false,0.2916,2,0.2551],["Guest Service Coordinator",0.0757,0.684,0.8,0.5,2.77,false,0.2847,3,0.2491],["Aquaculture Operator",0.0592,0.788,0.639,0.62,2.82,true,0.2771,4,0.0],["Mainland Heritage Guide",0.0,0.76,0.8,0.48,3.0,false,0.26,5,0.2275],["Coastal Fishery Crew",0.0078,0.827,0.639,0.58,2.98,true,0.255,6,0.0],["Fish Processing Operator",0.0168,0.722,0.639,0.65,2.95,true,0.2456,7,0.0]],"Besut|Boat Operator":[["Marine Operations Assistant",0.9631,0.93,0.8,0.55,0.5,false,0.7696,1,0.3889],["Mainland Heritage Guide",0.1399,0.8,0.8,0.48,2.58,false,0.338,2,0.1708],["Coastal Safety Assistant",0.0563,0.95,0.8,0.45,2.83,false,0.3232,3,0.1633],["Market Sales Operator",0.0,0.82,0.8,0.7,3.0,false,0.294,4,0.1486],["Coastal Fishery Crew",0.0,0.87,0.639,0.58,3.0,true,0.2598,5,0.0],["Fish Processing Operator",0.0247,0.76,0.639,0.65,2.93,true,0.257,6,0.0],["Aquaculture Operator",0.0,0.83,0.639,0.62,3.0,true,0.2558,7,0.0],["Guest Service Coordinator",0.0,0.72,0.8,0.5,3.0,false,0.254,8,0.1284]],"Besut|Dive Instructor":[["Coastal Safety Assistant",0.8966,0.95,0.8,0.45,0.5,false,0.737,1,0.3836],["Aquaculture Operator",0.3072,0.83,0.639,0.62,2.08,true,0.4093,2,0.0],["Marine Operations Assistant",0.0792,0.93,0.8,0.55,2.76,false,0.3407,3,0.1773],["Market Sales Operator",0.0064,0.82,0.8,0.7,2.98,false,0.2972,4,0.1547],["Guest Service Coordinator",0.0486,0.72,0.8,0.5,2.85,false,0.2784,5,0.1449],["Mainland Heritage Guide",0.0,0.8,0.8,0.48,3.0,false,0.268,6,0.1395],["Coastal Fishery Crew",0.0,0.87,0.639,0.58,3.0,true,0.2598,7,0.0],["Fish Processing Operator",0.0,0.76,0.639,0.65,3.0,true,0.2448,8,0.0]],"Besut|Snorkel Guide":[["Coastal Safety Assistant",0.4557,0.95,0.8,0.45,1.63,false,0.5229,1,0.3797],["Coastal Fishery Crew",0.0959,0.87,0.639,0.58,2.71,true,0.3078,2,0.0],["Marine Operations Assistant",0.0,0.93,0.8,0.55,3.0,false,0.301,3,0.2186],["Market Sales Operator",0.0105,0.82,0.8,0.7,2.97,false,0.2992,4,0.2173],["Aquaculture Operator",0.0004,0.83,0.639,0.62,3.0,true,0.256,5,0.0],["Guest Service Coordinator",0.0,0.72,0.8,0.5,3.0,false,0.254,6,0.1844],["Fish Processing Operator",0.0,0.76,0.639,0.65,3.0,true,0.2448,7,0.0]],"Besut|Homestay Operator":[["Mainland Heritage Guide",0.1918,0.8,0.8,0.48,2.42,false,0.3641,1,0.2822],["Marine Operations Assistant",0.0587,0.93,0.8,0.55,2.82,false,0.3305,2,0.2561],["Coastal Safety Assistant",0.0102,0.95,0.8,0.45,2.97,false,0.3001,3,0.2326],["Market Sales Operator",0.0034,0.82,0.8,0.7,2.99,false,0.2957,4,0.2292],["Aquaculture Operator",0.0295,0.83,0.639,0.62,2.91,true,0.2706,5,0.0],["Coastal Fishery Crew",0.0129,0.87,0.639,0.58,2.96,true,0.2663,6,0.0],["Fish Processing Operator",0.0,0.76,0.639,0.65,3.0,true,0.2448,7,0.0]],"Besut|Tourism Vendor":[["Marine Operations Assistant",0.0301,0.93,0.8,0.55,2.91,false,0.316,1,0.2685],["Coastal Safety Assistant",0.0121,0.95,0.8,0.45,2.96,false,0.3012,2,0.2559],["Guest Service Coordinator",0.0757,0.72,0.8,0.5,2.77,false,0.2919,3,0.248],["Aquaculture Operator",0.0592,0.83,0.639,0.62,2.82,true,0.2855,4,0.0],["Mainland Heritage Guide",0.0,0.8,0.8,0.48,3.0,false,0.268,5,0.2277],["Coastal Fishery Crew",0.0078,0.87,0.639,0.58,2.98,true,0.2636,6,0.0],["Fish Processing Operator",0.0168,0.76,0.639,0.65,2.95,true,0.2532,7,0.0]],"Kuala Nerus|Boat Operator":[["Marine Operations Assistant",0.9631,0.977,0.8,0.55,0.5,false,0.779,1,0.3855],["Mainland Heritage Guide",0.1399,0.84,0.8,0.48,2.58,false,0.346,2,0.1712],["Coastal Safety Assistant",0.0563,0.997,0.8,0.45,2.83,false,0.3326,3,0.1646],["Market Sales Operator",0.0,0.861,0.8,0.7,3.0,false,0.3022,4,0.1495],["Coastal Fishery Crew",0.0,0.913,0.639,0.58,3.0,true,0.2684,5,0.0],["Fish Processing Operator",0.0247,0.798,0.639,0.65,2.93,true,0.2646,6,0.0],["Aquaculture Operator",0.0,0.871,0.639,0.62,3.0,true,0.264,7,0.0],["Guest Service Coordinator",0.0,0.756,0.8,0.5,3.0,false,0.2612,8,0.1292]],"Kuala Nerus|Dive Instructor":[["Coastal Safety Assistant",0.8966,0.997,0.8,0.45,0.5,false,0.7464,1,0.3801],["Aquaculture Operator",0.3072,0.871,0.639,0.62,2.08,true,0.4175,2,0.0],["Marine Operations Assistant",0.0792,0.977,0.8,0.55,2.76,false,0.3501,3,0.1783],["Market Sales Operator",0.0064,0.861,0.8,0.7,2.98,false,0.3054,4,0.1555],["Guest Service Coordinator",0.0486,0.756,0.8,0.5,2.85,false,0.2856,5,0.1455],["Mainland Heritage Guide",0.0,0.84,0.8,0.48,3.0,false,0.276,6,0.1406],["Coastal Fishery Crew",0.0,0.913,0.639,0.58,3.0,true,0.2684,7,0.0],["Fish Processing Operator",0.0,0.798,0.639,0.65,3.0,true,0.2524,8,0.0]],"Kuala Nerus|Snorkel Guide":[["Coastal Safety Assistant",0.4557,0.997,0.8,0.45,1.63,false,0.5323,1,0.3772],["Coastal Fishery Crew",0.0959,0.913,0.639,0.58,2.71,true,0.3164,2,0.0],["Marine Operations Assistant",0.0,0.977,0.8,0.55,3.0,false,0.3104,3,0.2199],["Market Sales Operator",0.0105,0.861,0.8,0.7,2.97,false,0.3074,4,0.2178],["Aquaculture Operator",0.0004,0.871,0.639,0.62,3.0,true,0.2642,5,0.0],["Guest Service Coordinator",0.0,0.756,0.8,0.5,3.0,false,0.2612,6,0.1851],["Fish Processing Operator",0.0,0.798,0.639,0.65,3.0,true,0.2524,7,0.0]],"Kuala Nerus|Homestay Operator":[["Mainland Heritage Guide",0.1918,0.84,0.8,0.48,2.42,false,0.3721,1,0.2807],["Marine Operations Assistant",0.0587,0.977,0.8,0.55,2.82,false,0.3399,2,0.2565],["Coastal Safety Assistant",0.0102,0.997,0.8,0.45,2.97,false,0.3095,3,0.2335],["Market Sales Operator",0.0034,0.861,0.8,0.7,2.99,false,0.3039,4,0.2293],["Aquaculture Operator",0.0295,0.871,0.639,0.62,2.91,true,0.2788,5,0.0],["Coastal Fishery Crew",0.0129,0.913,0.639,0.58,2.96,true,0.2749,6,0.0],["Fish Processing Operator",0.0,0.798,0.639,0.65,3.0,true,0.2524,7,0.0]],"Kuala Nerus|Tourism Vendor":[["Marine Operations Assistant",0.0301,0.977,0.8,0.55,2.91,false,0.3254,1,0.2687],["Coastal Safety Assistant",0.0121,0.997,0.8,0.45,2.96,false,0.3106,2,0.2565],["Guest Service Coordinator",0.0757,0.756,0.8,0.5,2.77,false,0.2991,3,0.247],["Aquaculture Operator",0.0592,0.871,0.639,0.62,2.82,true,0.2937,4,0.0],["Mainland Heritage Guide",0.0,0.84,0.8,0.48,3.0,false,0.276,5,0.2279],["Coastal Fishery Crew",0.0078,0.913,0.639,0.58,2.98,true,0.2722,6,0.0],["Fish Processing Operator",0.0168,0.798,0.639,0.65,2.95,true,0.2608,7,0.0]],"Marang|Boat Operator":[["Marine Operations Assistant",0.9631,0.93,0.8,0.55,0.5,false,0.7696,1,0.3889],["Mainland Heritage Guide",0.1399,0.8,0.8,0.48,2.58,false,0.338,2,0.1708],["Coastal Safety Assistant",0.0563,0.95,0.8,0.45,2.83,false,0.3232,3,0.1633],["Market Sales Operator",0.0,0.82,0.8,0.7,3.0,false,0.294,4,0.1486],["Coastal Fishery Crew",0.0,0.87,0.639,0.58,3.0,true,0.2598,5,0.0],["Fish Processing Operator",0.0247,0.76,0.639,0.65,2.93,true,0.257,6,0.0],["Aquaculture Operator",0.0,0.83,0.639,0.62,3.0,true,0.2558,7,0.0],["Guest Service Coordinator",0.0,0.72,0.8,0.5,3.0,false,0.254,8,0.1284]],"Marang|Dive Instructor":[["Coastal Safety Assistant",0.8966,0.95,0.8,0.45,0.5,false,0.737,1,0.3836],["Aquaculture Operator",0.3072,0.83,0.639,0.62,2.08,true,0.4093,2,0.0],["Marine Operations Assistant",0.0792,0.93,0.8,0.55,2.76,false,0.3407,3,0.1773],["Market Sales Operator",0.0064,0.82,0.8,0.7,2.98,false,0.2972,4,0.1547],["Guest Service Coordinator",0.0486,0.72,0.8,0.5,2.85,false,0.2784,5,0.1449],["Mainland Heritage Guide",0.0,0.8,0.8,0.48,3.0,false,0.268,6,0.1395],["Coastal Fishery Crew",0.0,0.87,0.639,0.58,3.0,true,0.2598,7,0.0],["Fish Processing Operator",0.0,0.76,0.639,0.65,3.0,true,0.2448,8,0.0]],"Marang|Snorkel Guide":[["Coastal Safety Assistant",0.4557,0.95,0.8,0.45,1.63,false,0.5229,1,0.3797],["Coastal Fishery Crew",0.0959,0.87,0.639,0.58,2.71,true,0.3078,2,0.0],["Marine Operations Assistant",0.0,0.93,0.8,0.55,3.0,false,0.301,3,0.2186],["Market Sales Operator",0.0105,0.82,0.8,0.7,2.97,false,0.2992,4,0.2173],["Aquaculture Operator",0.0004,0.83,0.639,0.62,3.0,true,0.256,5,0.0],["Guest Service Coordinator",0.0,0.72,0.8,0.5,3.0,false,0.254,6,0.1844],["Fish Processing Operator",0.0,0.76,0.639,0.65,3.0,true,0.2448,7,0.0]],"Marang|Homestay Operator":[["Mainland Heritage Guide",0.1918,0.8,0.8,0.48,2.42,false,0.3641,1,0.2822],["Marine Operations Assistant",0.0587,0.93,0.8,0.55,2.82,false,0.3305,2,0.2561],["Coastal Safety Assistant",0.0102,0.95,0.8,0.45,2.97,false,0.3001,3,0.2326],["Market Sales Operator",0.0034,0.82,0.8,0.7,2.99,false,0.2957,4,0.2292],["Aquaculture Operator",0.0295,0.83,0.639,0.62,2.91,true,0.2706,5,0.0],["Coastal Fishery Crew",0.0129,0.87,0.639,0.58,2.96,true,0.2663,6,0.0],["Fish Processing Operator",0.0,0.76,0.639,0.65,3.0,true,0.2448,7,0.0]],"Marang|Tourism Vendor":[["Marine Operations Assistant",0.0301,0.93,0.8,0.55,2.91,false,0.316,1,0.2685],["Coastal Safety Assistant",0.0121,0.95,0.8,0.45,2.96,false,0.3012,2,0.2559],["Guest Service Coordinator",0.0757,0.72,0.8,0.5,2.77,false,0.2919,3,0.248],["Aquaculture Operator",0.0592,0.83,0.639,0.62,2.82,true,0.2855,4,0.0],["Mainland Heritage Guide",0.0,0.8,0.8,0.48,3.0,false,0.268,5,0.2277],["Coastal Fishery Crew",0.0078,0.87,0.639,0.58,2.98,true,0.2636,6,0.0],["Fish Processing Operator",0.0168,0.76,0.639,0.65,2.95,true,0.2532,7,0.0]]};
+  var selIdx=0;
+  function bridge(){
+    var key=$('sdist').value+'|'+$('socc').value,rows=PW[key]||[],rk=$('rank');rk.innerHTML='';
+    var max=Math.max.apply(null,rows.map(function(r){return r[7]}))||1;
+    rows.forEach(function(r,i){var d=document.createElement('div');d.className='rrow2'+(r[6]?' co':'')+(i===selIdx?' on':'');d.innerHTML='<span class="n">'+r[8]+'. '+r[0]+'</span><div class="t"><i style="width:0"></i></div><b>'+r[7].toFixed(2)+'</b>';d.addEventListener('click',function(){selIdx=i;bridge()});rk.appendChild(d);
+      requestAnimationFrame(function(){d.querySelector('i').style.width=(r[7]/max*100)+'%'})});
+    var r=rows[selIdx]||rows[0];if(!r)return;
+    var p=[0.40*r[1],0.20*r[2],0.20*r[3],0.10*r[4],-0.10*r[5]/3];
+    $('decomp').innerHTML='<div class="h"><div><b>'+$('socc').value+' → '+r[0]+'</b><br>'+$('sdist').value+' · rank '+r[8]+' of '+rows.length+' · allocation share '+(r[9]*100).toFixed(1)+'%</div><span class="sc">'+r[7].toFixed(2)+'</span></div>'+
+      '<div class="parts2"><div class="p"><b>+'+p[0].toFixed(3)+'</b><span>task overlap</span></div><div class="p"><b>+'+p[1].toFixed(3)+'</b><span>reachable</span></div><div class="p"><b>+'+p[2].toFixed(3)+'</b><span>in monsoon</span></div><div class="p"><b>+'+p[3].toFixed(3)+'</b><span>capacity</span></div><div class="p neg"><b>'+p[4].toFixed(3)+'</b><span>retraining</span></div></div>'+
+      (r[6]?'<div class="warn">Co-seasonal destination: marine fisheries share the monsoon. Allocation set to 0 whatever the score.</div>':'');
+  }
+  $('sdist').addEventListener('change',function(){selIdx=0;bridge()});$('socc').addEventListener('change',function(){selIdx=0;bridge()});
+  bridge();
   /* duplicate claims track for seamless loop */
   var ctr=document.getElementById('claims');if(ctr){ctr.innerHTML+=ctr.innerHTML}
   /* word reveal on section titles */
