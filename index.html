@@ -204,6 +204,24 @@ section{position:relative;padding-block:clamp(72px,9vw,120px)}
 .bar b{color:var(--fg);text-align:right;font-family:var(--display)}
 .card .foot{margin-top:auto;display:flex;gap:14px;flex-wrap:wrap;align-items:center;font-size:.78rem;color:var(--fg3);font-family:var(--mono)}
 
+.screen.live{cursor:auto;aspect-ratio:1600/990;background:#F4F6FA}
+.screen.live iframe{position:absolute;inset:0;width:100%;height:100%;border:0;background:#F4F6FA}
+.pbload{position:absolute;inset:0;display:grid;place-content:center;justify-items:center;gap:14px;color:#5a6176;font-size:.9rem;pointer-events:none;transition:opacity .4s}
+.pbload span{width:34px;height:34px;border-radius:50%;border:3px solid #d9dce8;border-top-color:var(--blue);animation:spin 1s linear infinite}
+.pbload.off{opacity:0}
+@keyframes spin{to{transform:rotate(360deg)}}
+.dfull{margin-left:14px;font-size:.74rem;font-weight:700;color:#fff;text-decoration:none;border:1px solid rgba(255,255,255,.3);border-radius:8px;padding:5px 10px;transition:border-color .2s,color .2s;white-space:nowrap}
+.dfull:hover{border-color:var(--gold2);color:var(--gold2)}
+.phone-tip{display:none;text-align:center;color:var(--fg2);font-size:.9rem;margin:14px 0 0}
+.phone-tip a{color:var(--blue)}
+.pguide{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:18px}
+.pg{display:flex;flex-direction:column;justify-content:flex-start;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:var(--bg2);font-size:.78rem;color:var(--fg2);line-height:1.4;font:inherit;text-align:left;cursor:pointer;transition:border-color .2s,transform .2s}
+.pg:hover{border-color:var(--gold2);transform:translateY(-2px)}
+.pg b{display:block;color:var(--fg);font-family:var(--display);font-size:.86rem;margin-bottom:4px}
+.pg b em{font-style:normal;color:var(--gold);margin-right:6px}
+.pg span{font-size:.78rem}
+@media (max-width:900px){.pguide{grid-template-columns:repeat(2,1fr)}.phone-tip{display:block}.screen.live{aspect-ratio:4/3.2}}
+@media (max-width:520px){.pguide{grid-template-columns:1fr}.dbar span{display:none}}
 /* dashboard: lamp header + device + lens */
 .dash{background:linear-gradient(180deg,var(--bg),var(--bg2) 30%,var(--bg))}
 .lamp{position:relative;text-align:center;padding-top:40px;margin-bottom:34px}
@@ -465,7 +483,7 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center;justif
   <div class="wrap">
     <a class="brand" href="#top"><img src="img/logo.png" alt="" class="lg">MONSUN <span>BRIDGE</span></a>
     <nav aria-label="Sections"><a href="#findings">Findings</a><a href="#map">Map</a><a href="#dashboard">Dashboard</a><a href="#try">Try it</a><a href="#method">Method</a><a href="#rollout">Rollout</a><a href="#team">Team</a></nav>
-    <a class="btn p sm mag" href="#dashboard">Open the dashboard →</a>
+    <a class="btn p sm mag" href="dashboard.html">Open the dashboard →</a>
   </div>
 </div>
 
@@ -487,7 +505,7 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center;justif
       <h1 id="h1"><span class="w">MONSUN</span> <span class="w shine">BRIDGE</span></h1>
       <p class="tag">The monsoon is predictable. So is the <span class="flip" aria-label="plan"><span>plan.</span><span>cost.</span><span>rollout.</span></span></p>
       <p class="lede">Every November the Northeast Monsoon closes the islands of Malaysia's east coast. Boats stop, jetties shut, and thousands of tourism workers stop earning for four and a half months. Monsun Bridge plans that transition before the window opens, built only from open Malaysian official statistics.</p>
-      <div class="cta"><a class="btn p mag" href="#dashboard">Explore the 8-page dashboard</a><span class="mb mag"><a class="btn" href="#findings">Read the three findings</a></span></div>
+      <div class="cta"><a class="btn p mag" href="#dashboard">Play with the 8-page dashboard</a><span class="mb mag"><a class="btn" href="#findings">Read the three findings</a></span></div>
       <div class="season glass" id="season">
         <div class="sk"><span>Northeast Monsoon · climatological window 9 Nov → 22 Mar</span><b id="sdays">—</b></div>
         <div class="sbar" id="sbar"></div>
@@ -615,21 +633,17 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center;justif
 
 <section id="dashboard" class="dash">
   <div class="wrap">
-    <div class="lamp rv"><span class="eyebrow">The product</span><h2>Eight pages. One argument.</h2><p>When the window opens, who is exposed, where they can go, and what coverage costs. Built in Power BI Desktop with every table embedded: it opens with no database, no API key and no internet connection. Hover the screen to magnify; click a thumbnail to change page.</p></div>
+    <div class="lamp rv"><span class="eyebrow">The product · live</span><h2>Eight pages. One argument. Yours to drive.</h2><p>The full dashboard, running in your browser with the same tables and the same formulas as the Power BI file. Change a slicer, click a bar or a table row, switch pages along the bottom: every number recalculates.</p></div>
     <div class="device rv">
-      <div class="dbar"><i></i><i></i><i></i><span id="dname">MonsunBridge.pbix · page 00</span></div>
-      <div class="screen" id="screen"><div class="lens" id="lens"></div><button type="button" class="zoom" id="zoom">⤢ Full screen</button></div>
+      <div class="dbar"><i></i><i></i><i></i><span id="dname">MonsunBridge · live dashboard</span><a class="dfull" href="dashboard.html" target="_blank" rel="noopener">⤢ Open full screen</a></div>
+      <div class="screen live" id="screen"><iframe id="pbi" title="Monsun Bridge interactive dashboard" loading="lazy" data-src="dashboard.html?embed=1"></iframe><div class="pbload" id="pbload"><span></span>Loading the dashboard…</div></div>
     </div>
-    <div class="thumbs" id="thumbs" role="tablist" aria-label="Dashboard pages"></div>
-    <div class="cap glass">
-      <div class="nb"><button type="button" id="prev" aria-label="Previous page">←</button><button type="button" id="next" aria-label="Next page">→</button></div>
-      <div class="q"><b id="ctitle"></b><span id="cq"></span></div>
-      <span class="grade" id="cgrade"></span>
-    </div>
+    <p class="phone-tip">On a phone? Tap <a href="dashboard.html"><b>Open full screen</b></a> and turn it sideways.</p>
+    <div class="pguide" id="pguide" aria-label="What each page answers"></div>
     <div class="dnotes">
       <div class="glass"><b>Every figure carries its grade</b>The same four colours run across all eight pages, so a reader sees which numbers were observed and which were set.</div>
-      <div class="glass"><b>Move something</b>Page 04 exposes the one unobservable planning parameter as a slicer. Reject the default and the page shows the consequence of your own value.</div>
-      <div class="glass"><b>Page 06 exists to attack the analysis</b>Tests that fail are reported beside the ones that pass, including the −40.3% figure we withdrew.</div>
+      <div class="glass"><b>Move something</b>Page 04 exposes every planning parameter as a slicer. Reject the defaults and the cost, coverage and break-even all move with your values.</div>
+      <div class="glass"><b>Page 06 exists to attack the analysis</b>Tests that fail are reported beside the ones that pass, and the sensitivity panel shows exactly which settings move a recommendation.</div>
     </div>
   </div>
 </section>
@@ -833,29 +847,11 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center;justif
     ['06','Robustness and Validation','A control group, a held-out test year, and the perturbations that do change the recommendation.','g-der','Derived'],
     ['07','Evidence and Model Card','Every source, every assumption, every third-party component, and what is not claimed.','g-obs','Observed']
   ];
-  var screen=document.getElementById('screen'),lens=document.getElementById('lens'),thumbs=document.getElementById('thumbs'),ct=document.getElementById('ctitle'),cq=document.getElementById('cq'),cg=document.getElementById('cgrade'),dn=document.getElementById('dname'),cur=0,imgs=[];
-  pages.forEach(function(p,i){
-    var im=document.createElement('img');im.src='img/dash-'+(i+1)+'.jpg';im.alt='Monsun Bridge dashboard, page '+p[0]+': '+p[1];im.loading=i?'lazy':'eager';screen.insertBefore(im,screen.firstChild);imgs.push(im);
-    var b=document.createElement('button');b.type='button';b.className='thumb';b.setAttribute('role','tab');b.innerHTML='<img src="img/dash-'+(i+1)+'.jpg" alt="" loading="lazy"><span><b>'+p[0]+'</b>'+p[1]+'</span>';b.addEventListener('click',function(){show(i)});thumbs.appendChild(b);
-  });
-  function show(i){
-    cur=(i+pages.length)%pages.length;var p=pages[cur];
-    imgs.forEach(function(im,k){im.classList.toggle('on',k===cur)});
-    Array.prototype.forEach.call(thumbs.children,function(t,k){t.setAttribute('aria-selected',k===cur?'true':'false')});
-    ct.textContent=p[0]+' / '+p[1];cq.textContent=p[2];cg.className='grade '+p[3];cg.textContent=p[4];dn.textContent='MonsunBridge.pbix · page '+p[0];
-    lens.style.backgroundImage='url(img/dash-'+(cur+1)+'.jpg)';
-  }
-  screen.addEventListener('pointermove',function(e){if(e.pointerType==='touch')return;var r=screen.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top,z=2.2;
-    lens.style.left=x+'px';lens.style.top=y+'px';lens.style.backgroundSize=(r.width*z)+'px '+(r.height*z)+'px';lens.style.backgroundPosition=(-x*z+110)+'px '+(-y*z+110)+'px'});
-  document.getElementById('prev').addEventListener('click',function(){show(cur-1)});
-  document.getElementById('next').addEventListener('click',function(){show(cur+1)});
-  document.addEventListener('keydown',function(e){if(e.key==='ArrowLeft')show(cur-1);if(e.key==='ArrowRight')show(cur+1);if(e.key==='Escape')closeLb()});
-  var m=(location.hash||'').match(/^#page(\d)$/);show(m?parseInt(m[1],10):0);
-  var lb=null;function closeLb(){if(lb){lb.remove();lb=null}}
-  document.getElementById('zoom').addEventListener('click',function(){
-    closeLb();lb=document.createElement('div');lb.className='lb';lb.innerHTML='<img src="img/dash-'+(cur+1)+'.jpg" alt="'+imgs[cur].alt+'"><button type="button" aria-label="Close">✕</button>';
-    lb.addEventListener('click',function(e){if(e.target===lb||e.target.tagName==='BUTTON')closeLb()});document.body.appendChild(lb);
-  });
+  var pbi=document.getElementById('pbi'),pbl=document.getElementById('pbload'),pg=document.getElementById('pguide');
+  pbi.addEventListener('load',function(){if(pbi.src)pbl.classList.add('off')});
+  var io=new IntersectionObserver(function(es){if(es[0].isIntersecting&&!pbi.getAttribute('src')){pbi.src=pbi.dataset.src;io.disconnect()}},{rootMargin:'800px'});io.observe(pbi);
+  pages.forEach(function(p,i){var d=document.createElement('button');d.type='button';d.className='pg';d.innerHTML='<b><em>'+p[0]+'</em>'+p[1]+'</b><span>'+p[2]+'</span>';
+    d.addEventListener('click',function(){var u='dashboard.html?embed=1#page'+i;if(pbi.contentWindow&&pbi.contentWindow.MB){pbi.contentWindow.MB.go(i)}else{pbi.src=u}document.getElementById('screen').scrollIntoView({behavior:'smooth',block:'center'})});pg.appendChild(d)});
 
   /* tracing beam for the rollout timeline */
   var trace=document.getElementById('trace'),beam=document.getElementById('beam'),stages=document.getElementById('stages'),dots=[];
