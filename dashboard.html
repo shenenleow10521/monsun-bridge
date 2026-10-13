@@ -281,7 +281,7 @@ function frame(v){
 function titled(d,v){if(v.title){var t=el('div','vt');t.textContent=v.title;t.title=v.title;d.appendChild(t)}var b=el('div','vb');d.appendChild(b);return b}
 
 function renderTextbox(v){
-  var d=frame(v);d.classList.add('tb');
+  var d=frame(v);d.classList.add('tb');if(v.h<40)d.style.overflow='hidden';
   if(!v.bg)d.style.background='#fff';
   (v.paras||[]).forEach(function(p){
     var e=el('p');if(p.align)e.style.textAlign=p.align;var mx=0;p.runs.forEach(function(r){var z=pt((r.s||{}).fontSize);if(z&&z>mx)mx=z});if(mx)e.style.fontSize=mx+'px';
