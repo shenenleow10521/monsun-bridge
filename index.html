@@ -617,6 +617,17 @@ table.heat{min-width:720px;table-layout:fixed}
 .hkey .ramp i{font-style:normal;font-variant-numeric:tabular-nums}
 .hkey .bx{display:inline-block;width:16px;height:12px;box-shadow:inset 0 0 0 3px var(--gold);margin-left:14px}
 .x28 .ctitle{font-size:1.15rem}
+
+/* 05c v2 */
+.opt .oh{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.tag{font-size:.8rem;font-weight:700;color:var(--ink3);border:1.5px solid var(--rule2);border-radius:4px;padding:2px 8px;white-space:nowrap}
+.tag.red{color:var(--storm);border-color:var(--storm)}
+.tag.blue{color:var(--sea);border-color:var(--sea)}
+#worker .wf .r{grid-template-columns:250px 1fr 64px;font-size:.95rem;padding:7px 0}
+#worker .wf .r.tot{padding-top:12px}
+.next{border-left:4px solid var(--storm);padding:6px 0 6px 22px;max-width:780px}
+.next p:not(.ctitle){color:var(--ink2);margin-top:8px}
+@media (max-width:760px){#worker .wf .r{grid-template-columns:140px 1fr 54px;font-size:.82rem}}
 </style>
 </head>
 <body>
@@ -948,39 +959,34 @@ table.heat{min-width:720px;table-layout:fixed}
   <div class="wrap">
     <div class="cn">05c<small>One worker, four options</small></div>
     <div class="col">
-      <h2>A boat operator in Besut. The jetty closes in November. What now?</h2>
-      <p class="lede">The obvious option is the one we test first.</p>
+      <h2>What can a Besut boat operator do when the jetty closes?</h2>
+      <p class="lede">He has four realistic options. Only a planned pathway is tracked and costed, and fishing is the one that needs testing.</p>
       <div class="two wide-r blk">
         <div class="opts">
-          <div class="opt"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><div><h3>Wait it out</h3><p>Savings run down; debt is carried into next season.</p><p class="w">No income for four months</p></div></div>
-          <div class="opt"><svg viewBox="0 0 24 24"><path d="M12 21s-6-5.4-6-10a6 6 0 0 1 12 0c0 4.6-6 10-6 10z"/><circle cx="12" cy="11" r="2"/></svg><div><h3>Go to the mainland</h3><p>Odd jobs, construction, far from family.</p><p class="w">Untracked and unplanned</p></div></div>
-          <div class="opt fish"><svg viewBox="0 0 24 24"><path d="M3 12c3-5 9-6 13-2l5-3v10l-5-3c-4 4-10 3-13-2z"/><circle cx="8" cy="11" r=".6"/></svg><div><h3>Go fishing</h3><p>Same boat, same sea. The natural move, and what any planner would suggest.</p><p class="w">The only option with monthly official data. Without a rule, about 1 in 3 of the allocation would still land here.</p></div></div>
-          <div class="opt plan"><svg viewBox="0 0 24 24"><circle cx="5" cy="18" r="2"/><circle cx="19" cy="6" r="2"/><path d="M7 18h6a3 3 0 0 0 0-6h-2a3 3 0 0 1 0-6h6"/></svg><div><h3>A planned pathway</h3><p>Marine operations, coastal safety, heritage guiding: matched to what he already knows.</p><p class="w">What Monsun Bridge is built to find</p></div></div>
+          <div class="opt"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><div><div class="oh"><h3>Wait it out</h3><span class="tag">No income</span></div><p>Savings run down; debt is carried into next season.</p></div></div>
+          <div class="opt"><svg viewBox="0 0 24 24"><path d="M12 21s-6-5.4-6-10a6 6 0 0 1 12 0c0 4.6-6 10-6 10z"/><circle cx="12" cy="11" r="2"/></svg><div><div class="oh"><h3>Go to the mainland</h3><span class="tag">Not tracked</span></div><p>Odd jobs and construction, far from family.</p></div></div>
+          <div class="opt fish"><svg viewBox="0 0 24 24"><path d="M3 12c3-5 9-6 13-2l5-3v10l-5-3c-4 4-10 3-13-2z"/><circle cx="8" cy="11" r=".6"/></svg><div><div class="oh"><h3>Go fishing</h3><span class="tag red">Needs testing</span></div><p>Same boat, same sea: the move most planners would suggest. But does fishing keep going during the monsoon?</p></div></div>
+          <div class="opt plan"><svg viewBox="0 0 24 24"><circle cx="5" cy="18" r="2"/><circle cx="19" cy="6" r="2"/><path d="M7 18h6a3 3 0 0 0 0-6h-2a3 3 0 0 1 0-6h6"/></svg><div><div class="oh"><h3>A planned pathway</h3><span class="tag blue">Monsun Bridge</span></div><p>Marine operations, coastal safety or heritage guiding, matched to what he already knows.</p></div></div>
         </div>
-        <div>
-          <p class="lab">How we score a pathway: five parts, weighted and added up</p>
-          <div class="parts">
-            <div><div class="v num">0.40</div><b>Task overlap</b><span>how much of his current work carries over</span></div>
-            <div><div class="v num">0.20</div><b>Reachable</b><span>from his own district</span></div>
-            <div><div class="v num">0.20</div><b>Runs in monsoon</b><span>measured for fishing, assumed elsewhere</span></div>
-            <div><div class="v num">0.10</div><b>Sector capacity</b><span>a proxy, not a vacancy count</span></div>
-            <div><div class="v num neg">−0.10</div><b>Retraining</b><span>months needed ÷ 3, subtracted</span></div>
+        <div data-viz>
+          <p class="ctitle">Where does the 0.77 come from?</p>
+          <p class="csub">The top-ranked pathway in 05b, Marine Operations Assistant, broken into its five parts</p>
+          <div class="wf">
+            <div class="r"><span>Task similarity 0.40 × 0.96</span><div class="t"><i style="--l:0%;--w:48.1%"></i></div><b>+0.385</b></div>
+            <div class="r"><span>Geographic access 0.20 × 0.93</span><div class="t"><i style="--l:48.1%;--w:23.3%"></i></div><b>+0.186</b></div>
+            <div class="r"><span>Seasonal fit 0.20 × 0.80</span><div class="t"><i style="--l:71.4%;--w:20%"></i></div><b>+0.160</b></div>
+            <div class="r"><span>Sector capacity 0.10 × 0.55</span><div class="t"><i style="--l:91.4%;--w:6.9%"></i></div><b>+0.055</b></div>
+            <div class="r neg"><span>Assumed training gap −0.10 × 0.5 ÷ 3</span><div class="t"><i style="--l:96.2%;--w:2.1%"></i></div><b>−0.017</b></div>
+            <div class="r tot"><span><b style="font-family:var(--body);font-size:1rem;color:var(--ink)">Final score</b></span><div class="t"><i style="--w:96.1%"></i></div><b>0.77</b></div>
           </div>
-          <div class="blk" data-viz>
-            <p class="lab">Worked example: boat operator to Marine Operations Assistant, Besut</p>
-            <div class="wf">
-              <div class="r"><span>Task overlap 0.40 × 0.96</span><div class="t"><i style="--l:0%;--w:48.1%"></i></div><b>+0.385</b></div>
-              <div class="r"><span>Can he get there 0.20 × 0.93</span><div class="t"><i style="--l:48.1%;--w:23.3%"></i></div><b>+0.186</b></div>
-              <div class="r"><span>Runs in the monsoon 0.20 × 0.80</span><div class="t"><i style="--l:71.4%;--w:20%"></i></div><b>+0.160</b></div>
-              <div class="r"><span>Sector capacity 0.10 × 0.55</span><div class="t"><i style="--l:91.4%;--w:6.9%"></i></div><b>+0.055</b></div>
-              <div class="r neg"><span>Retraining −0.10 × 0.5 ÷ 3</span><div class="t"><i style="--l:96.2%;--w:2.1%"></i></div><b>−0.017</b></div>
-              <div class="r tot"><span><b style="font-family:var(--body)">Match score</b><br><small style="color:var(--ink3)">Runner-up 0.34</small></span><div class="t"><i style="--w:96.1%"></i></div><b>0.77</b></div>
-            </div>
-            <p class="note">Scale 0 to 0.8. Every number is exact and shown: no black box.</p>
-          </div>
+          <p class="find">Every part of the score is shown, so a planner can check why this pathway ranks first.</p>
         </div>
       </div>
-      <p class="aside red blk"><b>Why test fisheries first?</b> Without seasonal exclusions, 28% of this worker group's modelled allocation goes to fishing, processing or aquaculture. We therefore examined fisheries seasonality before funding these pathways.</p>
+      <div class="next blk">
+        <p class="ctitle">Why we test fishing next</p>
+        <p>Fishing looks like the natural fallback. Without seasonal exclusions, 28% of this worker group's modelled allocation would go to fishing, processing or aquaculture. So before excluding it, we test whether fishing actually holds up during the monsoon.</p>
+        <a class="btn gold sm" href="#finding1" style="margin-top:14px">See the test in Finding 1</a>
+      </div>
     </div>
   </div>
 </section>
