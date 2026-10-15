@@ -538,6 +538,24 @@ table.heat{min-width:0;table-layout:fixed}
 .heat th{font-size:.68rem;padding:0 2px 8px}
 @media (max-width:760px){table.heat{min-width:560px}}
 @media (max-width:760px){.pipe{display:grid;grid-template-columns:1fr 1fr;gap:4px 12px}.pipe em{display:none}}
+
+/* 02 steps without kicker; 02b large table */
+.steps h3{margin-top:18px;font-size:1.45rem}
+.steps p{font-size:1.02rem}
+table.t.lg{font-size:1.12rem;min-width:640px}
+.t.lg th{font-size:.9rem;padding-bottom:12px}
+.t.lg td{padding:22px 18px 22px 0}
+.t.lg td:first-child{font-family:var(--disp);font-stretch:80%;font-weight:800;font-size:1.3rem;color:var(--ink)}
+.t.lg .when{white-space:normal}
+@media (max-width:760px){
+  table.t.lg{min-width:0}
+  .t.lg thead{display:none}
+  .t.lg tr{display:block;padding:16px 0;border-bottom:1px solid var(--rule)}
+  .t.lg tr:first-child{border-top:2px solid var(--ink)}
+  .t.lg td{display:block;padding:2px 0;border:0;font-size:1rem}
+  .t.lg td:first-child{font-size:1.2rem;margin-bottom:4px}
+  .t.lg td:nth-child(3){margin-top:4px}
+}
 </style>
 </head>
 <body>
@@ -678,30 +696,39 @@ table.heat{min-width:0;table-layout:fixed}
   </div>
 </section>
 
-<!-- 02 Objectives and scope -->
+<!-- 02 What Monsun Bridge does -->
 <section class="chap" id="scope">
   <div class="wrap">
-    <div class="cn">02<small>Objectives and scope</small></div>
+    <div class="cn">02<small>What it does</small></div>
     <div class="col">
-      <h2>Not a tourism forecast. A costed transition.</h2>
-      <p class="lede">The objective was to convert a shock a national authority already dates in advance into a plan a district can budget, and to state, for every figure, whether it was measured or assumed.</p>
+      <h2>What Monsun Bridge does</h2>
+      <p class="lede">Four steps turn a published closure date into a plan a district can budget.</p>
       <div class="steps blk">
-        <div><span class="k">1</span><p class="v">Measure</p><h3>Exposure in worker-months</h3><p>Not ringgit. Malaysia publishes no register of tourism workers and no measure of their income loss, so we count the quantity we can actually observe.</p></div>
-        <div><span class="k">2</span><p class="v">Test</p><h3>The intuitive answer</h3><p>Does fishing hedge a monsoon tourism closure? Test it properly, against a control coast, before recommending it to anyone.</p></div>
-        <div><span class="k">3</span><p class="v">Match</p><h3>Workers to destinations</h3><p>Using official MASCO occupational task text rather than expert opinion, and showing the exact contribution of every scoring component.</p></div>
-        <div><span class="k">4</span><p class="v">Cost</p><h3>A programme a planner can set</h3><p>Participation, training months, support months and unit cost are controls on the page, not assertions in a paragraph.</p></div>
+        <div><span class="k">1</span><h3>Measure exposure</h3><p>Estimate which districts, and how many workers, the closure affects.</p></div>
+        <div><span class="k">2</span><h3>Test alternative work</h3><p>Check whether the alternative work is also hit by the monsoon.</p></div>
+        <div><span class="k">3</span><h3>Match skills to pathways</h3><p>Shortlist suitable jobs from each worker's occupational skills.</p></div>
+        <div><span class="k">4</span><h3>Estimate programme costs</h3><p>Size the participants, training and support budget.</p></div>
       </div>
-      <div class="blk">
-        <p class="lab">Who uses it, and when</p>
-        <div class="tw"><table class="t">
-          <thead><tr><th>User</th><th>Decision it supports</th><th>When</th></tr></thead>
-          <tbody>
-            <tr><td>State planners (State EPU)</td><td>Where to prioritise, how much to budget</td><td><span class="when">Before November</span></td></tr>
-            <tr><td>District officers</td><td>Which workers to verify</td><td><span class="when">8–10 weeks before</span></td></tr>
-            <tr><td>HRD Corp, MOTAC and employers</td><td>Which pathways and vacancies to validate</td><td><span class="when">6–8 weeks before</span></td></tr>
-            <tr><td>DOSM</td><td>A reusable exposure indicator</td><td><span class="when">Every quarter</span></td></tr>
-          </tbody></table></div>
-      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 02b Who can use it, and when -->
+<section class="chap" id="users">
+  <div class="wrap">
+    <div class="cn">02b<small>Who uses it</small></div>
+    <div class="col">
+      <span class="badge">Proposed use, subject to partner agreement</span>
+      <h2>Who can use it, and when?</h2>
+      <p class="lede">State planners set priority districts and budgets. District officers verify the workers. Training providers and employers confirm the job pathways.</p>
+      <div class="tw blk"><table class="t lg">
+        <thead><tr><th>User</th><th>Decision it supports</th><th>Proposed timing</th></tr></thead>
+        <tbody>
+          <tr><td>State planners (State EPU)</td><td>Set priority districts and the budget</td><td><span class="when">Before November</span></td></tr>
+          <tr><td>District officers</td><td>Verify which workers are affected</td><td><span class="when">8–10 weeks before the closure season</span></td></tr>
+          <tr><td>HRD Corp, MOTAC and employers</td><td>Confirm training places and job vacancies</td><td><span class="when">6–8 weeks before the closure season</span></td></tr>
+          <tr><td>DOSM</td><td>Update a reusable exposure indicator</td><td><span class="when">Every quarter</span></td></tr>
+        </tbody></table></div>
     </div>
   </div>
 </section>
@@ -1144,7 +1171,7 @@ table.heat{min-width:0;table-layout:fixed}
 
   /* ── nav: hide on scroll down, season strip, active chapter ── */
   var nav=$('nav'),fill=$('sfill'),dot=$('sdot'),lastY=0;
-  var groups=[['top',null],['about',null],['team','#team'],['problem','#problem'],['exposed','#problem'],['window','#problem'],['scope','#problem'],['method','#method'],['evidence','#method'],['ml','#method'],['worker','#method'],['finding1','#finding1'],['finding1b','#finding1'],['finding2','#finding1'],['finding3','#finding1'],['dashboard','#dashboard'],['impact','#impact'],['rollout','#impact'],['reach','#impact'],['close',null]];
+  var groups=[['top',null],['about',null],['team','#team'],['problem','#problem'],['exposed','#problem'],['window','#problem'],['scope','#problem'],['users','#problem'],['method','#method'],['evidence','#method'],['ml','#method'],['worker','#method'],['finding1','#finding1'],['finding1b','#finding1'],['finding2','#finding1'],['finding3','#finding1'],['dashboard','#dashboard'],['impact','#impact'],['rollout','#impact'],['reach','#impact'],['close',null]];
   var links={};Array.prototype.forEach.call(document.querySelectorAll('.nav nav a'),function(a){links[a.getAttribute('href')]=a});
   function onScroll(){
     var y=window.scrollY,h=document.documentElement.scrollHeight-window.innerHeight,p=h>0?Math.min(1,y/h):0;
