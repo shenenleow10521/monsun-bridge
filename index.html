@@ -628,6 +628,40 @@ table.heat{min-width:720px;table-layout:fixed}
 .next{border-left:4px solid var(--storm);padding:6px 0 6px 22px;max-width:780px}
 .next p:not(.ctitle){color:var(--ink2);margin-top:8px}
 @media (max-width:760px){#worker .wf .r{grid-template-columns:140px 1fr 54px;font-size:.82rem}}
+
+/* 05c v3: score breakdown */
+.sb{display:grid;grid-template-columns:.75fr 1.25fr;gap:56px;align-items:start}
+.wk{border-top:2px solid var(--ink);padding-top:18px}
+.wk dl{margin:14px 0 0}
+.wk dl>div{padding:12px 0;border-bottom:1px solid var(--rule)}
+.wk dt{font-size:.88rem;color:var(--ink3);font-weight:600}
+.wk dd{margin:2px 0 0;font-family:var(--disp);font-stretch:85%;font-weight:700;font-size:1.3rem;color:var(--ink)}
+.wk dd.hl{color:var(--sea)}
+.wk-note{color:var(--ink2);margin-top:16px;font-size:.98rem}
+.wk .back{display:inline-block;margin-top:12px;font-weight:700;font-size:.92rem;color:var(--sea);text-decoration:none}
+.wk .back::before{content:"← "}
+.wk .back:hover{text-decoration:underline}
+.sbchart .ctitle{font-size:1.45rem}
+.wf2{margin-top:16px}
+.wf2 .r{display:grid;grid-template-columns:200px 1fr 70px;gap:14px;align-items:center;padding:9px 0}
+.wf2 .nm{font-weight:600;font-size:1rem;line-height:1.2}
+.wf2 .nm small{display:block;font-weight:400;font-size:.82rem;color:var(--ink3);margin-top:2px;font-variant-numeric:tabular-nums}
+.wf2 .t{position:relative;height:30px;background:repeating-linear-gradient(90deg,transparent 0 calc(12.5% - 1px),#E3E9EE calc(12.5% - 1px) 12.5%)}
+.wf2 .t i{position:absolute;top:0;bottom:0;left:var(--l);width:0;background:var(--ink);transition:width 1s cubic-bezier(.2,.75,.15,1)}
+.wf2 .r.neg .t i{background:var(--storm)}
+.wf2 .r.tot{border-top:2px solid var(--ink);margin-top:8px;padding-top:14px}
+.wf2 .r.tot .t i{background:var(--sea)}
+.wf2 .r.tot .nm{font-family:var(--disp);font-stretch:85%;font-weight:800;font-size:1.2rem}
+.wf2 .r b{text-align:right;font-variant-numeric:tabular-nums;font-size:1.05rem}
+.wf2 .r.neg b{color:var(--storm)}
+.wf2 .r.tot b{font-family:var(--disp);font-stretch:80%;font-size:2rem;color:var(--sea);line-height:1}
+.wf2 .ax{display:grid;grid-template-columns:200px 1fr 70px;gap:14px}
+.wf2 .tk{position:relative;height:20px;font-size:.78rem;color:var(--ink3)}
+.wf2 .tk i{position:absolute;top:4px;transform:translateX(-50%);font-style:normal;font-variant-numeric:tabular-nums}
+.sbchart.in .wf2 .t i{width:var(--w)}
+.wf2 .r:nth-child(2) .t i{transition-delay:.15s}.wf2 .r:nth-child(3) .t i{transition-delay:.3s}.wf2 .r:nth-child(4) .t i{transition-delay:.45s}.wf2 .r:nth-child(5) .t i{transition-delay:.6s}.wf2 .r:nth-child(6) .t i{transition-delay:.8s}
+@media (max-width:1080px){.sb{grid-template-columns:1fr;gap:36px}}
+@media (max-width:760px){.wf2 .r,.wf2 .ax{grid-template-columns:120px 1fr 52px;gap:10px}.wf2 .nm{font-size:.88rem}.wf2 .r.tot b{font-size:1.6rem}}
 </style>
 </head>
 <body>
@@ -954,38 +988,44 @@ table.heat{min-width:720px;table-layout:fixed}
   </div>
 </section>
 
-<!-- One worker, four options -->
+<!-- 05c Score breakdown -->
 <section class="chap" id="worker">
   <div class="wrap">
-    <div class="cn">05c<small>One worker, four options</small></div>
+    <div class="cn">05c<small>Score breakdown</small></div>
     <div class="col">
-      <h2>What can a Besut boat operator do when the jetty closes?</h2>
-      <p class="lede">He has four realistic options. Only a planned pathway is tracked and costed, and fishing is the one that needs testing.</p>
-      <div class="two wide-r blk">
-        <div class="opts">
-          <div class="opt"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><div><div class="oh"><h3>Wait it out</h3><span class="tag">No income</span></div><p>Savings run down; debt is carried into next season.</p></div></div>
-          <div class="opt"><svg viewBox="0 0 24 24"><path d="M12 21s-6-5.4-6-10a6 6 0 0 1 12 0c0 4.6-6 10-6 10z"/><circle cx="12" cy="11" r="2"/></svg><div><div class="oh"><h3>Go to the mainland</h3><span class="tag">Not tracked</span></div><p>Odd jobs and construction, far from family.</p></div></div>
-          <div class="opt fish"><svg viewBox="0 0 24 24"><path d="M3 12c3-5 9-6 13-2l5-3v10l-5-3c-4 4-10 3-13-2z"/><circle cx="8" cy="11" r=".6"/></svg><div><div class="oh"><h3>Go fishing</h3><span class="tag red">Needs testing</span></div><p>Same boat, same sea: the move most planners would suggest. But does fishing keep going during the monsoon?</p></div></div>
-          <div class="opt plan"><svg viewBox="0 0 24 24"><circle cx="5" cy="18" r="2"/><circle cx="19" cy="6" r="2"/><path d="M7 18h6a3 3 0 0 0 0-6h-2a3 3 0 0 1 0-6h6"/></svg><div><div class="oh"><h3>A planned pathway</h3><span class="tag blue">Monsun Bridge</span></div><p>Marine operations, coastal safety or heritage guiding, matched to what he already knows.</p></div></div>
+      <h2>Why Marine Operations Assistant ranks first</h2>
+      <p class="lede">A score breakdown for a boat operator in Besut.</p>
+      <div class="sb blk">
+        <div class="wk">
+          <p class="ctitle">The worker and the recommended pathway</p>
+          <dl>
+            <div><dt>Current occupation</dt><dd>Boat operator</dd></div>
+            <div><dt>District</dt><dd>Besut</dd></div>
+            <div><dt>Highest-ranked pathway</dt><dd class="hl">Marine Operations Assistant</dd></div>
+          </dl>
+          <p class="wk-note">The previous ranking identifies this pathway as the highest-scoring option. Here, we show what contributes to its score.</p>
+          <a class="back" href="#ml2">Back to the ranking in 05b</a>
         </div>
-        <div data-viz>
-          <p class="ctitle">Where does the 0.77 come from?</p>
-          <p class="csub">The top-ranked pathway in 05b, Marine Operations Assistant, broken into its five parts</p>
-          <div class="wf">
-            <div class="r"><span>Task similarity 0.40 × 0.96</span><div class="t"><i style="--l:0%;--w:48.1%"></i></div><b>+0.385</b></div>
-            <div class="r"><span>Geographic access 0.20 × 0.93</span><div class="t"><i style="--l:48.1%;--w:23.3%"></i></div><b>+0.186</b></div>
-            <div class="r"><span>Seasonal fit 0.20 × 0.80</span><div class="t"><i style="--l:71.4%;--w:20%"></i></div><b>+0.160</b></div>
-            <div class="r"><span>Sector capacity 0.10 × 0.55</span><div class="t"><i style="--l:91.4%;--w:6.9%"></i></div><b>+0.055</b></div>
-            <div class="r neg"><span>Assumed training gap −0.10 × 0.5 ÷ 3</span><div class="t"><i style="--l:96.2%;--w:2.1%"></i></div><b>−0.017</b></div>
-            <div class="r tot"><span><b style="font-family:var(--body);font-size:1rem;color:var(--ink)">Final score</b></span><div class="t"><i style="--w:96.1%"></i></div><b>0.77</b></div>
+        <div data-viz class="sbchart">
+          <p class="ctitle">How the five factors produce a 0.77 score</p>
+          <div class="wf2">
+            <div class="r"><span class="nm">Task similarity<small>0.40 × 0.963</small></span><div class="t"><i style="--l:0%;--w:48.1%"></i></div><b>+0.385</b></div>
+            <div class="r"><span class="nm">Geographic access<small>0.20 × 0.93</small></span><div class="t"><i style="--l:48.1%;--w:23.3%"></i></div><b>+0.186</b></div>
+            <div class="r"><span class="nm">Seasonal fit<small>0.20 × 0.80</small></span><div class="t"><i style="--l:71.4%;--w:20%"></i></div><b>+0.160</b></div>
+            <div class="r"><span class="nm">Sector capacity<small>0.10 × 0.55</small></span><div class="t"><i style="--l:91.4%;--w:6.9%"></i></div><b>+0.055</b></div>
+            <div class="r neg"><span class="nm">Assumed training gap<small>−0.10 × 0.5 ÷ 3</small></span><div class="t"><i style="--l:96.1%;--w:2.1%"></i></div><b>−0.017</b></div>
+            <div class="r tot"><span class="nm">Final score<small>0.769 before rounding</small></span><div class="t"><i style="--l:0%;--w:96.1%"></i></div><b>0.77</b></div>
+            <div class="ax"><span></span><div class="tk"><i style="left:0">0</i><i style="left:25%">0.2</i><i style="left:50%">0.4</i><i style="left:75%">0.6</i><i style="left:100%">0.8</i></div><span></span></div>
           </div>
-          <p class="find">Every part of the score is shown, so a planner can check why this pathway ranks first.</p>
+          <div class="key"><span><i style="background:var(--ink)"></i>Adds to the score</span><span><i style="background:var(--storm)"></i>Deduction</span><span><i style="background:var(--sea)"></i>Final score</span></div>
+          <p class="find">Task similarity makes the largest contribution to this pathway's score.</p>
+          <p class="note">A planning score, subject to declared assumptions and employer vacancy verification.</p>
         </div>
       </div>
       <div class="next blk">
-        <p class="ctitle">Why we test fishing next</p>
-        <p>Fishing looks like the natural fallback. Without seasonal exclusions, 28% of this worker group's modelled allocation would go to fishing, processing or aquaculture. So before excluding it, we test whether fishing actually holds up during the monsoon.</p>
-        <a class="btn gold sm" href="#finding1" style="margin-top:14px">See the test in Finding 1</a>
+        <p class="ctitle">Next: what happens to fishing activity during the monsoon?</p>
+        <p>Fishing is another option a boat operator might consider. We examine monthly fish landings to explain the seasonal exclusion used in our ranking.</p>
+        <a class="btn gold sm" href="#finding1" style="margin-top:14px">See the fishing seasonality test</a>
       </div>
     </div>
   </div>
