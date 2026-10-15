@@ -606,6 +606,17 @@ table.heat{min-width:720px;table-layout:fixed}
   #ml2 .parts{grid-template-columns:1fr 1fr}
   #ml2 .parts>div{padding-left:0!important;border-left:0!important;padding-top:12px}
 }
+
+/* chart titles: question above, unit line, answer below */
+.ctitle{font-family:var(--disp);font-stretch:85%;font-weight:700;font-size:1.3rem;line-height:1.2;color:var(--ink)}
+.csub{font-size:.92rem;color:var(--ink3);margin-top:4px;margin-bottom:14px}
+.heat td.best{box-shadow:inset 0 0 0 3px var(--gold);font-weight:700}
+.hkey{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;font-size:.86rem;color:var(--ink3);margin-top:12px}
+.hkey .ramp{display:inline-flex;align-items:center;gap:6px}
+.hkey .ramp b{display:inline-block;width:120px;height:10px;background:linear-gradient(90deg,rgba(16,58,98,.05),rgba(16,58,98,1))}
+.hkey .ramp i{font-style:normal;font-variant-numeric:tabular-nums}
+.hkey .bx{display:inline-block;width:16px;height:12px;box-shadow:inset 0 0 0 3px var(--gold);margin-left:14px}
+.x28 .ctitle{font-size:1.15rem}
 </style>
 </head>
 <body>
@@ -865,9 +876,11 @@ table.heat{min-width:720px;table-layout:fixed}
         <li><span class="k">4</span><b>Cosine score</b><p>Similarity from 0 (nothing shared) to 1 (identical task text).</p></li>
       </ol>
       <div class="blk">
-        <p class="lab">Task-text similarity between current jobs and possible new jobs</p>
-        <div class="tw"><table class="t heat"><thead><tr class="grp"><th></th><th colspan="5">Land and coastal jobs</th><th colspan="3" class="fg">Fishing-related jobs</th></tr><tr><th>Current job</th><th class="">Marine ops</th><th class="">Coastal safety</th><th class="">Heritage guide</th><th class="">Guest service</th><th class="">Market sales</th><th class="fs">Coastal fishery</th><th class="">Fish processing</th><th class="">Aquaculture</th></tr></thead><tbody><tr><td>Boat operator</td><td style="background:rgba(16,58,98,0.96);color:#fff">0.96</td><td style="background:rgba(16,58,98,0.11);color:var(--ink)">0.06</td><td style="background:rgba(16,58,98,0.18);color:var(--ink)">0.14</td><td style="background:rgba(16,58,98,0.05);color:var(--ink)">0.00</td><td style="background:rgba(16,58,98,0.05);color:var(--ink)">0.00</td><td class="fs" style="background:rgba(16,58,98,0.05);color:var(--ink)">0.00</td><td style="background:rgba(16,58,98,0.07);color:var(--ink)">0.02</td><td style="background:rgba(16,58,98,0.05);color:var(--ink)">0.00</td></tr><tr><td>Dive instructor</td><td style="background:rgba(16,58,98,0.13);color:var(--ink)">0.08</td><td style="background:rgba(16,58,98,0.91);color:#fff">0.90</td><td style="background:rgba(16,58,98,0.05);color:var(--ink)">0.00</td><td style="background:rgba(16,58,98,0.10);color:var(--ink)">0.05</td><td style="background:rgba(16,58,98,0.06);color:var(--ink)">0.01</td><td class="fs" style="background:rgba(16,58,98,0.05);color:var(--ink)">0.00</td><td style="background:rgba(16,58,98,0.05);color:var(--ink)">0.00</td><td style="background:rgba(16,58,98,0.34);color:var(--ink)">0.31</td></tr><tr><td>Homestay operator</td><td style="background:rgba(16,58,98,0.11);color:var(--ink)">0.06</td><td style="background:rgba(16,58,98,0.06);color:var(--ink)">0.01</td><td style="background:rgba(16,58,98,0.23);color:var(--ink)">0.19</td><td style="color:var(--ink3);background:#EEF2F5">—</td><td style="background:rgba(16,58,98,0.05);color:var(--ink)">0.00</td><td class="fs" style="background:rgba(16,58,98,0.06);color:var(--ink)">0.01</td><td style="background:rgba(16,58,98,0.05);color:var(--ink)">0.00</td><td style="background:rgba(16,58,98,0.08);color:var(--ink)">0.03</td></tr><tr><td>Snorkel guide</td><td style="background:rgba(16,58,98,0.05);color:var(--ink)">0.00</td><td style="background:rgba(16,58,98,0.49);color:#fff">0.46</td><td style="color:var(--ink3);background:#EEF2F5">—</td><td style="background:rgba(16,58,98,0.05);color:var(--ink)">0.00</td><td style="background:rgba(16,58,98,0.06);color:var(--ink)">0.01</td><td class="fs" style="background:rgba(16,58,98,0.15);color:var(--ink)">0.10</td><td style="background:rgba(16,58,98,0.05);color:var(--ink)">0.00</td><td style="background:rgba(16,58,98,0.05);color:var(--ink)">0.00</td></tr><tr><td>Tourism vendor</td><td style="background:rgba(16,58,98,0.08);color:var(--ink)">0.03</td><td style="background:rgba(16,58,98,0.06);color:var(--ink)">0.01</td><td style="background:rgba(16,58,98,0.05);color:var(--ink)">0.00</td><td style="background:rgba(16,58,98,0.13);color:var(--ink)">0.08</td><td style="color:var(--ink3);background:#EEF2F5">—</td><td class="fs" style="background:rgba(16,58,98,0.06);color:var(--ink)">0.01</td><td style="background:rgba(16,58,98,0.07);color:var(--ink)">0.02</td><td style="background:rgba(16,58,98,0.11);color:var(--ink)">0.06</td></tr></tbody></table></div>
-        <p class="find">Boat operators show high task-text similarity to marine operations roles.</p>
+        <p class="ctitle">Which possible jobs are closest to each current job?</p>
+        <p class="csub">Similarity of the official task descriptions, from 0 (nothing shared) to 1 (identical)</p>
+        <div class="tw"><table class="t heat"><thead><tr class="grp"><th></th><th colspan="5">Land and coastal jobs</th><th colspan="3" class="fg">Fishing-related jobs</th></tr><tr><th>Current job</th><th class="">Marine ops</th><th class="">Coastal safety</th><th class="">Heritage guide</th><th class="">Guest service</th><th class="">Market sales</th><th class="fs">Coastal fishery</th><th class="">Fish processing</th><th class="">Aquaculture</th></tr></thead><tbody><tr><td>Boat operator</td><td class="best" style="background:rgba(16,58,98,0.96);color:#fff">0.96</td><td style="background:rgba(16,58,98,0.11);color:var(--ink)">0.06</td><td style="background:rgba(16,58,98,0.18);color:var(--ink)">0.14</td><td style="background:rgba(16,58,98,0.05);color:var(--ink)">0.00</td><td style="background:rgba(16,58,98,0.05);color:var(--ink)">0.00</td><td class="fs" style="background:rgba(16,58,98,0.05);color:var(--ink)">0.00</td><td style="background:rgba(16,58,98,0.07);color:var(--ink)">0.02</td><td style="background:rgba(16,58,98,0.05);color:var(--ink)">0.00</td></tr><tr><td>Dive instructor</td><td style="background:rgba(16,58,98,0.13);color:var(--ink)">0.08</td><td class="best" style="background:rgba(16,58,98,0.91);color:#fff">0.90</td><td style="background:rgba(16,58,98,0.05);color:var(--ink)">0.00</td><td style="background:rgba(16,58,98,0.10);color:var(--ink)">0.05</td><td style="background:rgba(16,58,98,0.06);color:var(--ink)">0.01</td><td class="fs" style="background:rgba(16,58,98,0.05);color:var(--ink)">0.00</td><td style="background:rgba(16,58,98,0.05);color:var(--ink)">0.00</td><td style="background:rgba(16,58,98,0.34);color:var(--ink)">0.31</td></tr><tr><td>Homestay operator</td><td style="background:rgba(16,58,98,0.11);color:var(--ink)">0.06</td><td style="background:rgba(16,58,98,0.06);color:var(--ink)">0.01</td><td class="best" style="background:rgba(16,58,98,0.23);color:var(--ink)">0.19</td><td style="color:var(--ink3);background:#EEF2F5">—</td><td style="background:rgba(16,58,98,0.05);color:var(--ink)">0.00</td><td class="fs" style="background:rgba(16,58,98,0.06);color:var(--ink)">0.01</td><td style="background:rgba(16,58,98,0.05);color:var(--ink)">0.00</td><td style="background:rgba(16,58,98,0.08);color:var(--ink)">0.03</td></tr><tr><td>Snorkel guide</td><td style="background:rgba(16,58,98,0.05);color:var(--ink)">0.00</td><td class="best" style="background:rgba(16,58,98,0.49);color:#fff">0.46</td><td style="color:var(--ink3);background:#EEF2F5">—</td><td style="background:rgba(16,58,98,0.05);color:var(--ink)">0.00</td><td style="background:rgba(16,58,98,0.06);color:var(--ink)">0.01</td><td class="fs" style="background:rgba(16,58,98,0.15);color:var(--ink)">0.10</td><td style="background:rgba(16,58,98,0.05);color:var(--ink)">0.00</td><td style="background:rgba(16,58,98,0.05);color:var(--ink)">0.00</td></tr><tr><td>Tourism vendor</td><td style="background:rgba(16,58,98,0.08);color:var(--ink)">0.03</td><td style="background:rgba(16,58,98,0.06);color:var(--ink)">0.01</td><td style="background:rgba(16,58,98,0.05);color:var(--ink)">0.00</td><td class="best" style="background:rgba(16,58,98,0.13);color:var(--ink)">0.08</td><td style="color:var(--ink3);background:#EEF2F5">—</td><td class="fs" style="background:rgba(16,58,98,0.06);color:var(--ink)">0.01</td><td style="background:rgba(16,58,98,0.07);color:var(--ink)">0.02</td><td style="background:rgba(16,58,98,0.11);color:var(--ink)">0.06</td></tr></tbody></table></div>
+        <div class="hkey"><span class="ramp"><i>0</i><b></b><i>1</i></span><span>Less similar to more similar</span><span class="bx"></span><span>Closest match for each current job</span></div>
+        <p class="find">Boat operators and dive instructors have clear matches (0.96 and 0.90). Homestay and vendor roles do not, so the practical checks in 05b matter more for them.</p>
         <details class="more"><summary>How to read this chart</summary>
           <p>Each row is a worker's current job; each column is a possible new job. Darker cells mean the two job descriptions share more task wording. A score of 0.96 means very similar task text, not that 96% of skills transfer directly.</p>
           <p>Similarity to the three fishing-related jobs stays low for every worker group (highest 0.31), so the model itself does not steer workers towards fishing.</p>
@@ -885,7 +898,9 @@ table.heat{min-width:720px;table-layout:fixed}
     <div class="col">
       <h2>How we select suitable work options</h2>
       <p class="lede">Task similarity is combined with practical checks, and seasonal safeguards are applied before any places are allocated.</p>
-      <div class="parts blk">
+      <p class="ctitle blk">How the score is built</p>
+      <p class="csub">Five parts, weighted and added together</p>
+      <div class="parts">
         <div><div class="v num">+0.40</div><b>Task similarity</b><span>the score from 05a</span></div>
         <div><div class="v num">+0.20</div><b>Geographic access</b><span>reachable from the worker's district</span></div>
         <div><div class="v num">+0.20</div><b>Seasonal fit</b><span>keeps running in the monsoon</span></div>
@@ -894,23 +909,24 @@ table.heat{min-width:720px;table-layout:fixed}
       </div>
       <div class="rankrow blk">
         <div data-viz>
-          <p class="lab">Final ranking for one example: a boat operator in Besut</p>
-          <div class="rk"><span>Marine Operations Assistant</span><div class="t"><i style="--w:100%"></i></div><b>0.77</b></div>
-          <div class="rk"><span>Mainland Heritage Guide</span><div class="t"><i style="--w:43.9%"></i></div><b>0.34</b></div>
-          <div class="rk"><span>Coastal Safety Assistant</span><div class="t"><i style="--w:42%"></i></div><b>0.32</b></div>
-          <div class="rk"><span>Market Sales Operator</span><div class="t"><i style="--w:38.2%"></i></div><b>0.29</b></div>
-          <div class="rk co"><span>Coastal Fishery Crew</span><div class="t"><i style="--w:33.8%"></i></div><b>0.26</b></div>
-          <div class="rk co"><span>Fish Processing Operator</span><div class="t"><i style="--w:33.4%"></i></div><b>0.26</b></div>
-          <div class="rk co"><span>Aquaculture Operator</span><div class="t"><i style="--w:33.2%"></i></div><b>0.26</b></div>
-          <div class="rk"><span>Guest Service Coordinator</span><div class="t"><i style="--w:33%"></i></div><b>0.25</b></div>
+          <p class="ctitle">Where should a Besut boat operator go?</p>
+          <p class="csub">Final score for eight possible jobs, 0 to 1</p>
+          <div class="rk"><span>Marine Operations Assistant</span><div class="t"><i style="--w:77%"></i></div><b>0.77</b></div>
+          <div class="rk"><span>Mainland Heritage Guide</span><div class="t"><i style="--w:34%"></i></div><b>0.34</b></div>
+          <div class="rk"><span>Coastal Safety Assistant</span><div class="t"><i style="--w:32%"></i></div><b>0.32</b></div>
+          <div class="rk"><span>Market Sales Operator</span><div class="t"><i style="--w:29%"></i></div><b>0.29</b></div>
+          <div class="rk co"><span>Coastal Fishery Crew</span><div class="t"><i style="--w:26%"></i></div><b>0.26</b></div>
+          <div class="rk co"><span>Fish Processing Operator</span><div class="t"><i style="--w:25.7%"></i></div><b>0.26</b></div>
+          <div class="rk co"><span>Aquaculture Operator</span><div class="t"><i style="--w:25.6%"></i></div><b>0.26</b></div>
+          <div class="rk"><span>Guest Service Coordinator</span><div class="t"><i style="--w:25%"></i></div><b>0.25</b></div>
           <div class="key"><span><i style="background:var(--ink)"></i>Can be allocated</span><span><i style="background:var(--storm)"></i>Removed by seasonal exclusions</span></div>
-          <p class="find">Marine Operations Assistant ranks highest for this Besut example.</p>
+          <p class="find">Marine Operations Assistant scores 0.77, more than double the next option (0.34).</p>
         </div>
         <div class="x28">
-          <p class="lab">Without seasonal exclusions</p>
+          <p class="ctitle">Without seasonal exclusions</p>
           <div class="v num">28%</div>
-          <p class="sm">of this worker's allocation would go to the three red pathways</p>
-          <p class="find">Seasonal exclusions remove allocation to the three red pathways.</p>
+          <p class="sm">of this worker's places would have gone to the three red jobs, which slow down in the same months.</p>
+          <p class="find">With the rule, those places go to land-side jobs instead.</p>
         </div>
       </div>
       <div class="two blk">
