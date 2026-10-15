@@ -574,6 +574,38 @@ ol.pipe2{list-style:none;margin:14px 0 0;padding:0;display:grid;grid-template-co
 .heat td:first-child{width:112px}
 .heat th{hyphens:manual;overflow-wrap:normal}
 @media (max-width:760px){#ml table.t:not(.heat){min-width:0!important}#ml table.t:not(.heat) td{padding-right:8px}}
+
+/* 05a / 05b v2 */
+.find{font-family:var(--disp);font-stretch:85%;font-weight:700;font-size:1.2rem;line-height:1.3;color:var(--ink);margin-top:16px;max-width:60ch}
+details.more{margin-top:14px;max-width:72ch}
+details.more summary{cursor:pointer;font-weight:700;color:var(--sea);font-size:.95rem;list-style:none;display:inline-flex;align-items:center;gap:8px}
+details.more summary::-webkit-details-marker{display:none}
+details.more summary::before{content:"";width:8px;height:8px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(-45deg);transition:transform .2s}
+details.more[open] summary::before{transform:rotate(45deg)}
+details.more p{color:var(--ink2);font-size:.95rem;margin-top:10px}
+table.heat{min-width:720px;table-layout:fixed}
+.heat td{font-size:1rem;padding:16px 4px}
+.heat td:first-child{width:170px;font-size:1rem;font-weight:600}
+.heat th{font-size:.84rem;padding:0 4px 10px}
+.heat tr.grp th{font-size:.82rem;color:var(--ink3);border-bottom:1px solid var(--rule2);padding-bottom:6px;text-align:center}
+.heat tr.grp th.fg{border-left:2px solid var(--ink)}
+.heat th.fs,.heat td.fs{border-left:2px solid var(--ink)}
+.heat th.f{color:var(--ink3)}
+.rankrow{display:grid;grid-template-columns:1.6fr .7fr;gap:48px;align-items:start}
+.rankrow .rk{grid-template-columns:230px 1fr 50px;font-size:1rem;margin-top:12px}
+.rankrow .rk .t{height:24px}
+.x28{border-left:4px solid var(--storm);padding-left:22px}
+.x28 .v{font-size:clamp(4rem,7vw,6rem);line-height:1;color:var(--storm);margin-top:6px}
+.x28 .sm{font-size:1rem;color:var(--ink2);margin-top:8px}
+#ml2 .parts .v{font-size:1.6rem}
+@media (max-width:1080px){.rankrow{grid-template-columns:1fr}}
+@media (max-width:760px){
+  table.heat{min-width:600px}
+  .heat td:first-child{width:120px}
+  .rankrow .rk{grid-template-columns:150px 1fr 44px;font-size:.88rem}
+  #ml2 .parts{grid-template-columns:1fr 1fr}
+  #ml2 .parts>div{padding-left:0!important;border-left:0!important;padding-top:12px}
+}
 </style>
 </head>
 <body>
@@ -819,51 +851,50 @@ ol.pipe2{list-style:none;margin:14px 0 0;padding:0;display:grid;grid-template-co
   </div>
 </section>
 
-<!-- 05 Machine learning -->
+<!-- 05a Compare job tasks -->
 <section class="chap" id="ml">
   <div class="wrap">
-    <div class="cn">05<small>Method: skill matching</small></div>
+    <div class="cn">05a<small>Method: comparing jobs</small></div>
     <div class="col">
-      <h2>How we match workers to suitable jobs</h2>
-      <p class="lede">We compare job tasks, assess practical fit and apply seasonal safeguards.</p>
-
+      <h2>How we compare job tasks</h2>
+      <p class="lede">We turn official job descriptions into numbers and measure how similar two jobs are.</p>
+      <ol class="pipe2 blk">
+        <li><span class="k">1</span><b>MASCO task text</b><p>The official description of each job's tasks.</p></li>
+        <li><span class="k">2</span><b>TF-IDF</b><p>Turns the text into numbers, weighting words distinctive to a job.</p></li>
+        <li><span class="k">3</span><b>Truncated SVD</b><p>Groups related words into a few themes.</p></li>
+        <li><span class="k">4</span><b>Cosine score</b><p>Similarity from 0 (nothing shared) to 1 (identical task text).</p></li>
+      </ol>
       <div class="blk">
-        <p class="lab">How the model reads a job description</p>
-        <ol class="pipe2">
-          <li><span class="k">1</span><b>MASCO task text</b><p>Start from the official description of what each job involves, from Malaysia's occupation classification.</p></li>
-          <li><span class="k">2</span><b>TF-IDF</b><p>Turn each description into numbers. Words that are distinctive to a job count more than common ones.</p></li>
-          <li><span class="k">3</span><b>Truncated SVD</b><p>Group related words into a few themes, so similar tasks are recognised even when the wording differs.</p></li>
-          <li><span class="k">4</span><b>Cosine score</b><p>Compare two jobs on those themes: 0 means nothing in common, 1 means the same tasks.</p></li>
-        </ol>
-        <p class="why"><b>Why it matters:</b> the match comes from official job descriptions, not from anyone's opinion, and every step can be repeated.</p>
+        <p class="lab">Task-text similarity between current jobs and possible new jobs</p>
+        <div class="tw"><table class="t heat"><thead><tr class="grp"><th></th><th colspan="5">Land and coastal jobs</th><th colspan="3" class="fg">Fishing-related jobs</th></tr><tr><th>Current job</th><th class="">Marine ops</th><th class="">Coastal safety</th><th class="">Heritage guide</th><th class="">Guest service</th><th class="">Market sales</th><th class="fs">Coastal fishery</th><th class="">Fish processing</th><th class="">Aquaculture</th></tr></thead><tbody><tr><td>Boat operator</td><td style="background:rgba(16,58,98,0.96);color:#fff">0.96</td><td style="background:rgba(16,58,98,0.11);color:var(--ink)">0.06</td><td style="background:rgba(16,58,98,0.18);color:var(--ink)">0.14</td><td style="background:rgba(16,58,98,0.05);color:var(--ink)">0.00</td><td style="background:rgba(16,58,98,0.05);color:var(--ink)">0.00</td><td class="fs" style="background:rgba(16,58,98,0.05);color:var(--ink)">0.00</td><td style="background:rgba(16,58,98,0.07);color:var(--ink)">0.02</td><td style="background:rgba(16,58,98,0.05);color:var(--ink)">0.00</td></tr><tr><td>Dive instructor</td><td style="background:rgba(16,58,98,0.13);color:var(--ink)">0.08</td><td style="background:rgba(16,58,98,0.91);color:#fff">0.90</td><td style="background:rgba(16,58,98,0.05);color:var(--ink)">0.00</td><td style="background:rgba(16,58,98,0.10);color:var(--ink)">0.05</td><td style="background:rgba(16,58,98,0.06);color:var(--ink)">0.01</td><td class="fs" style="background:rgba(16,58,98,0.05);color:var(--ink)">0.00</td><td style="background:rgba(16,58,98,0.05);color:var(--ink)">0.00</td><td style="background:rgba(16,58,98,0.34);color:var(--ink)">0.31</td></tr><tr><td>Homestay operator</td><td style="background:rgba(16,58,98,0.11);color:var(--ink)">0.06</td><td style="background:rgba(16,58,98,0.06);color:var(--ink)">0.01</td><td style="background:rgba(16,58,98,0.23);color:var(--ink)">0.19</td><td style="color:var(--ink3);background:#EEF2F5">—</td><td style="background:rgba(16,58,98,0.05);color:var(--ink)">0.00</td><td class="fs" style="background:rgba(16,58,98,0.06);color:var(--ink)">0.01</td><td style="background:rgba(16,58,98,0.05);color:var(--ink)">0.00</td><td style="background:rgba(16,58,98,0.08);color:var(--ink)">0.03</td></tr><tr><td>Snorkel guide</td><td style="background:rgba(16,58,98,0.05);color:var(--ink)">0.00</td><td style="background:rgba(16,58,98,0.49);color:#fff">0.46</td><td style="color:var(--ink3);background:#EEF2F5">—</td><td style="background:rgba(16,58,98,0.05);color:var(--ink)">0.00</td><td style="background:rgba(16,58,98,0.06);color:var(--ink)">0.01</td><td class="fs" style="background:rgba(16,58,98,0.15);color:var(--ink)">0.10</td><td style="background:rgba(16,58,98,0.05);color:var(--ink)">0.00</td><td style="background:rgba(16,58,98,0.05);color:var(--ink)">0.00</td></tr><tr><td>Tourism vendor</td><td style="background:rgba(16,58,98,0.08);color:var(--ink)">0.03</td><td style="background:rgba(16,58,98,0.06);color:var(--ink)">0.01</td><td style="background:rgba(16,58,98,0.05);color:var(--ink)">0.00</td><td style="background:rgba(16,58,98,0.13);color:var(--ink)">0.08</td><td style="color:var(--ink3);background:#EEF2F5">—</td><td class="fs" style="background:rgba(16,58,98,0.06);color:var(--ink)">0.01</td><td style="background:rgba(16,58,98,0.07);color:var(--ink)">0.02</td><td style="background:rgba(16,58,98,0.11);color:var(--ink)">0.06</td></tr></tbody></table></div>
+        <p class="find">Boat operators show high task-text similarity to marine operations roles.</p>
+        <details class="more"><summary>How to read this chart</summary>
+          <p>Each row is a worker's current job; each column is a possible new job. Darker cells mean the two job descriptions share more task wording. A score of 0.96 means very similar task text, not that 96% of skills transfer directly.</p>
+          <p>Similarity to the three fishing-related jobs stays low for every worker group (highest 0.31), so the model itself does not steer workers towards fishing.</p>
+          <p>A dash marks a job in the same MASCO unit group, which is dropped. 13 documents, 417 terms, 8 SVD components (70.5% of variance), seed 42.</p>
+        </details>
       </div>
+    </div>
+  </div>
+</section>
 
-      <div class="two blk">
-        <div>
-          <p class="lab">The result of step 4: how much two jobs overlap</p>
-          <div class="tw"><table class="t heat"><thead><tr><th></th><th class="">Marine ops</th><th class="">Coastal safety</th><th class="">Heritage guide</th><th class="">Guest service</th><th class="">Market sales</th><th class="f">Coastal fishery</th><th class="f">Fish pro&shy;cessing</th><th class="f">Aqua&shy;culture</th></tr></thead><tbody><tr><td>Boat operator</td><td style="background:rgba(13,34,54,0.96);color:#fff">0.96</td><td style="background:rgba(13,34,54,0.11);color:var(--ink)">0.06</td><td style="background:rgba(13,34,54,0.18);color:var(--ink)">0.14</td><td style="background:rgba(13,34,54,0.05);color:var(--ink)">0.00</td><td style="background:rgba(13,34,54,0.05);color:var(--ink)">0.00</td><td style="background:rgba(207,59,44,0.05);color:var(--ink)">0.00</td><td style="background:rgba(207,59,44,0.07);color:var(--ink)">0.02</td><td style="background:rgba(207,59,44,0.05);color:var(--ink)">0.00</td></tr><tr><td>Dive instructor</td><td style="background:rgba(13,34,54,0.13);color:var(--ink)">0.08</td><td style="background:rgba(13,34,54,0.91);color:#fff">0.90</td><td style="background:rgba(13,34,54,0.05);color:var(--ink)">0.00</td><td style="background:rgba(13,34,54,0.10);color:var(--ink)">0.05</td><td style="background:rgba(13,34,54,0.06);color:var(--ink)">0.01</td><td style="background:rgba(207,59,44,0.05);color:var(--ink)">0.00</td><td style="background:rgba(207,59,44,0.05);color:var(--ink)">0.00</td><td style="background:rgba(207,59,44,0.34);color:var(--ink)">0.31</td></tr><tr><td>Homestay operator</td><td style="background:rgba(13,34,54,0.11);color:var(--ink)">0.06</td><td style="background:rgba(13,34,54,0.06);color:var(--ink)">0.01</td><td style="background:rgba(13,34,54,0.23);color:var(--ink)">0.19</td><td style="color:var(--ink3);background:#EEF2F5">—</td><td style="background:rgba(13,34,54,0.05);color:var(--ink)">0.00</td><td style="background:rgba(207,59,44,0.06);color:var(--ink)">0.01</td><td style="background:rgba(207,59,44,0.05);color:var(--ink)">0.00</td><td style="background:rgba(207,59,44,0.08);color:var(--ink)">0.03</td></tr><tr><td>Snorkel guide</td><td style="background:rgba(13,34,54,0.05);color:var(--ink)">0.00</td><td style="background:rgba(13,34,54,0.49);color:#fff">0.46</td><td style="color:var(--ink3);background:#EEF2F5">—</td><td style="background:rgba(13,34,54,0.05);color:var(--ink)">0.00</td><td style="background:rgba(13,34,54,0.06);color:var(--ink)">0.01</td><td style="background:rgba(207,59,44,0.15);color:var(--ink)">0.10</td><td style="background:rgba(207,59,44,0.05);color:var(--ink)">0.00</td><td style="background:rgba(207,59,44,0.05);color:var(--ink)">0.00</td></tr><tr><td>Tourism vendor</td><td style="background:rgba(13,34,54,0.08);color:var(--ink)">0.03</td><td style="background:rgba(13,34,54,0.06);color:var(--ink)">0.01</td><td style="background:rgba(13,34,54,0.05);color:var(--ink)">0.00</td><td style="background:rgba(13,34,54,0.13);color:var(--ink)">0.08</td><td style="color:var(--ink3);background:#EEF2F5">—</td><td style="background:rgba(207,59,44,0.06);color:var(--ink)">0.01</td><td style="background:rgba(207,59,44,0.07);color:var(--ink)">0.02</td><td style="background:rgba(207,59,44,0.11);color:var(--ink)">0.06</td></tr></tbody></table></div>
-          <p class="why"><b>How to read it:</b> each row is a worker's current job, each column a possible new job. Darker means more of the tasks carry over. A boat operator matches marine operations (0.96); a dive instructor matches coastal safety (0.90). The red fishing columns are already low, so the model itself does not push workers to sea.</p>
-          <p class="note">A dash marks the same MASCO unit group, dropped. 13 documents, 417 terms, 8 SVD components (70.5%), seed 42.</p>
-        </div>
-        <div>
-          <p class="lab">Task overlap is only part of the score</p>
-          <div class="tw"><table class="t" style="min-width:380px">
-            <thead><tr><th>Part of the score</th><th class="n">Weight</th><th>What it checks</th></tr></thead>
-            <tbody>
-              <tr><td>Task similarity</td><td class="n">+0.40</td><td>How much of the current job carries over (the overlap score)</td></tr>
-              <tr><td>Geographic access</td><td class="n">+0.20</td><td>Whether the job is reachable from the worker's own district</td></tr>
-              <tr><td>Seasonal fit</td><td class="n">+0.20</td><td>Whether the job keeps running during the monsoon</td></tr>
-              <tr><td>Sector capacity</td><td class="n">+0.10</td><td>Whether the sector can take on more people (a proxy, not a vacancy count)</td></tr>
-              <tr><td>Training gap</td><td class="n">−0.10</td><td>How many months of retraining are needed; fewer is better</td></tr>
-            </tbody></table></div>
-          <p class="why"><b>Why it matters:</b> a similar job is not enough. It also has to be reachable, keep running in the monsoon, and have room for new workers.</p>
-          <p class="note">Training gap = months of bridging ÷ 3, set to max(0.5, 3(1 − similarity)), so it is not independent of similarity.</p>
-        </div>
+<!-- 05b Select work options -->
+<section class="chap" id="ml2">
+  <div class="wrap">
+    <div class="cn">05b<small>Method: selecting options</small></div>
+    <div class="col">
+      <h2>How we select suitable work options</h2>
+      <p class="lede">Task similarity is combined with practical checks, and seasonal safeguards are applied before any places are allocated.</p>
+      <div class="parts blk">
+        <div><div class="v num">+0.40</div><b>Task similarity</b><span>the score from 05a</span></div>
+        <div><div class="v num">+0.20</div><b>Geographic access</b><span>reachable from the worker's district</span></div>
+        <div><div class="v num">+0.20</div><b>Seasonal fit</b><span>keeps running in the monsoon</span></div>
+        <div><div class="v num">+0.10</div><b>Sector capacity</b><span>a proxy, not a vacancy count</span></div>
+        <div><div class="v num neg">−0.10</div><b>Assumed training gap</b><span>months of retraining needed</span></div>
       </div>
-
-      <div class="two wide-l blk">
+      <div class="rankrow blk">
         <div data-viz>
-          <p class="lab">The final ranking for one worker: a boat operator in Besut</p>
+          <p class="lab">Final ranking for one example: a boat operator in Besut</p>
           <div class="rk"><span>Marine Operations Assistant</span><div class="t"><i style="--w:100%"></i></div><b>0.77</b></div>
           <div class="rk"><span>Mainland Heritage Guide</span><div class="t"><i style="--w:43.9%"></i></div><b>0.34</b></div>
           <div class="rk"><span>Coastal Safety Assistant</span><div class="t"><i style="--w:42%"></i></div><b>0.32</b></div>
@@ -872,14 +903,25 @@ ol.pipe2{list-style:none;margin:14px 0 0;padding:0;display:grid;grid-template-co
           <div class="rk co"><span>Fish Processing Operator</span><div class="t"><i style="--w:33.4%"></i></div><b>0.26</b></div>
           <div class="rk co"><span>Aquaculture Operator</span><div class="t"><i style="--w:33.2%"></i></div><b>0.26</b></div>
           <div class="rk"><span>Guest Service Coordinator</span><div class="t"><i style="--w:33%"></i></div><b>0.25</b></div>
-          <div class="key"><span><i style="background:var(--ink)"></i>Can be allocated</span><span><i style="background:var(--storm)"></i>Excluded by the seasonal rule</span></div>
-          <p class="why"><b>How to read it:</b> the best match is Marine Operations Assistant (0.77), well ahead of the runner-up. The red rows are fishing-related jobs: they still receive a score, but the seasonal rule gives them no places.</p>
+          <div class="key"><span><i style="background:var(--ink)"></i>Can be allocated</span><span><i style="background:var(--storm)"></i>Removed by seasonal exclusions</span></div>
+          <p class="find">Marine Operations Assistant ranks highest for this Besut example.</p>
         </div>
-        <div>
-          <div class="big28"><p class="lab">Without the rule</p><div class="v num">28%</div><p class="why" style="margin-top:6px"><b>Why the rule matters:</b> without it, 28% of this worker's places would go to the three red jobs, which slow down in the same months (28–41% across all 20 worker groups).</p></div>
-          <div class="blk2"><p class="lab">Two guardrails</p><ol class="gr"><li><b>Seasonal exclusion.</b> Co-seasonal fishing pathways receive zero allocation. Processing and aquaculture are also excluded as a precaution.</li><li><b>Vacancy verification.</b> Rankings are not job offers. Employers must confirm vacancies before participants are enrolled.</li></ol></div>
+        <div class="x28">
+          <p class="lab">Without seasonal exclusions</p>
+          <div class="v num">28%</div>
+          <p class="sm">of this worker's allocation would go to the three red pathways</p>
+          <p class="find">Seasonal exclusions remove allocation to the three red pathways.</p>
         </div>
       </div>
+      <div class="two blk">
+        <p class="aside"><b>Seasonal exclusion.</b> Co-seasonal fishing pathways receive zero allocation. Processing and aquaculture are also excluded as a precaution.</p>
+        <p class="aside"><b>Vacancy verification.</b> Rankings are not job offers. Employers must confirm vacancies before participants are enrolled.</p>
+      </div>
+      <details class="more"><summary>Method details</summary>
+        <p>Score = 0.40 × task similarity + 0.20 × geographic access + 0.20 × seasonal fit + 0.10 × sector capacity − 0.10 × (training months ÷ 3).</p>
+        <p>The training gap is an assumption: months of bridging = max(0.5, 3 × (1 − similarity)), so it is not independent of similarity.</p>
+        <p>Without seasonal exclusions, 28–41% of the allocation goes to the three co-seasonal pathways across all 20 worker groups.</p>
+      </details>
     </div>
   </div>
 </section>
@@ -887,7 +929,7 @@ ol.pipe2{list-style:none;margin:14px 0 0;padding:0;display:grid;grid-template-co
 <!-- One worker, four options -->
 <section class="chap" id="worker">
   <div class="wrap">
-    <div class="cn">05b<small>One worker, four options</small></div>
+    <div class="cn">05c<small>One worker, four options</small></div>
     <div class="col">
       <h2>A boat operator in Besut. The jetty closes in November. What now?</h2>
       <p class="lede">The obvious option is the one we test first.</p>
@@ -1209,7 +1251,7 @@ ol.pipe2{list-style:none;margin:14px 0 0;padding:0;display:grid;grid-template-co
 
   /* ── nav: hide on scroll down, season strip, active chapter ── */
   var nav=$('nav'),fill=$('sfill'),dot=$('sdot'),lastY=0;
-  var groups=[['top',null],['about',null],['team','#team'],['problem','#problem'],['exposed','#problem'],['window','#problem'],['scope','#problem'],['users','#problem'],['method','#method'],['evidence','#method'],['ml','#method'],['worker','#method'],['finding1','#finding1'],['finding1b','#finding1'],['finding2','#finding1'],['finding3','#finding1'],['dashboard','#dashboard'],['impact','#impact'],['rollout','#impact'],['reach','#impact'],['close',null]];
+  var groups=[['top',null],['about',null],['team','#team'],['problem','#problem'],['exposed','#problem'],['window','#problem'],['scope','#problem'],['users','#problem'],['method','#method'],['evidence','#method'],['ml','#method'],['ml2','#method'],['worker','#method'],['finding1','#finding1'],['finding1b','#finding1'],['finding2','#finding1'],['finding3','#finding1'],['dashboard','#dashboard'],['impact','#impact'],['rollout','#impact'],['reach','#impact'],['close',null]];
   var links={};Array.prototype.forEach.call(document.querySelectorAll('.nav nav a'),function(a){links[a.getAttribute('href')]=a});
   function onScroll(){
     var y=window.scrollY,h=document.documentElement.scrollHeight-window.innerHeight,p=h>0?Math.min(1,y/h):0;
