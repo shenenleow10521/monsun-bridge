@@ -781,6 +781,44 @@ dl.glance{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin:14px 0 0
 .method{font-weight:600;color:var(--ink2);border-left:3px solid var(--rule2);padding-left:14px}
 details.more .tw{max-width:none}
 @media (max-width:760px){.fc .t em{font-size:.66rem;left:5px}}
+
+/* 10 v2: yearly cycle */
+.gantt{--lc:316px;margin-top:10px}
+.gantt .gh{display:grid;grid-template-columns:300px 1fr;gap:16px;border-bottom:2px solid var(--ink);padding-bottom:8px}
+.gantt .mo{display:grid;grid-template-columns:repeat(12,1fr);font-size:.82rem;font-weight:600;color:var(--ink3);text-align:center}
+.gantt .mo i{font-style:normal}
+.gantt .mo i.w{color:var(--storm)}
+.gantt .gb{position:relative}
+.gantt .shade{position:absolute;top:0;bottom:0;left:calc(var(--lc) + (100% - var(--lc)) * var(--x));width:calc((100% - var(--lc)) * var(--wd));background:rgba(207,59,44,.07);border-left:2px dashed rgba(207,59,44,.5);pointer-events:none}
+.gantt .shade span{position:absolute;bottom:6px;right:8px;font-size:.78rem;font-weight:700;color:var(--storm)}
+.gantt .gr{position:relative;display:grid;grid-template-columns:300px 1fr;gap:16px;align-items:center;padding:10px 0;border-bottom:1px solid var(--rule)}
+.gantt .gl{display:grid;grid-template-columns:28px 1fr;gap:10px;align-items:start}
+.gantt .gl b{font-family:var(--disp);font-stretch:75%;font-weight:800;font-size:1.3rem;color:var(--goldd);line-height:1.1}
+.gantt .gl strong{display:block;font-size:.98rem;line-height:1.25}
+.gantt .gl span{display:block;font-size:.82rem;color:var(--ink3);margin-top:2px}
+.gantt .tr{position:relative;height:26px;background:repeating-linear-gradient(90deg,transparent 0 calc(100%/12 - 1px),#E3E9EE calc(100%/12 - 1px) calc(100%/12))}
+.gantt .tr i{position:absolute;top:3px;bottom:3px;background:var(--ink);transform-origin:left;transform:scaleX(0);transition:transform .8s cubic-bezier(.2,.75,.15,1)}
+.in .gantt .tr i{transform:none}
+.gantt .gr:nth-child(3) .tr i{transition-delay:.1s}.gantt .gr:nth-child(4) .tr i{transition-delay:.2s}.gantt .gr:nth-child(5) .tr i{transition-delay:.3s}.gantt .gr:nth-child(6) .tr i{transition-delay:.45s}.gantt .gr:nth-child(7) .tr i{transition-delay:.6s}
+.gantt .gr.q .tr i{background:repeating-linear-gradient(90deg,var(--rule2) 0 8px,transparent 8px 14px);top:11px;bottom:11px}
+.gantt .gr.q em{position:absolute;left:8px;top:50%;transform:translateY(-50%);font-style:normal;font-size:.8rem;font-weight:600;color:var(--ink3);background:var(--paper);padding:0 6px}
+.gantt .gr.d .tr i{background:var(--storm)}
+.gantt .gr.a .tr i{background:var(--obs)}
+.whys{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:2px solid var(--ink);margin-top:12px}
+.whys>div{padding:16px 20px 0 0}
+.whys>div+div{padding-left:20px;border-left:1px solid var(--rule)}
+.whys b{font-family:var(--disp);font-stretch:85%;font-size:1.15rem}
+.whys p{color:var(--ink2);font-size:.94rem;margin-top:6px}
+@media (max-width:1080px){.whys{grid-template-columns:1fr 1fr}.whys>div:nth-child(3){padding-left:0;border-left:0}.whys>div:nth-child(n+3){padding-top:18px}}
+@media (max-width:760px){
+  .gantt{--lc:0px}
+  .gantt .gh{grid-template-columns:1fr;gap:0}.gantt .gh>span{display:none}
+  .gantt .mo{font-size:.62rem}
+  .gantt .gr{grid-template-columns:1fr;gap:8px}
+  .gantt .shade span{display:none}
+  .whys{grid-template-columns:1fr}.whys>div+div{padding-left:0;border-left:0;border-top:1px solid var(--rule);margin-top:14px}
+}
+@media (max-width:760px){.gantt .shade{display:none}}
 </style>
 </head>
 <body>
@@ -1403,28 +1441,51 @@ details.more .tw{max-width:none}
 <!-- 10 Impact -->
 <section class="chap" id="impact">
   <div class="wrap">
-    <div class="cn">10<small>Impact, SDG alignment and rollout</small></div>
+    <div class="cn">10<small>Implementation and impact</small></div>
     <div class="col">
-      <h2>No new data collection. No new agency.</h2>
-      <p class="lede">It runs on institutions that already exist. Every phase is timed against the monsoon window.</p>
-      <div class="track blk">
-        <div class="ph h"><span></span><span>Timing</span><span>Action</span><span>Lead institution</span><span>Output</span></div>
-        <div class="ph"><span class="n">1</span><span class="tm">Quarterly</span><span>Refresh official tourism and labour data</span><span>DOSM</span><span>TAI and evidence ledger</span></div>
-        <div class="ph"><span class="n">2</span><span class="tm">Before the monsoon</span><span>Calculate the exposure window</span><span>DOSM, State EPU</span><span>Monsoon Share and WME</span></div>
-        <div class="ph"><span class="n">3</span><span class="tm">8–10 weeks before</span><span>Validate priority districts and roles</span><span>State, district</span><span>Eligible cohort</span></div>
-        <div class="ph"><span class="n">4</span><span class="tm">6–8 weeks before</span><span>Confirm courses and employers</span><span>HRD Corp, MOTAC</span><span>Approved pathways</span></div>
-        <div class="ph during"><span class="n">5</span><span class="tm">During the window</span><span>Run training and placement</span><span>State, HRD Corp</span><span>Worker-months covered</span></div>
-        <div class="ph"><span class="n">6</span><span class="tm">After withdrawal</span><span>Measure placement, feed it back</span><span>State EPU</span><span>Next season's parameters</span></div>
+      <h2>How Monsun Bridge would run each year</h2>
+      <p class="lede">A yearly cycle built on institutions that already exist: no new data collection and no new agency.</p>
+
+      <div class="blk" data-viz>
+        <p class="ctitle">The yearly cycle, timed against the monsoon window</p>
+        <p class="csub">Indicative timing for a closure starting around 9 November</p>
+        <div class="gantt">
+          <div class="gh"><span></span><div class="mo"><i>Jun</i><i>Jul</i><i>Aug</i><i>Sep</i><i>Oct</i><i class="w">Nov</i><i class="w">Dec</i><i class="w">Jan</i><i class="w">Feb</i><i class="w">Mar</i><i>Apr</i><i>May</i></div></div>
+          <div class="gb">
+            <div class="shade" style="--x:.439;--wd:.37"><span>Monsoon window</span></div>
+            <div class="gr q"><div class="gl"><b>1</b><div><strong>Refresh official data</strong><span>DOSM</span></div></div><div class="tr"><i style="left:0;width:100%"></i><em>Every quarter</em></div></div>
+            <div class="gr"><div class="gl"><b>2</b><div><strong>Estimate each district's exposure</strong><span>DOSM, State EPU</span></div></div><div class="tr"><i style="left:16.7%;width:8.3%"></i></div></div>
+            <div class="gr"><div class="gl"><b>3</b><div><strong>Verify priority districts and workers</strong><span>State and district officers · 8–10 weeks before</span></div></div><div class="tr"><i style="left:25%;width:4.2%"></i></div></div>
+            <div class="gr"><div class="gl"><b>4</b><div><strong>Confirm courses and employer vacancies</strong><span>HRD Corp, MOTAC · 6–8 weeks before</span></div></div><div class="tr"><i style="left:29.2%;width:4.2%"></i></div></div>
+            <div class="gr d"><div class="gl"><b>5</b><div><strong>Run training and placement</strong><span>State, HRD Corp · during the window</span></div></div><div class="tr"><i style="left:43.9%;width:37%"></i></div></div>
+            <div class="gr a"><div class="gl"><b>6</b><div><strong>Measure placement and update settings</strong><span>State EPU · after the window</span></div></div><div class="tr"><i style="left:83.3%;width:8.3%"></i></div></div>
+          </div>
+        </div>
+        <p class="find">Workers are verified and courses confirmed before November; placement results then update the next season's settings.</p>
       </div>
-      <div class="two blk">
-        <div class="figs"><div class="f"><div class="v num">0.392%</div><p style="max-width:44ch">of national tourism employment. The four pilot districts are a starting scope, not a limit: the method is the contribution.</p></div></div>
-        <p class="aside"><b>Why it can actually be run.</b> Every institution in the six-phase cycle already exists and publishes. DOSM refreshes the indicators quarterly, the state planning unit sets the parameters, HRD Corp and MOTAC confirm the courses. Placement is measured after the window closes and fed back into the next season's parameters, so the model improves on observed outcomes rather than on assumptions.</p>
+
+      <div class="blk">
+        <p class="ctitle">Why it can be run</p>
+        <div class="whys">
+          <div><b>Existing institutions</b><p>DOSM, the State EPU, HRD Corp and MOTAC already do each step.</p></div>
+          <div><b>Existing data</b><p>Open official statistics, refreshed every quarter. No new survey.</p></div>
+          <div><b>Learns each year</b><p>Placement results replace assumptions in the next season's settings.</p></div>
+          <div><b>Can expand</b><p>The pilot districts hold 0.392% of national tourism jobs. The method works for any district DOSM measures and METMalaysia dates.</p></div>
+        </div>
       </div>
-      <div class="two blk">
-        <div class="sdgrow"><span class="sdg s8"><span><small>SDG</small>8</span></span><div><h3>Decent work and economic growth</h3><p>Decent work protected through a predictable, annually recurring interruption, with the cost stated rather than assumed and the break-even published rather than promised.</p></div></div>
-        <div class="sdgrow"><span class="sdg s14"><span><small>SDG</small>14</span></span><div><h3>Life below water, and we did not expect this one</h3><p>Do not push displaced labour into fisheries when fleets are already under stress: economically ineffective, environmentally unhelpful, and the model refuses it.</p></div></div>
+
+      <div class="blk">
+        <p class="ctitle">Which Sustainable Development Goals does it support?</p>
+        <div class="two" style="margin-top:14px">
+          <div class="sdgrow"><span class="sdg s8"><span><small>SDG</small>8</span></span><div><h3>Decent work and economic growth</h3><p>Protects workers through a predictable yearly interruption, with the cost stated and the placement rate needed to offset it published.</p></div></div>
+          <div class="sdgrow"><span class="sdg s14"><span><small>SDG</small>14</span></span><div><h3>Life below water</h3><p>Avoids pushing displaced workers into fishing when east-coast landings already fall during the monsoon.</p></div></div>
+        </div>
       </div>
-      <p class="say blk">The only new thing is the instrument that joins them: an eight-page Power BI file that opens with no database, no API key and no internet connection.</p>
+
+      <details class="more"><summary>Technical outputs of each phase</summary>
+        <p>1 Quarterly data refresh: TAI and evidence ledger. 2 Exposure estimate: Monsoon Share and worker-month exposure (WME). 3 Verification: eligible cohort. 4 Confirmation: approved pathways. 5 Training and placement: worker-months covered. 6 Measurement: next season's parameters.</p>
+        <p>The only new element is the instrument that joins these steps: an eight-page Power BI file that opens with no database, no API key and no internet connection.</p>
+      </details>
     </div>
   </div>
 </section>
