@@ -735,6 +735,25 @@ dl.covd{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:16px 0 
 @media (max-width:760px){.kf{grid-template-columns:1fr;gap:24px}.costkey{grid-template-columns:1fr}.costbar span{font-size:.78rem}.be2 .r,.be2 .ax{grid-template-columns:120px 1fr 52px}.covd dd{font-size:1.25rem}.cov span{font-size:.82rem}}
 
 @media (max-width:760px){table.t.dist{min-width:0}.t.dist th:nth-child(2),.t.dist td:nth-child(2),.t.dist th:nth-child(4),.t.dist td:nth-child(4){display:none}.t.dist .pri{width:40px;margin-right:6px}}
+
+/* 07 v3 */
+.ctitle.big{font-size:1.6rem}
+dl.glance{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin:14px 0 0;border-top:2px solid var(--ink)}
+.glance>div{padding:16px 18px 0 0}
+.glance>div+div{padding-left:18px;border-left:1px solid var(--rule)}
+.glance dt{font-size:.88rem;font-weight:600;color:var(--ink3);display:flex;flex-direction:column;gap:4px}
+.glance dt .g{font-size:.74rem}
+.glance dd{margin:8px 0 0;font-family:var(--disp);font-stretch:80%;font-weight:800;font-size:clamp(1.8rem,3vw,2.4rem);line-height:1;color:var(--ink);white-space:nowrap}
+.glance p{font-size:.86rem;color:var(--ink2);margin-top:6px}
+.be2.wide{position:relative;margin-top:30px}
+.be2.wide .r,.be2.wide .ax{grid-template-columns:220px 1fr 70px}
+.be2.wide .t{height:30px}
+.be2.wide .r{padding:10px 0}
+.be2.wide .r b{font-family:var(--disp);font-stretch:80%;font-size:1.4rem}
+.be2 .ref{position:absolute;top:-24px;bottom:22px;left:calc(232px + (100% - 232px - 82px) * .667);border-left:2px dashed var(--ink);pointer-events:none;z-index:1}
+.be2 .ref span{position:absolute;top:0;left:8px;font-size:.82rem;font-weight:700;white-space:nowrap}
+@media (max-width:1080px){dl.glance{grid-template-columns:1fr 1fr}.glance>div:nth-child(3){padding-left:0;border-left:0}.glance>div:nth-child(n+3){padding-top:18px}}
+@media (max-width:760px){.be2.wide .r,.be2.wide .ax{grid-template-columns:120px 1fr 56px}.be2 .ref{left:calc(132px + (100% - 132px - 66px) * .667)}.be2.wide .r b{font-size:1.1rem}}
 </style>
 </head>
 <body>
@@ -1211,18 +1230,24 @@ dl.covd{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:16px 0 
 <!-- 07 Finding 2 -->
 <section class="chap" id="finding2">
   <div class="wrap">
-    <div class="cn">07<small>Finding 2: cost and payback</small></div>
+    <div class="cn">07<small>Finding 2: cost</small></div>
     <div class="col">
-      <h2>What it would cost to support exposed workers</h2>
-      <p class="lede">Up to RM 315.5M of household income is exposed. At the default settings, covering one worker-month costs RM 887, and the programme pays for itself once about a third of participants are placed.</p>
+      <h2>What would it cost to support workers through the monsoon?</h2>
+      <p class="lede">The default scenario supports 2,741 workers for three months at an estimated cost of RM 7.30M.</p>
 
-      <div class="kf blk">
-        <div><span class="g mod">Modelled</span><div class="v num">RM 315.5M</div><p>Household income exposed. An upper bound: it assumes one worker per household.</p></div>
-        <div><span class="g scn">Scenario</span><div class="v num b">RM 887</div><p>Cost to cover one worker-month at the default settings.</p></div>
+      <div class="blk">
+        <p class="ctitle">The default scenario at a glance</p>
+        <dl class="glance">
+          <div><dt>Household income exposure <span class="g mod">Modelled</span></dt><dd>RM 315.5M</dd><p>Assumes one tourism-linked worker per household</p></div>
+          <div><dt>Participants <span class="g scn">Scenario</span></dt><dd>2,741</dd><p>20% of 13,703 workers</p></div>
+          <div><dt>Programme cost <span class="g scn">Scenario</span></dt><dd>RM 7.30M</dd><p>Three months per participant</p></div>
+          <div><dt>Worker-months covered <span class="g scn">Scenario</span></dt><dd>8,223</dd><p>About 16% of 52,655</p></div>
+        </dl>
+        <p class="note" style="font-size:.95rem;color:var(--ink2)">20% of workers participate; their three-month programme covers about 16% of total exposed worker-months. The first figure counts people, the second counts months.</p>
       </div>
 
       <div class="blk" data-viz>
-        <p class="ctitle">Where does RM 887 come from?</p>
+        <p class="ctitle big">Where does RM 887 come from?</p>
         <p class="csub">Cost per participant at the default settings: one training month and two support months at RM 1,100 a month</p>
         <div class="costbar">
           <span style="width:41.3%;background:var(--ink)">RM 1,100</span>
@@ -1238,30 +1263,18 @@ dl.covd{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:16px 0 
         <p class="find">Each participant costs RM 2,662 for three months of cover, which is RM 887 per worker-month.</p>
       </div>
 
-      <div class="two blk top">
-        <div data-viz>
-          <p class="ctitle">How much does the default programme cover?</p>
-          <p class="csub">Worker-months covered out of all exposed worker-months, at 20% participation</p>
-          <div class="cov"><i style="--w:15.6%"></i><span>8,223 of 52,655</span></div>
-          <dl class="covd">
-            <div><dt>Participants</dt><dd>2,741</dd></div>
-            <div><dt>Programme cost</dt><dd>RM 7.30M</dd></div>
-            <div><dt>Worker-months covered</dt><dd>8,223</dd></div>
-          </dl>
-          <p class="find">At 20% participation, the programme covers about 16% of exposed worker-months for RM 7.30M.</p>
+      <div class="blk" data-viz>
+        <p class="ctitle big">What placement rate would offset programme costs?</p>
+        <p class="csub">Share of participants who must be placed, earning their destination group's median wage for three months, for modelled earnings to equal programme costs</p>
+        <div class="be2 wide">
+          <div class="ref" style="--x:66.7%"><span>One-third</span></div>
+          <div class="r"><span>Clerical support<small>median wage RM 2,931 a month</small></span><div class="t"><i style="--w:60.6%"></i></div><b>30.3%</b></div>
+          <div class="r"><span>Services and sales<small>median wage RM 2,561 a month</small></span><div class="t"><i style="--w:69.2%"></i></div><b>34.6%</b></div>
+          <div class="r"><span>Craft and trades<small>median wage RM 2,510 a month</small></span><div class="t"><i style="--w:70.8%"></i></div><b>35.4%</b></div>
+          <div class="ax"><span></span><div class="tk"><i style="left:0">0%</i><i style="left:20%">10%</i><i style="left:40%">20%</i><i style="left:60%">30%</i><i style="left:80%">40%</i><i style="left:100%">50%</i></div><span></span></div>
         </div>
-        <div data-viz>
-          <p class="ctitle">When does it pay for itself?</p>
-          <p class="csub">Share of participants who must be placed for wages earned to match the programme cost, by destination job group</p>
-          <div class="be2">
-            <div class="r"><span>Clerical support<small>median wage RM 2,931</small></span><div class="t"><i style="--w:60.6%"></i></div><b>30.3%</b></div>
-            <div class="r"><span>Services and sales<small>median wage RM 2,561</small></span><div class="t"><i style="--w:69.2%"></i></div><b>34.6%</b></div>
-            <div class="r"><span>Craft and trades<small>median wage RM 2,510</small></span><div class="t"><i style="--w:70.8%"></i></div><b>35.4%</b></div>
-            <div class="ax"><span></span><div class="tk"><i style="left:0">0%</i><i style="left:50%">25%</i><i style="left:100%">50%</i></div><span></span></div>
-          </div>
-          <p class="find">If 30–35% of participants are placed at their destination's median wage, the programme breaks even.</p>
-          <p class="note">Arithmetic, not a measured return: placement duration and the wage workers would otherwise earn are not observed. <span class="g mod">Modelled</span></p>
-        </div>
+        <p class="find">Under the assumed wages and employment duration, modelled participant earnings equal programme costs at roughly one-third placement.</p>
+        <p class="note">Arithmetic, not a measured return. Participant earnings are not a return to government budgets, and placement duration and the wage workers would otherwise earn are not observed. <span class="g mod">Modelled</span></p>
       </div>
 
       <div class="blk">
@@ -1281,6 +1294,7 @@ dl.covd{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:16px 0 
 
       <details class="more"><summary>How the default scenario is set</summary>
         <p>Default settings: 20% participation, 1 training month, 2 support months, RM 1,100 a month, stipend at 60% of the training rate, administration at 10%. 2,741 participants × RM 2,662 = RM 7.30M. Paying the full unit rate on all three months would give RM 9.05M; we show the factor so the headline reconciles.</p>
+        <p>Placement rate to offset costs = cost per worker-month ÷ median monthly wage of the destination group, which assumes a placed participant earns that wage for three months.</p>
         <p>All of these are graded Scenario: move a slicer on dashboard page 04 and every figure on this page moves with it. The four districts employ 210,200 people in total.</p>
       </details>
     </div>
