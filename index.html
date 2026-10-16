@@ -836,6 +836,17 @@ details.more .tw{max-width:none}
 .sref{display:inline-block;margin-top:10px;font-size:.88rem;font-weight:700;color:var(--sea);text-decoration:none}
 .sref::after{content:" ↓"}
 .sref:hover{text-decoration:underline}
+
+.dnum{display:block;font-family:var(--disp);font-stretch:62%;font-weight:300;font-size:5rem;line-height:.9;color:var(--gold);margin-bottom:10px}
+.gapline a{font-weight:700;color:var(--sea);white-space:nowrap;margin-left:6px}
+.gapline a::after{content:" ↓"}
+@media (max-width:760px){.gapline a{white-space:normal;display:inline;margin-left:0}}
+
+/* 01 calendar: window runs about 9 Nov to 22 Mar */
+.cal .grid i.c.cs{background:linear-gradient(90deg,#E3E9EE 0 27%,var(--storm) 27%);border-top:0}
+.cal .grid i.ce{background:linear-gradient(90deg,var(--storm) 0 70%,#E3E9EE 70%)}
+.cal .lc{left:calc((100% + 4px)/12*5 + (100% + 4px)/12*.27);width:calc((100% + 4px)/12*4.43 - 4px);font-size:1.1rem}
+@media (max-width:760px){.cal .lc{font-size:.72rem}}
 </style>
 </head>
 <body>
@@ -906,11 +917,11 @@ details.more .tw{max-width:none}
   <div class="wrap">
     <div class="cn">01<small>The problem</small></div>
     <div class="col">
-      <h2>Everyone knows the date. No one has a plan.</h2>
+      <h2>The closure date is known. The support plan isn't.</h2>
       <div class="cal" data-viz>
         <div class="pin">Closure season<br>known in advance</div>
-        <div class="grid"><i></i><i class="p"></i><i class="p"></i><i class="p"></i><i class="p"></i><i class="c"></i><i class="c"></i><i class="c"></i><i class="c"></i><i></i><i></i><i></i></div>
-        <div class="lp">Time to prepare</div><div class="lc">Islands and jetties closed</div>
+        <div class="grid"><i></i><i class="p"></i><i class="p"></i><i class="p"></i><i class="p"></i><i class="c cs"></i><i class="c"></i><i class="c"></i><i class="c"></i><i class="ce"></i><i></i><i></i></div>
+        <div class="lp">Time to prepare</div><div class="lc">Islands and jetties closed, about 9 Nov to 22 Mar</div>
         <div class="mo"><span>Jun</span><span>Jul</span><span>Aug</span><span>Sep</span><span>Oct</span><span>Nov</span><span>Dec</span><span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>May</span></div>
         <p class="note">Illustrative timeline for east-coast island destinations. Closure dates vary by island and year.</p>
       </div>
@@ -920,7 +931,7 @@ details.more .tw{max-width:none}
         <div class="r"><span class="who">Homestay owners</span><span class="ch">Guests stop, costs don't</span><span class="ar">→</span><span class="td">Close, or run at a loss</span><span class="ar">→</span><span class="ct">Idle capital, lost staff</span></div>
         <div class="r"><span class="who">District planners</span><span class="ch">No list of who is affected</span><span class="ar">→</span><span class="td">Reactive support after disruption begins</span><span class="ar">→</span><span class="ct">Late and unbudgeted</span></div>
       </div>
-      <div class="gapline"><b>Data gap</b><span>National aggregates can mask local seasonal disruption.</span></div>
+      <div class="gapline"><b>Data gap</b><span>National aggregates can mask local seasonal disruption. <a href="#dashboard" data-dpage="1">See it on dashboard page 01, Monsoon Clock</a></span></div>
       <p class="say blk">Monsun Bridge helps districts plan livelihood support before seasonal closures.</p>
     </div>
   </div>
@@ -1210,11 +1221,40 @@ details.more .tw{max-width:none}
   <div class="wrap">
     <div class="cn">06<small>Finding 1: fishing during the monsoon</small></div>
     <div class="col">
-      <h2>Fishing is not a safe fallback during the monsoon</h2>
+      <h2>When and where does fishing slow down?</h2>
+      <p class="lede">Could fishing provide work while tourism stops? We first look at monthly fish landings by coast and by state.</p>
+      <div class="two blk top">
+        <div data-viz>
+          <p class="ctitle">When does fishing slow down?</p>
+          <p class="csub">Each month's landings compared with that coast's average month, 2018–2023. 1.0 = an average month; shaded = November to March.</p>
+          <svg class="chart" viewBox="0 0 600 320" role="img" aria-label="Seasonal landings profile by coast: east coast falls to about 0.5 in December and January; west coast stays between 0.94 and 1.07"><rect x="211.6" y="14" width="250.9" height="278" fill="rgba(207,59,44,.07)"/><line x1="36" x2="588" y1="292.0" y2="292.0" stroke="rgba(13,34,54,0.09)"/><text x="28" y="296.0" text-anchor="end">0.4</text><line x1="36" x2="588" y1="236.4" y2="236.4" stroke="rgba(13,34,54,0.09)"/><text x="28" y="240.4" text-anchor="end">0.6</text><line x1="36" x2="588" y1="180.8" y2="180.8" stroke="rgba(13,34,54,0.09)"/><text x="28" y="184.8" text-anchor="end">0.8</text><line x1="36" x2="588" y1="125.2" y2="125.2" stroke="rgba(13,34,54,0.35)" stroke-dasharray="4 4"/><text x="28" y="129.2" text-anchor="end">1.0</text><line x1="36" x2="588" y1="69.6" y2="69.6" stroke="rgba(13,34,54,0.09)"/><text x="28" y="73.6" text-anchor="end">1.2</text><line x1="36" x2="588" y1="14.0" y2="14.0" stroke="rgba(13,34,54,0.09)"/><text x="28" y="18.0" text-anchor="end">1.4</text><text x="36.0" y="312" text-anchor="middle">Jul</text><text x="86.2" y="312" text-anchor="middle">Aug</text><text x="136.4" y="312" text-anchor="middle">Sep</text><text x="186.5" y="312" text-anchor="middle">Oct</text><text x="236.7" y="312" text-anchor="middle">Nov</text><text x="286.9" y="312" text-anchor="middle">Dec</text><text x="337.1" y="312" text-anchor="middle">Jan</text><text x="387.3" y="312" text-anchor="middle">Feb</text><text x="437.5" y="312" text-anchor="middle">Mar</text><text x="487.6" y="312" text-anchor="middle">Apr</text><text x="537.8" y="312" text-anchor="middle">May</text><text x="588.0" y="312" text-anchor="middle">Jun</text><polyline class="ln" points="36.0,93.0 86.2,97.4 136.4,127.1 186.5,135.5 236.7,149.1 286.9,178.3 337.1,192.8 387.3,179.1 437.5,87.4 487.6,79.3 537.8,82.4 588.0,101.3" stroke="#9AA6B6"/><polyline class="ln" points="36.0,106.6 86.2,111.6 136.4,118.5 186.5,111.0 236.7,109.1 286.9,137.7 337.1,142.4 387.3,133.8 437.5,138.3 487.6,138.5 537.8,137.2 588.0,117.7" stroke="#1F6FB2"/><polyline class="ln" points="36.0,86.8 86.2,72.7 136.4,40.7 186.5,41.0 236.7,156.9 286.9,261.7 337.1,253.9 387.3,208.3 437.5,129.4 487.6,71.8 537.8,89.3 588.0,90.2" stroke="#CF3B2C"/><text class="anno" x="312.0" y="283.7" text-anchor="middle">about half an average month</text></svg>
+          <div class="key"><span><i style="background:var(--storm)"></i>East coast</span><span><i style="background:var(--sea)"></i>West coast (control)</span><span><i style="background:#9AA6B6"></i>Sabah, Sarawak, Labuan</span></div>
+          <p class="find">East-coast landings fall to about half an average month in December and January, while the west coast stays between 0.94 and 1.07.</p>
+          <p class="note"><span class="g obs">Observed</span></p>
+        </div>
+        <div>
+          <p class="ctitle">Which states are affected?</p>
+          <p class="csub">Monsoon-month landings as a share of non-monsoon months</p>
+          <div class="mapcard"><img src="img/deck/retention-map.png" width="1100" height="1060" loading="lazy" alt="Map of Peninsular Malaysia: east-coast states keep 56–68% of non-monsoon landings during monsoon months; sheltered states keep 87–105%"></div>
+          <p class="find">Kelantan, Terengganu and Pahang keep 56–68% of non-monsoon landings; sheltered states keep 87–105%.</p>
+          <p class="note">Boundaries: DOSM. <span class="g obs">Observed</span></p>
+        </div>
+      </div>
+      <p class="say blk">Fishing slows in the same months that tourism stops. Next, we check whether the drop is real or could be chance.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 06b -->
+<section class="chap" id="finding1b">
+  <div class="wrap">
+    <div class="cn">06b<small>Finding 1: testing the drop</small></div>
+    <div class="col">
+      <h2>Is the drop real?</h2>
       <p class="lede">We compared fish landings on the east coast with the sheltered west coast, which has the same economy and fleet rules but no monsoon closure. Ten states, twelve months, five seasons.</p>
 
       <div class="blk">
-        <p class="ctitle">How much fishing continues during the monsoon?</p>
+        <p class="ctitle">How large is the east–west gap?</p>
         <p class="csub">Fish landings in monsoon months as a share of the rest of the year, average of five seasons. 1.0 means no drop.</p>
         <div class="db" data-viz style="--a:27.8%;--b:95.4%;--m:61.6%;--wd:67.6%">
           <div class="axis">
@@ -1279,35 +1319,11 @@ details.more .tw{max-width:none}
           <div><h3>Good for workers and for fish stocks</h3><p>Marine fisheries slow down in the same months, so they cannot absorb tourism workers. Pushing more labour into stressed fleets would be ineffective for workers (SDG 8) and unhelpful for marine life (SDG 14).</p></div>
         </div>
       </div>
+      <p class="say blk">Fishing is not a safe fallback during the monsoon, so fishing-related pathways receive zero allocation.</p>
     </div>
   </div>
 </section>
 
-<!-- 06b -->
-<section class="chap" id="finding1b">
-  <div class="wrap">
-    <div class="cn">06b<small>Finding 1 in time and in space</small></div>
-    <div class="col">
-      <h2>Fishing also slows during the tourism off-season.</h2>
-      <p class="lede">Could fishing provide work during the tourism off-season? The landings say no.</p>
-      <div class="two blk">
-        <div data-viz>
-          <p class="lab">When: seasonal profile by coast, 2018–2023</p>
-          <p class="note" style="margin-top:4px">Each month's landings ÷ that coast's mean month in the same year, averaged over six years. 1.0 = an average month. Shaded = November to March.</p>
-          <svg class="chart" viewBox="0 0 600 320" role="img" aria-label="Seasonal landings profile by coast: east coast falls to about 0.5 in December and January; west coast stays between 0.94 and 1.07"><rect x="211.6" y="14" width="250.9" height="278" fill="rgba(207,59,44,.07)"/><line x1="36" x2="588" y1="292.0" y2="292.0" stroke="rgba(13,34,54,0.09)"/><text x="28" y="296.0" text-anchor="end">0.4</text><line x1="36" x2="588" y1="236.4" y2="236.4" stroke="rgba(13,34,54,0.09)"/><text x="28" y="240.4" text-anchor="end">0.6</text><line x1="36" x2="588" y1="180.8" y2="180.8" stroke="rgba(13,34,54,0.09)"/><text x="28" y="184.8" text-anchor="end">0.8</text><line x1="36" x2="588" y1="125.2" y2="125.2" stroke="rgba(13,34,54,0.35)" stroke-dasharray="4 4"/><text x="28" y="129.2" text-anchor="end">1.0</text><line x1="36" x2="588" y1="69.6" y2="69.6" stroke="rgba(13,34,54,0.09)"/><text x="28" y="73.6" text-anchor="end">1.2</text><line x1="36" x2="588" y1="14.0" y2="14.0" stroke="rgba(13,34,54,0.09)"/><text x="28" y="18.0" text-anchor="end">1.4</text><text x="36.0" y="312" text-anchor="middle">Jul</text><text x="86.2" y="312" text-anchor="middle">Aug</text><text x="136.4" y="312" text-anchor="middle">Sep</text><text x="186.5" y="312" text-anchor="middle">Oct</text><text x="236.7" y="312" text-anchor="middle">Nov</text><text x="286.9" y="312" text-anchor="middle">Dec</text><text x="337.1" y="312" text-anchor="middle">Jan</text><text x="387.3" y="312" text-anchor="middle">Feb</text><text x="437.5" y="312" text-anchor="middle">Mar</text><text x="487.6" y="312" text-anchor="middle">Apr</text><text x="537.8" y="312" text-anchor="middle">May</text><text x="588.0" y="312" text-anchor="middle">Jun</text><polyline class="ln" points="36.0,93.0 86.2,97.4 136.4,127.1 186.5,135.5 236.7,149.1 286.9,178.3 337.1,192.8 387.3,179.1 437.5,87.4 487.6,79.3 537.8,82.4 588.0,101.3" stroke="#9AA6B6"/><polyline class="ln" points="36.0,106.6 86.2,111.6 136.4,118.5 186.5,111.0 236.7,109.1 286.9,137.7 337.1,142.4 387.3,133.8 437.5,138.3 487.6,138.5 537.8,137.2 588.0,117.7" stroke="#1F6FB2"/><polyline class="ln" points="36.0,86.8 86.2,72.7 136.4,40.7 186.5,41.0 236.7,156.9 286.9,261.7 337.1,253.9 387.3,208.3 437.5,129.4 487.6,71.8 537.8,89.3 588.0,90.2" stroke="#CF3B2C"/><text class="anno" x="312.0" y="283.7" text-anchor="middle">about half an average month</text></svg>
-          <div class="key"><span><i style="background:var(--storm)"></i>East coast</span><span><i style="background:var(--sea)"></i>West coast (control)</span><span><i style="background:#9AA6B6"></i>Sabah, Sarawak, Labuan</span></div>
-          <p class="note"><b style="color:var(--storm)">December to January:</b> east-coast landings fall to about half an average month. The west coast never leaves 0.94–1.07. <span class="g obs">Observed</span></p>
-        </div>
-        <div>
-          <p class="lab">Where: monsoon-month landings as a share of non-monsoon</p>
-          <div class="mapcard" style="margin-top:12px"><img src="img/deck/retention-map.png" width="1100" height="1060" loading="lazy" alt="Map of Peninsular Malaysia: east-coast states keep 56–68% of non-monsoon landings during monsoon months; sheltered states keep 87–105%"></div>
-          <p class="note">Kelantan, Terengganu and Pahang keep 56–68% of non-monsoon levels; sheltered states keep 87–105%. Boundaries: DOSM. <span class="g obs">Observed</span></p>
-        </div>
-      </div>
-      <p class="say blk">Alternative livelihoods must stay viable during the monsoon, not simply use similar skills. That is the test the Skill Bridge applies.</p>
-    </div>
-  </div>
-</section>
 
 <!-- 07 Finding 2 -->
 <section class="chap" id="finding2">
@@ -1440,7 +1456,7 @@ details.more .tw{max-width:none}
 <!-- Live dashboard (markup kept from the original site) -->
 <section id="dashboard" class="dash">
   <div class="wrap">
-    <div class="lamp rv"><span class="eyebrow">The product · live</span><h2>Eight pages. One argument. Yours to drive.</h2><p>The full dashboard, running in your browser with the same tables and the same formulas as the Power BI file. Change a slicer, click a bar or a table row, switch pages along the bottom: every number recalculates.</p></div>
+    <div class="lamp rv"><span class="dnum">09</span><span class="eyebrow">The live dashboard</span><h2>Eight pages. One argument. Yours to drive.</h2><p>The full dashboard, running in your browser with the same tables and the same formulas as the Power BI file. Change a slicer, click a bar or a table row, switch pages along the bottom: every number recalculates.</p></div>
     <div class="device rv">
       <div class="dbar"><i></i><i></i><i></i><span id="dname">MonsunBridge · live dashboard</span><a class="dfull" href="dashboard.html" target="_blank" rel="noopener">⤢ Open full screen</a></div>
       <div class="screen live" id="screen"><iframe id="pbi" title="Monsun Bridge interactive dashboard" loading="lazy" data-src="dashboard.html?embed=1"></iframe><div class="pbload" id="pbload"><span></span>Loading the dashboard…</div></div>
@@ -1449,7 +1465,7 @@ details.more .tw{max-width:none}
     <div class="pguide" id="pguide" aria-label="What each page answers"></div>
     <div class="dnotes">
       <div class="glass"><b>Every figure carries its grade</b>The same four colours run across all eight pages, so a reader sees which numbers were observed and which were set.</div>
-      <div class="glass"><b>Move something</b>Page 04 exposes every planning parameter as a slicer. Reject the defaults and the cost, coverage and break-even all move with your values.</div>
+      <div class="glass"><b>Move something</b>Page 04 exposes every planning parameter as a slicer. Reject the defaults and the cost, coverage and the placement rate needed to offset costs all move with your values.</div>
       <div class="glass"><b>Page 06 exists to attack the analysis</b>Tests that fail are reported beside the ones that pass, and the sensitivity panel shows exactly which settings move a recommendation.</div>
     </div>
   </div>
@@ -1697,6 +1713,11 @@ details.more .tw{max-width:none}
   if('IntersectionObserver' in window){var dio=new IntersectionObserver(function(es){if(es[0].isIntersecting&&!pbi.getAttribute('src')){pbi.src=pbi.dataset.src;dio.disconnect()}},{rootMargin:'800px'});dio.observe(pbi)}else{pbi.src=pbi.dataset.src}
   pages.forEach(function(p,i){var d=document.createElement('button');d.type='button';d.className='pg';d.innerHTML='<b><em>'+p[0]+'</em>'+p[1]+'</b><span>'+p[2]+'</span>';
     d.addEventListener('click',function(){var u='dashboard.html?embed=1#page'+i;if(pbi.contentWindow&&pbi.contentWindow.MB){pbi.contentWindow.MB.go(i)}else{pbi.src=u}$('screen').scrollIntoView({behavior:'smooth',block:'center'})});pg.appendChild(d)});
+
+  /* links that open a given dashboard page */
+  Array.prototype.forEach.call(document.querySelectorAll('[data-dpage]'),function(a){a.addEventListener('click',function(e){e.preventDefault();var i=+a.getAttribute('data-dpage');
+    if(pbi.contentWindow&&pbi.contentWindow.MB){pbi.contentWindow.MB.go(i)}else{pbi.src='dashboard.html?embed=1#page'+i}
+    $('screen').scrollIntoView({behavior:'smooth',block:'center'})})});
 
   /* ── roadmap: tracing beam ── */
   var trace=$('trace'),beam=$('beam'),stages=$('stages'),dots=[];
