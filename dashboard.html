@@ -505,7 +505,7 @@ PAGES.forEach(function(p,i){var b=el('button','tab');b.type='button';b.setAttrib
   b.addEventListener('click',function(){go(i)});tabs.appendChild(b)});
 function go(i){cur=(i+PAGES.length)%PAGES.length;Array.prototype.forEach.call(tabs.children,function(t,k){t.setAttribute('aria-selected',k===cur?'true':'false')});
   buildPage(cur);fit();var pn=document.getElementById('pgname');if(pn)pn.textContent='Click, filter, change pages · same formulas as the .pbix';try{history.replaceState(null,'','#page'+cur)}catch(e){}
-  var t=tabs.children[cur];if(t&&t.scrollIntoView)t.scrollIntoView({block:'nearest',inline:'nearest'});stage.scrollTop=0}
+  var t=tabs.children[cur];if(t){var r=t.getBoundingClientRect(),q=tabs.getBoundingClientRect();if(r.left<q.left)tabs.scrollLeft-=q.left-r.left;else if(r.right>q.right)tabs.scrollLeft+=r.right-q.right}stage.scrollTop=0}
 document.getElementById('zoombtn').addEventListener('click',function(){zoomed=!zoomed;fit()});
 document.getElementById('reset').addEventListener('click',function(){var p=PAGES[cur];defaults(p);buildPage(cur);fit()});
 document.addEventListener('keydown',function(e){if(e.target.tagName==='SELECT')return;if(e.key==='ArrowRight')go(cur+1);if(e.key==='ArrowLeft')go(cur-1)});

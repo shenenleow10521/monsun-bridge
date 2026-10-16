@@ -2084,6 +2084,7 @@ main,.marq2,footer{position:relative}
       '<button type="button" class="slbtn nextbtn"><svg class="ring" viewBox="0 0 52 52" aria-hidden="true"><circle class="tr" cx="26" cy="26" r="24"/><circle class="pr" cx="26" cy="26" r="24"/></svg>'+chev+'</button>';
     document.body.appendChild(nav);
     var nb=nav.querySelector('.nextbtn'),pb=nav.querySelector('.prevbtn'),pr=nb.querySelector('.pr'),ntip=nb.querySelector('.tip'),ptip=pb.querySelector('.tip'),C=2*Math.PI*24,PAD=72;
+    var padOf=function(){var v=parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop);return isFinite(v)?v:72};PAD=padOf();window.addEventListener('resize',function(){PAD=padOf()});
     var label=function(s){
       var cn=s.querySelector('.cn,.dnum');
       if(cn&&s.classList.contains('dash'))return ['09','The live dashboard'];
