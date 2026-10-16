@@ -690,6 +690,51 @@ table.heat{min-width:720px;table-layout:fixed}
 @media (max-width:760px){.fp .r,.fp .ax{grid-template-columns:110px 1fr 62px;gap:8px}.fp .nm{font-size:.85rem}}
 
 @media (max-width:760px){table.t.tests{min-width:0!important}.t.tests th:nth-child(2),.t.tests td:nth-child(2){display:none}}
+
+/* 07 v2: cost and payback */
+.kf{display:grid;grid-template-columns:1fr 1fr;gap:40px}
+.kf>div{border-top:2px solid var(--ink);padding-top:16px}
+.kf .v{font-size:clamp(3rem,6vw,5rem);line-height:1;margin-top:8px;color:var(--ink)}
+.kf .v.b{color:var(--sea)}
+.kf p{color:var(--ink2);margin-top:10px;max-width:40ch}
+.costbar{display:flex;height:54px;margin-top:6px;overflow:hidden}
+.costbar span{display:grid;place-items:center;color:#fff;font-weight:700;font-size:1rem;white-space:nowrap;transform-origin:left;transform:scaleX(0);transition:transform .7s cubic-bezier(.2,.75,.15,1)}
+.in .costbar span{transform:none}
+.in .costbar span:nth-child(2){transition-delay:.2s}.in .costbar span:nth-child(3){transition-delay:.4s}
+.costkey{display:grid;grid-template-columns:1fr 1fr 1fr 1.6fr;gap:18px;margin-top:14px;align-items:start}
+.costkey>div{font-size:.92rem}
+.costkey i{display:inline-block;width:12px;height:12px;margin-right:8px;vertical-align:-1px}
+.costkey b{font-weight:700}
+.costkey span{display:block;color:var(--ink3);font-size:.85rem;margin-top:2px;margin-left:20px}
+.costkey .eqs{display:grid;grid-template-columns:auto 1fr;gap:2px 10px;align-items:baseline;border-left:2px solid var(--ink);padding-left:16px}
+.costkey .eqs b{font-family:var(--disp);font-stretch:80%;font-size:1.25rem;font-variant-numeric:tabular-nums;text-align:right}
+.costkey .eqs b.b{color:var(--sea);font-size:1.5rem}
+.costkey .eqs span{margin:0;font-size:.88rem}
+.cov{position:relative;height:42px;background:#E3E9EE;margin-top:6px}
+.cov i{position:absolute;left:0;top:0;bottom:0;width:0;background:var(--sea);transition:width 1.2s cubic-bezier(.2,.75,.15,1)}
+.in .cov i{width:var(--w)}
+.cov span{position:absolute;left:calc(15.6% + 12px);top:50%;transform:translateY(-50%);font-weight:700;font-size:.95rem}
+dl.covd{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:16px 0 0}
+.covd dt{font-size:.84rem;color:var(--ink3);font-weight:600}
+.covd dd{margin:2px 0 0;font-family:var(--disp);font-stretch:80%;font-weight:800;font-size:1.6rem}
+.be2 .r{display:grid;grid-template-columns:170px 1fr 60px;gap:12px;align-items:center;padding:8px 0}
+.be2 .r span{font-weight:600;font-size:.95rem;line-height:1.2}
+.be2 .r small{display:block;font-weight:400;font-size:.8rem;color:var(--ink3);margin-top:2px}
+.be2 .t{position:relative;height:22px;background:#E3E9EE}
+.be2 .t i{position:absolute;left:0;top:0;bottom:0;width:0;background:var(--obs);transition:width 1.2s cubic-bezier(.2,.75,.15,1)}
+.in .be2 .t i{width:var(--w)}
+.be2 .r b{text-align:right;font-variant-numeric:tabular-nums}
+.be2 .ax{display:grid;grid-template-columns:170px 1fr 60px;gap:12px}
+.be2 .tk{position:relative;height:20px;font-size:.76rem;color:var(--ink3)}
+.be2 .tk i{position:absolute;top:4px;transform:translateX(-50%);font-style:normal}
+.pri{display:inline-block;width:70px;height:8px;background:#E3E9EE;margin-right:10px;vertical-align:middle;position:relative}
+.pri i{position:absolute;left:0;top:0;bottom:0;width:var(--w);background:var(--goldd)}
+.t tr.first td{background:rgba(226,163,42,.10)}
+.t tr.first td:first-child{box-shadow:inset 4px 0 0 var(--gold);padding-left:12px}
+@media (max-width:1080px){.costkey{grid-template-columns:1fr 1fr}.costkey .eqs{grid-column:1/-1}}
+@media (max-width:760px){.kf{grid-template-columns:1fr;gap:24px}.costkey{grid-template-columns:1fr}.costbar span{font-size:.78rem}.be2 .r,.be2 .ax{grid-template-columns:120px 1fr 52px}.covd dd{font-size:1.25rem}.cov span{font-size:.82rem}}
+
+@media (max-width:760px){table.t.dist{min-width:0}.t.dist th:nth-child(2),.t.dist td:nth-child(2),.t.dist th:nth-child(4),.t.dist td:nth-child(4){display:none}.t.dist .pri{width:40px;margin-right:6px}}
 </style>
 </head>
 <body>
@@ -1166,33 +1211,78 @@ table.heat{min-width:720px;table-layout:fixed}
 <!-- 07 Finding 2 -->
 <section class="chap" id="finding2">
   <div class="wrap">
-    <div class="cn">07<small>Finding 2: exposure, and what it costs to cover</small></div>
+    <div class="cn">07<small>Finding 2: cost and payback</small></div>
     <div class="col">
-      <h2>RM 315.5M at stake. RM 887 to cover a worker-month.</h2>
-      <div class="four figs blk">
-        <div class="f"><span class="g mod">Modelled</span><div class="v num">RM 315.5M</div><p>Household income exposed</p></div>
-        <div class="f"><span class="g mod">Modelled</span><div class="v num" data-tick="13703">13,703</div><p>Workers in the planning cohort</p></div>
-        <div class="f"><span class="g scn">Scenario</span><div class="v num">RM 887</div><p>Cost per worker-month covered</p></div>
-        <div class="f"><span class="g mod">Modelled</span><div class="v num">30–35%</div><p>Placement rate at which the programme breaks even</p></div>
+      <h2>What it would cost to support exposed workers</h2>
+      <p class="lede">Up to RM 315.5M of household income is exposed. At the default settings, covering one worker-month costs RM 887, and the programme pays for itself once about a third of participants are placed.</p>
+
+      <div class="kf blk">
+        <div><span class="g mod">Modelled</span><div class="v num">RM 315.5M</div><p>Household income exposed. An upper bound: it assumes one worker per household.</p></div>
+        <div><span class="g scn">Scenario</span><div class="v num b">RM 887</div><p>Cost to cover one worker-month at the default settings.</p></div>
       </div>
-      <div class="tw blk"><table class="t">
-        <thead><tr><th>District</th><th>State</th><th class="n">Employed</th><th class="n">Tourism-linked</th><th class="n">Worker-months</th><th class="n">Median household income</th><th>Priority index</th></tr></thead>
-        <tbody>
-          <tr><td>Besut</td><td>Terengganu</td><td class="n">61,800</td><td class="n">4,944</td><td class="n">21,603</td><td class="n">RM 5,820</td><td>87.5, higher</td></tr>
-          <tr><td>Marang</td><td>Terengganu</td><td class="n">46,800</td><td class="n">3,276</td><td class="n">12,168</td><td class="n">RM 6,246</td><td>57.6, moderate</td></tr>
-          <tr><td>Rompin</td><td>Pahang</td><td class="n">40,300</td><td class="n">2,418</td><td class="n">9,509</td><td class="n">RM 4,760</td><td>70.0, higher</td></tr>
-          <tr><td>Kuala Nerus</td><td>Terengganu</td><td class="n">61,300</td><td class="n">3,065</td><td class="n">9,375</td><td class="n">RM 7,304</td><td>35.7, lower</td></tr>
-          <tr class="tot"><td>Total</td><td></td><td class="n">210,200</td><td class="n">13,703</td><td class="n">52,655</td><td></td><td></td></tr>
-        </tbody></table></div>
-      <div class="two blk">
-        <div class="scen"><p class="lab">The default scenario</p><p>20% participation, 1 training month, 2 support months, RM 1,100 a month</p><p class="v num">2,741 participants, RM 7.30M</p><p class="v num" style="margin-top:4px">8,223 worker-months at RM 887 each</p><p style="font-size:.88rem;margin-top:12px">All graded Modelled (Scenario). Move a slicer on dashboard page 04 and they move together.</p></div>
-        <div>
-          <p class="lab">The arithmetic</p>
-          <p class="eq">cost per participant = (1 × 1,100 + 2 × 1,100 × 0.60) × 1.10 = <b>RM 2,662</b></p>
-          <p class="note" style="font-size:.95rem;color:var(--ink2)">The stipend sits at 60% of the training rate, administration at 10% of the two. 2,741 × RM 2,662 = RM 7.30M. The full unit rate on all three months would give RM 9.05M; we show the factor so the headline reconciles.</p>
-          <p class="aside violet blk2"><b>An upper bound.</b> RM 315.5M assumes one worker per household. Coverage costs about a third of a month's wage.</p>
+
+      <div class="blk" data-viz>
+        <p class="ctitle">Where does RM 887 come from?</p>
+        <p class="csub">Cost per participant at the default settings: one training month and two support months at RM 1,100 a month</p>
+        <div class="costbar">
+          <span style="width:41.3%;background:var(--ink)">RM 1,100</span>
+          <span style="width:49.6%;background:var(--sea)">RM 1,320</span>
+          <span style="width:9.1%;background:#9AA6B6">242</span>
+        </div>
+        <div class="costkey">
+          <div><i style="background:var(--ink)"></i><b>Training</b><span>1 month × RM 1,100</span></div>
+          <div><i style="background:var(--sea)"></i><b>Support stipend</b><span>2 months × RM 1,100 × 60%</span></div>
+          <div><i style="background:#9AA6B6"></i><b>Administration</b><span>10% of the two</span></div>
+          <div class="eqs"><b>RM 2,662</b><span>per participant</span><b>÷ 3</b><span>worker-months covered</span><b class="b">= RM 887</b><span>per worker-month</span></div>
+        </div>
+        <p class="find">Each participant costs RM 2,662 for three months of cover, which is RM 887 per worker-month.</p>
+      </div>
+
+      <div class="two blk top">
+        <div data-viz>
+          <p class="ctitle">How much does the default programme cover?</p>
+          <p class="csub">Worker-months covered out of all exposed worker-months, at 20% participation</p>
+          <div class="cov"><i style="--w:15.6%"></i><span>8,223 of 52,655</span></div>
+          <dl class="covd">
+            <div><dt>Participants</dt><dd>2,741</dd></div>
+            <div><dt>Programme cost</dt><dd>RM 7.30M</dd></div>
+            <div><dt>Worker-months covered</dt><dd>8,223</dd></div>
+          </dl>
+          <p class="find">At 20% participation, the programme covers about 16% of exposed worker-months for RM 7.30M.</p>
+        </div>
+        <div data-viz>
+          <p class="ctitle">When does it pay for itself?</p>
+          <p class="csub">Share of participants who must be placed for wages earned to match the programme cost, by destination job group</p>
+          <div class="be2">
+            <div class="r"><span>Clerical support<small>median wage RM 2,931</small></span><div class="t"><i style="--w:60.6%"></i></div><b>30.3%</b></div>
+            <div class="r"><span>Services and sales<small>median wage RM 2,561</small></span><div class="t"><i style="--w:69.2%"></i></div><b>34.6%</b></div>
+            <div class="r"><span>Craft and trades<small>median wage RM 2,510</small></span><div class="t"><i style="--w:70.8%"></i></div><b>35.4%</b></div>
+            <div class="ax"><span></span><div class="tk"><i style="left:0">0%</i><i style="left:50%">25%</i><i style="left:100%">50%</i></div><span></span></div>
+          </div>
+          <p class="find">If 30–35% of participants are placed at their destination's median wage, the programme breaks even.</p>
+          <p class="note">Arithmetic, not a measured return: placement duration and the wage workers would otherwise earn are not observed. <span class="g mod">Modelled</span></p>
         </div>
       </div>
+
+      <div class="blk">
+        <p class="ctitle">Which district should come first?</p>
+        <p class="csub">Exposure and priority by pilot district</p>
+        <div class="tw"><table class="t dist">
+          <thead><tr><th>District</th><th class="n">Tourism-linked workers</th><th class="n">Worker-months</th><th class="n">Median household income</th><th>Priority index</th></tr></thead>
+          <tbody>
+            <tr class="first"><td>Besut</td><td class="n">4,944</td><td class="n">21,603</td><td class="n">RM 5,820</td><td><span class="pri"><i style="--w:87.5%"></i></span><b>87.5</b> higher</td></tr>
+            <tr><td>Rompin</td><td class="n">2,418</td><td class="n">9,509</td><td class="n">RM 4,760</td><td><span class="pri"><i style="--w:70%"></i></span><b>70.0</b> higher</td></tr>
+            <tr><td>Marang</td><td class="n">3,276</td><td class="n">12,168</td><td class="n">RM 6,246</td><td><span class="pri"><i style="--w:57.6%"></i></span><b>57.6</b> moderate</td></tr>
+            <tr><td>Kuala Nerus</td><td class="n">3,065</td><td class="n">9,375</td><td class="n">RM 7,304</td><td><span class="pri"><i style="--w:35.7%"></i></span><b>35.7</b> lower</td></tr>
+            <tr class="tot"><td>Total</td><td class="n">13,703</td><td class="n">52,655</td><td></td><td></td></tr>
+          </tbody></table></div>
+        <p class="find">Besut has the most exposure and the highest priority index, so the proposed pilot starts there.</p>
+      </div>
+
+      <details class="more"><summary>How the default scenario is set</summary>
+        <p>Default settings: 20% participation, 1 training month, 2 support months, RM 1,100 a month, stipend at 60% of the training rate, administration at 10%. 2,741 participants × RM 2,662 = RM 7.30M. Paying the full unit rate on all three months would give RM 9.05M; we show the factor so the headline reconciles.</p>
+        <p>All of these are graded Scenario: move a slicer on dashboard page 04 and every figure on this page moves with it. The four districts employ 210,200 people in total.</p>
+      </details>
     </div>
   </div>
 </section>
