@@ -986,6 +986,23 @@ main,.marq2,footer{position:relative}
 .find.lit .hl{background-size:100% 100%}
 @media (max-width:760px){.bign{font-size:44vw;top:9vh}.chap:nth-of-type(even) .bign-rail{justify-content:flex-end}.team-sec .ghost{opacity:.3}.team-sec .ghost.lit{opacity:.42}.team-sec .ghost-wrap{-webkit-mask-image:linear-gradient(180deg,transparent 0,#000 14%,#000 30%,transparent 44%);mask-image:linear-gradient(180deg,transparent 0,#000 14%,#000 30%,transparent 44%)}}
 @media (prefers-reduced-motion:reduce){.cur-glow2{display:none}.find .hl{background-size:100% 100%;transition:none}}
+
+/* next-slide button, bottom right */
+.nextbtn{position:fixed;right:24px;bottom:24px;z-index:60;width:52px;height:52px;border-radius:50%;border:0;padding:0;cursor:pointer;color:#fff;background:rgba(6,25,44,.86);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:0 10px 28px rgba(6,25,44,.28),inset 0 0 0 1px rgba(255,255,255,.14);display:grid;place-items:center;transition:transform .25s cubic-bezier(.3,.7,.2,1),box-shadow .25s}
+.nextbtn:hover{transform:translateY(-2px) scale(1.06);box-shadow:0 14px 34px rgba(6,25,44,.34),0 0 0 6px rgba(98,198,211,.18),inset 0 0 0 1px rgba(98,198,211,.5)}
+.nextbtn:focus-visible{outline:2px solid var(--gold);outline-offset:4px}
+.nextbtn svg.ring{position:absolute;inset:0;width:100%;height:100%;transform:rotate(-90deg)}
+.nextbtn .ring circle{fill:none;stroke-width:2}
+.nextbtn .ring .tr{stroke:rgba(255,255,255,.12)}
+.nextbtn .ring .pr{stroke:var(--gold);stroke-linecap:round;stroke-dasharray:150.8;stroke-dashoffset:150.8;transition:stroke-dashoffset .2s linear}
+.nextbtn .chev{width:20px;height:20px;position:relative;transition:transform .45s cubic-bezier(.3,.7,.2,1);animation:bob 1.8s ease-in-out infinite}
+.nextbtn.up .chev{transform:rotate(180deg);animation:none}
+@keyframes bob{0%,100%{translate:0 -2px}50%{translate:0 3px}}
+.nextbtn .tip{position:absolute;right:64px;top:50%;transform:translate(8px,-50%);white-space:nowrap;font:600 .82rem/1 var(--body);color:#fff;background:rgba(6,25,44,.92);padding:9px 12px;border-radius:8px;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;box-shadow:0 6px 18px rgba(6,25,44,.25)}
+.nextbtn .tip b{color:var(--gold);font-weight:700;margin-right:6px}
+.nextbtn:hover .tip,.nextbtn:focus-visible .tip{opacity:1;transform:translate(0,-50%)}
+@media (max-width:760px){.nextbtn{right:14px;bottom:14px;width:46px;height:46px}.nextbtn .tip{display:none}}
+@media (prefers-reduced-motion:reduce){.nextbtn .chev{animation:none}}
 </style>
 </head>
 <body>
@@ -2051,6 +2068,43 @@ main,.marq2,footer{position:relative}
     var fio=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('lit');fio.unobserve(e.target)}})},{threshold:.9,rootMargin:'0px 0px -12% 0px'});
     $$('.find').forEach(function(p){fio.observe(p)});
   }
+
+  /* ── 15. next-slide button: one click jumps to the start of the next section ── */
+  (function(){
+    var slides=$$('section,.close').filter(function(s){return !s.parentElement.closest('section')});
+    if(slides.length<2)return;
+    var btn=document.createElement('button');btn.type='button';btn.className='nextbtn';
+    btn.innerHTML='<svg class="ring" viewBox="0 0 52 52" aria-hidden="true"><circle class="tr" cx="26" cy="26" r="24"/><circle class="pr" cx="26" cy="26" r="24"/></svg>'+
+      '<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg><span class="tip"></span>';
+    document.body.appendChild(btn);
+    var pr=btn.querySelector('.pr'),tip=btn.querySelector('.tip'),C=2*Math.PI*24,PAD=72;
+    var label=function(s){
+      var cn=s.querySelector('.cn,.dnum');
+      if(cn&&s.classList.contains('dash'))return ['09','The live dashboard'];
+      if(cn){var sm=cn.querySelector('small');return [(cn.firstChild.nodeValue||'').trim(),sm?sm.textContent.trim():'']}
+      var names={top:'Start',about:'About Monsun Bridge',advisor:'Our advisor',team:'Team DATAVENGERS'};
+      if(names[s.id])return ['',names[s.id]];
+      if(s.classList.contains('close'))return ['','Closing'];
+      var h=s.querySelector('h2'),prev=slides[slides.indexOf(s)-1],pn=prev&&prev.querySelector('.cn');
+      return [s.classList.contains('cont')&&pn?(pn.firstChild.nodeValue||'').trim():'',h?(function(t){return t.length>72?t.slice(0,70).replace(/\s\S*$/,'')+'…':t})(h.textContent.trim().replace(/\s+/g,' ')):'Next'];
+    };
+    var top=function(s){return s.getBoundingClientRect().top+window.scrollY};
+    var target=function(){var y=window.scrollY+PAD+8;for(var i=0;i<slides.length;i++){if(top(slides[i])>y)return slides[i]}return null};
+    var upd=function(){
+      var h=document.documentElement.scrollHeight-window.innerHeight,p=h>0?Math.min(1,window.scrollY/h):0;
+      pr.style.strokeDashoffset=(C*(1-p)).toFixed(1);
+      var t=target(),atEnd=!t||p>.995;btn.classList.toggle('up',atEnd);
+      if(atEnd){tip.innerHTML='Back to the top';btn.setAttribute('aria-label','Back to the top')}
+      else{var l=label(t);tip.innerHTML=(l[0]?'<b>'+l[0]+'</b>':'')+l[1];btn.setAttribute('aria-label','Next section: '+(l[0]?l[0]+' ':'')+l[1])}
+    };
+    btn.addEventListener('click',function(){
+      var t=btn.classList.contains('up')?null:target();
+      var y=t?Math.max(0,top(t)-PAD):0;
+      window.scrollTo({top:y,behavior:reduce?'auto':'smooth'});
+    });
+    window.addEventListener('scroll',function(){if(!upd.r){upd.r=true;requestAnimationFrame(function(){upd.r=false;upd()})}},{passive:true});
+    window.addEventListener('resize',upd);window.addEventListener('load',upd);upd();
+  })();
 
   if(reduce||!G||!ST)return;
   G.registerPlugin(ST);
