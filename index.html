@@ -754,6 +754,27 @@ dl.glance{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin:14px 0 0
 .be2 .ref span{position:absolute;top:0;left:8px;font-size:.82rem;font-weight:700;white-space:nowrap}
 @media (max-width:1080px){dl.glance{grid-template-columns:1fr 1fr}.glance>div:nth-child(3){padding-left:0;border-left:0}.glance>div:nth-child(n+3){padding-top:18px}}
 @media (max-width:760px){.be2.wide .r,.be2.wide .ax{grid-template-columns:120px 1fr 56px}.be2 .ref{left:calc(132px + (100% - 132px - 66px) * .667)}.be2.wide .r b{font-size:1.1rem}}
+
+/* 08 v2 */
+.fc{position:relative;margin-top:30px}
+.fc .r,.fc .ax{display:grid;grid-template-columns:200px 1fr 64px;gap:12px;align-items:center}
+.fc .r{padding:10px 0}
+.fc .r span{font-weight:600;font-size:.98rem;line-height:1.2}
+.fc .r small{display:block;font-weight:400;font-size:.8rem;color:var(--ink3);margin-top:3px}
+.fc .t{position:relative;height:30px;background:#E3E9EE}
+.fc .t i{position:absolute;left:0;top:0;bottom:0;width:0;transition:width 1.2s cubic-bezier(.2,.75,.15,1)}
+.fc .r.ok .t i{background:var(--obs)}.fc .r.no .t i{background:var(--storm)}
+.in .fc .t i{width:var(--w)}
+.fc .r b{text-align:right;font-family:var(--disp);font-stretch:80%;font-size:1.4rem;font-variant-numeric:tabular-nums}
+.fc .r.ok b{color:var(--obs)}.fc .r.no b{color:var(--storm)}
+.fc .tk{position:relative;height:20px;font-size:.76rem;color:var(--ink3)}
+.fc .tk i{position:absolute;top:4px;transform:translateX(-50%);font-style:normal}
+.fc .ref{position:absolute;top:-24px;bottom:22px;left:calc(212px + (100% - 288px) * .833);border-left:2px dashed var(--ink);z-index:1;pointer-events:none}
+.fc .ref span{position:absolute;top:0;left:8px;font-size:.82rem;font-weight:700;white-space:nowrap}
+.t.fixes td:first-child{font-weight:500;color:var(--ink2)}
+.t.fixes td:last-child{font-weight:600;color:var(--ink)}
+.t.fixes{min-width:0}
+@media (max-width:760px){.fc .r,.fc .ax{grid-template-columns:116px 1fr 52px;gap:10px}.fc .ref{left:calc(126px + (100% - 188px) * .833)}.fc .ref span{left:auto;right:8px}.fc .r b{font-size:1.1rem}}
 </style>
 </head>
 <body>
@@ -1304,42 +1325,56 @@ dl.glance{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin:14px 0 0
 <!-- 08 Finding 3 -->
 <section class="chap" id="finding3">
   <div class="wrap">
-    <div class="cn">08<small>Finding 3: where our own analysis fails</small></div>
+    <div class="cn">08<small>Finding 3: testing our own work</small></div>
     <div class="col">
-      <h2>We publish the failures. That is the contribution.</h2>
-      <p class="lede">Model selection runs on rolling-origin folds inside 2018–2022. 2023 is scored exactly once, afterwards. The test year cannot both choose the model and measure it: an earlier version of this work made that mistake and we corrected it.</p>
-      <div class="tw blk"><table class="t">
-        <thead><tr><th>Configuration</th><th>Selected</th><th class="n">CV rel. MAE</th><th class="n">Rel. MAE on 2023</th><th class="n">p vs naive</th><th>Verdict</th></tr></thead>
-        <tbody>
-          <tr><td>Nowcast, one month ahead (lag-1 available)</td><td>ridge</td><td class="n">0.992</td><td class="n">0.731</td><td class="n">0.004</td><td class="ok">Beats the seasonal-naive benchmark</td></tr>
-          <tr><td>Pre-season forecast (lag-1 not available)</td><td>gbr</td><td class="n">1.026</td><td class="n">1.050</td><td class="n">0.465</td><td class="no">Does not beat seasonal naive</td></tr>
-        </tbody></table></div>
-      <div class="three figs cnt blk">
-        <div class="f"><div class="v num ok">0 / 20</div><p>Perturbing every scoring weight by ±25% and ±50% changes no recommendation.</p></div>
-        <div class="f"><div class="v num mid">4 / 20</div><p>Lowering the shore seasonal-fit analyst setting by 25% moves four. Stability falls to 80%.</p></div>
-        <div class="f"><div class="v num bad">1</div><p>Index withdrawn: a counter-seasonality measure divided by a ratio of 1.005, an artefact.</p></div>
-      </div>
-      <div class="two blk">
+      <h2>How far can you trust these results?</h2>
+      <p class="lede">We tested our own analysis. Here is what holds up, and where it falls short.</p>
+
+      <div class="two blk top">
+        <div data-viz>
+          <p class="ctitle">Can the model forecast fish landings before the season starts?</p>
+          <p class="csub">Forecast error compared with a simple seasonal benchmark, scored once on 2023. Below 1.0 means better than the benchmark.</p>
+          <div class="fc">
+            <div class="ref" style="--x:83.3%"><span>Benchmark = 1.0</span></div>
+            <div class="r ok"><span>One month ahead<small>last month's landings known<br>p = 0.004</small></span><div class="t"><i style="--w:60.9%"></i></div><b>0.731</b></div>
+            <div class="r no"><span>Before the season opens<small>no recent landings<br>p = 0.465</small></span><div class="t"><i style="--w:87.5%"></i></div><b>1.050</b></div>
+            <div class="ax"><span></span><div class="tk"><i style="left:0">0</i><i style="left:41.7%">0.5</i><i style="left:83.3%">1.0</i></div><span></span></div>
+          </div>
+          <p class="find">One month ahead, the model beats the benchmark. Before the season opens, it does not, so we do not claim a pre-season forecast.</p>
+        </div>
         <div>
-          <p class="lab">Top-ranked pathways that change, out of 20</p>
+          <p class="ctitle">Do the recommendations change if we change the settings?</p>
+          <p class="csub">Top-ranked pathways that change, out of 20</p>
           <div class="sens">
             <div class="r"><span>Any scoring weight ±50%</span><div class="t"><i style="--w:0%"></i></div><b>0</b></div>
-            <div class="r"><span>All five weights, 32 corners</span><div class="t"><i style="--w:0%"></i></div><b>0</b></div>
+            <div class="r"><span>All five weights together, 32 combinations</span><div class="t"><i style="--w:0%"></i></div><b>0</b></div>
             <div class="r"><span>Sector capacity ±25%</span><div class="t"><i style="--w:0%"></i></div><b>0</b></div>
             <div class="r"><span>Access setting +25%</span><div class="t"><i style="--w:5%"></i></div><b>1</b></div>
             <div class="r hi"><span>Seasonal-fit setting −25%</span><div class="t"><i style="--w:20%"></i></div><b>4</b></div>
           </div>
-          <p class="note" style="font-size:.95rem;color:var(--ink2)">Weights never flip a recommendation; the analyst settings behind them do. The 4 that move are top-ranked pathways, not final allocations: the seasonal exclusion still blocks the destinations it blocks. That is where the uncertainty lives, and we show it.</p>
-        </div>
-        <div>
-          <p class="lab">Three qualifications on these numbers</p>
-          <div class="qual" style="margin-top:12px">
-            <div><b>The metric does not change the verdict</b><p>Nowcast 0.731 relative MAE, 0.745 MASE. Pre-season 1.050 and 1.070, against seasonal naive = 1.0.</p></div>
-            <div><b>Per-state error, and two tests that disagree</b><p>Terengganu 0.534, Pahang 0.809, Kelantan 0.869. The pooled test suggests an advantage (n = 36, p = 0.004); the state-clustered test does not (3 clusters, not significant).</p></div>
-            <div><b>A fixed mask, not the dated window</b><p>The test used a fixed November to March mask. The sign holds under every mask; the magnitude does not.</p></div>
-          </div>
+          <p class="find">Changing the scoring weights changes nothing. Lowering one analyst setting, seasonal fit, by 25% changes 4 of 20.</p>
+          <p class="note">The 4 that move are top-ranked pathways, not final allocations: the seasonal exclusion still applies.</p>
         </div>
       </div>
+
+      <div class="blk">
+        <p class="ctitle">What we corrected along the way</p>
+        <p class="csub">Errors found in earlier versions of this work, and what we did about each</p>
+        <div class="tw"><table class="t fixes">
+          <thead><tr><th>What was wrong</th><th>What we did</th></tr></thead>
+          <tbody>
+            <tr><td>The 2023 test year was also used to choose the model</td><td>The model is now chosen on 2018–2022 only; 2023 is scored once, afterwards</td></tr>
+            <tr><td>A counter-seasonality index divided by a ratio of 1.005, which inflated it</td><td>Index withdrawn</td></tr>
+            <tr><td>An earlier fishing-gap estimate (−40.3%) dropped Johor's west coast</td><td>Estimate withdrawn; the headline is −35.4%</td></tr>
+          </tbody></table></div>
+        <p class="find">Each error was found, fixed and published, rather than quietly removed.</p>
+      </div>
+
+      <details class="more"><summary>Three qualifications on these numbers</summary>
+        <p><b>The metric does not change the verdict.</b> Nowcast 0.731 relative MAE and 0.745 MASE; pre-season 1.050 and 1.070, against seasonal naive = 1.0. Model selection uses rolling-origin folds inside 2018–2022 (nowcast: ridge, CV 0.992; pre-season: gbr, CV 1.026).</p>
+        <p><b>Per-state error, and two tests that disagree.</b> Terengganu 0.534, Pahang 0.809, Kelantan 0.869. The pooled test suggests an advantage (n = 36, p = 0.004); clustered by state (3 clusters) it is not significant.</p>
+        <p><b>A fixed mask, not the dated window.</b> The test used a fixed November to March mask. The sign holds under every mask; the magnitude does not.</p>
+      </details>
     </div>
   </div>
 </section>
