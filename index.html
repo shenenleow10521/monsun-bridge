@@ -819,6 +819,19 @@ details.more .tw{max-width:none}
   .whys{grid-template-columns:1fr}.whys>div+div{padding-left:0;border-left:0;border-top:1px solid var(--rule);margin-top:14px}
 }
 @media (max-width:760px){.gantt .shade{display:none}}
+
+/* 10 v3 */
+.propose{display:inline-block;font-size:.9rem;font-weight:700;color:var(--goldd);border:1.5px solid var(--gold);border-radius:4px;padding:3px 10px;margin:2px 0 12px}
+.gantt .gh.ph{border-bottom:0;padding-bottom:4px}
+.gantt .phs{position:relative;height:26px}
+.gantt .phs i{position:absolute;top:0;height:24px;font-style:normal;font-size:.86rem;font-weight:700;color:var(--ink);border-top:3px solid var(--ink);padding-top:3px;text-align:center}
+.gantt .phs i.d{color:var(--storm);border-color:var(--storm)}
+.gantt .phs i.a{color:var(--obs);border-color:var(--obs)}
+.gantt .gl strong{font-size:1.02rem}
+.gantt .gl span{font-size:.9rem;color:var(--ink2);font-weight:500}
+.gantt .mo{font-size:.88rem;color:var(--ink2)}
+#impact .csub{color:var(--ink2)}
+@media (max-width:760px){.gantt .phs i{font-size:.66rem}}
 </style>
 </head>
 <body>
@@ -1444,12 +1457,14 @@ details.more .tw{max-width:none}
     <div class="cn">10<small>Implementation and impact</small></div>
     <div class="col">
       <h2>How Monsun Bridge would run each year</h2>
-      <p class="lede">A yearly cycle built on institutions that already exist: no new data collection and no new agency.</p>
+      <p class="lede">An annual cycle using existing official data and institutions, with outcomes tracked through the pilot.</p>
 
       <div class="blk" data-viz>
         <p class="ctitle">The yearly cycle, timed against the monsoon window</p>
         <p class="csub">Indicative timing for a closure starting around 9 November</p>
+        <p class="propose">Proposed institutional roles, subject to partner agreement.</p>
         <div class="gantt">
+          <div class="gh ph"><span></span><div class="phs"><i style="left:0;width:43.9%">Before the monsoon</i><i class="d" style="left:43.9%;width:36.8%">During</i><i class="a" style="left:80.7%;width:19.3%">After</i></div></div>
           <div class="gh"><span></span><div class="mo"><i>Jun</i><i>Jul</i><i>Aug</i><i>Sep</i><i>Oct</i><i class="w">Nov</i><i class="w">Dec</i><i class="w">Jan</i><i class="w">Feb</i><i class="w">Mar</i><i>Apr</i><i>May</i></div></div>
           <div class="gb">
             <div class="shade" style="--x:.439;--wd:.37"><span>Monsoon window</span></div>
@@ -1458,33 +1473,34 @@ details.more .tw{max-width:none}
             <div class="gr"><div class="gl"><b>3</b><div><strong>Verify priority districts and workers</strong><span>State and district officers · 8–10 weeks before</span></div></div><div class="tr"><i style="left:25%;width:4.2%"></i></div></div>
             <div class="gr"><div class="gl"><b>4</b><div><strong>Confirm courses and employer vacancies</strong><span>HRD Corp, MOTAC · 6–8 weeks before</span></div></div><div class="tr"><i style="left:29.2%;width:4.2%"></i></div></div>
             <div class="gr d"><div class="gl"><b>5</b><div><strong>Run training and placement</strong><span>State, HRD Corp · during the window</span></div></div><div class="tr"><i style="left:43.9%;width:37%"></i></div></div>
-            <div class="gr a"><div class="gl"><b>6</b><div><strong>Measure placement and update settings</strong><span>State EPU · after the window</span></div></div><div class="tr"><i style="left:83.3%;width:8.3%"></i></div></div>
+            <div class="gr a"><div class="gl"><b>6</b><div><strong>Track employment, duration and earnings</strong><span>State EPU · after the window</span></div></div><div class="tr"><i style="left:83.3%;width:8.3%"></i></div></div>
           </div>
         </div>
-        <p class="find">Workers are verified and courses confirmed before November; placement results then update the next season's settings.</p>
+        <p class="find">Workers are verified and courses confirmed before November; tracked employment outcomes then update the next season's assumptions.</p>
       </div>
 
       <div class="blk">
         <p class="ctitle">Why it can be run</p>
         <div class="whys">
-          <div><b>Existing institutions</b><p>DOSM, the State EPU, HRD Corp and MOTAC already do each step.</p></div>
-          <div><b>Existing data</b><p>Open official statistics, refreshed every quarter. No new survey.</p></div>
-          <div><b>Learns each year</b><p>Placement results replace assumptions in the next season's settings.</p></div>
-          <div><b>Can expand</b><p>The pilot districts hold 0.392% of national tourism jobs. The method works for any district DOSM measures and METMalaysia dates.</p></div>
+          <div><b>Proposed roles</b><p>Proposed roles for DOSM, State EPU, HRD Corp and MOTAC, coordinated through a pilot partnership.</p></div>
+          <div><b>Existing official data</b><p>The analysis uses open official statistics, refreshed every quarter. The pilot records actual outcomes.</p></div>
+          <div><b>Learns each year</b><p>Use observed placement rates, employment duration and earnings to update next season's assumptions.</p></div>
+          <div><b>Scale after pilot validation</b><p>Extend to other districts after checking data availability, local seasonality and employer demand.</p></div>
         </div>
       </div>
 
       <div class="blk">
         <p class="ctitle">Which Sustainable Development Goals does it support?</p>
         <div class="two" style="margin-top:14px">
-          <div class="sdgrow"><span class="sdg s8"><span><small>SDG</small>8</span></span><div><h3>Decent work and economic growth</h3><p>Protects workers through a predictable yearly interruption, with the cost stated and the placement rate needed to offset it published.</p></div></div>
+          <div class="sdgrow"><span class="sdg s8"><span><small>SDG</small>8</span></span><div><h3>Decent work and economic growth</h3><p>Aims to support workers through a predictable yearly interruption, with the cost stated and the placement rate needed to offset it published.</p></div></div>
           <div class="sdgrow"><span class="sdg s14"><span><small>SDG</small>14</span></span><div><h3>Life below water</h3><p>Avoids pushing displaced workers into fishing when east-coast landings already fall during the monsoon.</p></div></div>
         </div>
       </div>
 
       <details class="more"><summary>Technical outputs of each phase</summary>
-        <p>1 Quarterly data refresh: TAI and evidence ledger. 2 Exposure estimate: Monsoon Share and worker-month exposure (WME). 3 Verification: eligible cohort. 4 Confirmation: approved pathways. 5 Training and placement: worker-months covered. 6 Measurement: next season's parameters.</p>
-        <p>The only new element is the instrument that joins these steps: an eight-page Power BI file that opens with no database, no API key and no internet connection.</p>
+        <p>1 Quarterly data refresh: TAI and evidence ledger. 2 Exposure estimate: Monsoon Share and worker-month exposure (WME). 3 Verification: eligible cohort. 4 Confirmation: approved pathways. 5 Training and placement: worker-months covered. 6 Tracking: employment, duration and earnings, used as next season's parameters.</p>
+        <p>The analytical tool that joins these steps is an eight-page Power BI file that opens with no database, no API key and no internet connection.</p>
+        <p>The four pilot districts hold 0.392% of national tourism employment, so the pilot is a starting scope rather than a limit.</p>
       </details>
     </div>
   </div>
