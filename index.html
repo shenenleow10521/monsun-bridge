@@ -775,6 +775,12 @@ dl.glance{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin:14px 0 0
 .t.fixes td:last-child{font-weight:600;color:var(--ink)}
 .t.fixes{min-width:0}
 @media (max-width:760px){.fc .r,.fc .ax{grid-template-columns:116px 1fr 52px;gap:10px}.fc .ref{left:calc(126px + (100% - 188px) * .833)}.fc .ref span{left:auto;right:8px}.fc .r b{font-size:1.1rem}}
+
+.fc .t em{position:absolute;left:8px;top:50%;transform:translateY(-50%);font-style:normal;font-size:.82rem;font-weight:700;color:#fff;white-space:nowrap;opacity:0;transition:opacity .4s 1s}
+.in .fc .t em{opacity:1}
+.method{font-weight:600;color:var(--ink2);border-left:3px solid var(--rule2);padding-left:14px}
+details.more .tw{max-width:none}
+@media (max-width:760px){.fc .t em{font-size:.66rem;left:5px}}
 </style>
 </head>
 <body>
@@ -1332,15 +1338,16 @@ dl.glance{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin:14px 0 0
 
       <div class="two blk top">
         <div data-viz>
-          <p class="ctitle">Can the model forecast fish landings before the season starts?</p>
-          <p class="csub">Forecast error compared with a simple seasonal benchmark, scored once on 2023. Below 1.0 means better than the benchmark.</p>
+          <p class="ctitle">When does the forecast beat the seasonal benchmark?</p>
+          <p class="csub">Fish-landings forecast error compared with a simple seasonal benchmark. Below 1.0 means better than the benchmark.</p>
           <div class="fc">
             <div class="ref" style="--x:83.3%"><span>Benchmark = 1.0</span></div>
-            <div class="r ok"><span>One month ahead<small>last month's landings known<br>p = 0.004</small></span><div class="t"><i style="--w:60.9%"></i></div><b>0.731</b></div>
-            <div class="r no"><span>Before the season opens<small>no recent landings<br>p = 0.465</small></span><div class="t"><i style="--w:87.5%"></i></div><b>1.050</b></div>
+            <div class="r ok"><span>One month ahead<small>last month's landings known<br>p = 0.004</small></span><div class="t"><i style="--w:60.9%"></i><em>27% lower error</em></div><b>0.731</b></div>
+            <div class="r no"><span>Before the season opens<small>no recent landings<br>p = 0.465</small></span><div class="t"><i style="--w:87.5%"></i><em>5% higher error</em></div><b>1.050</b></div>
             <div class="ax"><span></span><div class="tk"><i style="left:0">0</i><i style="left:41.7%">0.5</i><i style="left:83.3%">1.0</i></div><span></span></div>
           </div>
-          <p class="find">One month ahead, the model beats the benchmark. Before the season opens, it does not, so we do not claim a pre-season forecast.</p>
+          <p class="find">In the 2023 test, the one-month-ahead forecast had 27% lower error than the benchmark. The pre-season forecast had 5% higher error, so we do not claim a pre-season forecast.</p>
+          <p class="note">The short-term advantage was not statistically significant in the state-clustered test.</p>
         </div>
         <div>
           <p class="ctitle">Do the recommendations change if we change the settings?</p>
@@ -1357,20 +1364,16 @@ dl.glance{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin:14px 0 0
         </div>
       </div>
 
-      <div class="blk">
-        <p class="ctitle">What we corrected along the way</p>
-        <p class="csub">Errors found in earlier versions of this work, and what we did about each</p>
-        <div class="tw"><table class="t fixes">
+      <p class="method blk">Models selected using 2018–2022 data; evaluated on 2023.</p>
+      <details class="more"><summary>Corrections and technical details</summary>
+        <p><b>Errors found in earlier versions, and what we did</b></p>
+        <div class="tw"><table class="t fixes" style="margin-top:8px">
           <thead><tr><th>What was wrong</th><th>What we did</th></tr></thead>
           <tbody>
             <tr><td>The 2023 test year was also used to choose the model</td><td>The model is now chosen on 2018–2022 only; 2023 is scored once, afterwards</td></tr>
             <tr><td>A counter-seasonality index divided by a ratio of 1.005, which inflated it</td><td>Index withdrawn</td></tr>
             <tr><td>An earlier fishing-gap estimate (−40.3%) dropped Johor's west coast</td><td>Estimate withdrawn; the headline is −35.4%</td></tr>
           </tbody></table></div>
-        <p class="find">Each error was found, fixed and published, rather than quietly removed.</p>
-      </div>
-
-      <details class="more"><summary>Three qualifications on these numbers</summary>
         <p><b>The metric does not change the verdict.</b> Nowcast 0.731 relative MAE and 0.745 MASE; pre-season 1.050 and 1.070, against seasonal naive = 1.0. Model selection uses rolling-origin folds inside 2018–2022 (nowcast: ridge, CV 0.992; pre-season: gbr, CV 1.026).</p>
         <p><b>Per-state error, and two tests that disagree.</b> Terengganu 0.534, Pahang 0.809, Kelantan 0.869. The pooled test suggests an advantage (n = 36, p = 0.004); clustered by state (3 clusters) it is not significant.</p>
         <p><b>A fixed mask, not the dated window.</b> The test used a fixed November to March mask. The sign holds under every mask; the magnitude does not.</p>
