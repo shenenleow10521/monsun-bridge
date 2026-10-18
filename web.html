@@ -1181,6 +1181,57 @@ main,.marq2,footer{position:relative}
   .chap .chart text{font-size:14.5px!important;fill:var(--ink2)}
   .chap .circ text[font-size="12"]{font-size:15px!important}
 }
+/* readability pass 2: a floor for every small label, table, chart and caption, so judges can read it from a distance */
+@media (min-width:1081px){
+  .chap .t td{font-size:1rem!important}
+  .chap .t th,.chap .t th.n,.chap .grp th{font-size:.95rem!important}
+  .chap .t td.c,.chap .t td.isl{font-size:.95rem!important}
+  .chap .r>span,.chap .r .nm,.chap .rk>span,.chap .pl span,.chap .eqs span,.chap .r>b,.chap .hb>span,.chap .qbar>span{font-size:1rem!important}
+  .chap .r>span small,.chap .nm small,.chap small{font-size:.92rem!important}
+  .chap dl dt,.chap .row dt{font-size:1rem!important}
+  .chap .tk i,.chap .ticks span{font-size:.92rem!important}
+  .chap .g{font-size:.86rem!important}
+  .chap .cal .mo span{font-size:.95rem!important}
+  .chap .gantt .mo span,.chap .gantt .mo i,.chap .gantt .phs i{font-size:.95rem!important}
+  .chap .gantt .gl span{font-size:.95rem!important}
+  .chap .gantt .gr.q em,.chap .shade span{font-size:.92rem!important}
+  .chap .propose,.chap .badge{font-size:.95rem!important}
+  .chap .parts span,.chap .costkey span{font-size:.95rem!important}
+  .chap .gate b,.chap .gate small,.chap .stg .k,.chap p.k{font-size:.95rem!important}
+  .chap .ft span,.chap .v small{font-size:.95rem!important}
+  .chap .sref,.chap .next .btn,.chap .back{font-size:.95rem!important}
+  .chap .ref span{font-size:.92rem!important}
+  .chap .sk2 .t span,.chap .fc .t em,.chap .t em{font-size:.88rem!important}
+  .chap .sk2>span{font-size:1rem!important}
+  .chap .eg,.chap .grades p{font-size:1rem!important}
+  .chap .chart text{font-size:16px!important}
+  .chap .circ text[font-size="12"]{font-size:16px!important}
+  /* dark pages */
+  .hero .k{font-size:.95rem!important}
+  .hero .bulletin .d,.hero .bulletin p{font-size:.95rem!important}
+  .hero .fine{font-size:.9rem!important}
+  .hero .g{font-size:.86rem!important}
+  #islands span{font-size:.85rem!important}
+  .adv-dl dt{font-size:1rem!important}
+  .st-tx p{font-size:1rem!important}
+  .dash .pg span{font-size:.95rem!important}
+  .dash .dnotes div{font-size:1rem!important}
+  .close .four p{font-size:1rem!important}
+}
+/* small spacing give-backs so the larger text still fits one screen */
+@media (min-width:1081px){
+  .rankrow .rk{margin-top:.3rem}
+  .dash .pg{padding:.42rem .6rem .42rem 0}
+  .dash .pg:nth-child(even){padding-left:.8rem}
+  .dash .lamp h2{font-size:2.25rem}
+  .dash .lamp p{margin-top:.6rem}
+  .grades>div{padding-top:.85rem}
+  #impact .gantt .gr{padding:.2rem 0}
+}
+@media (min-width:1081px){
+  .chap .glance p{font-size:.95rem!important}
+  .chap .g,.hero .g{font-size:.9rem!important}
+}
 </style>
 </head>
 <body>
