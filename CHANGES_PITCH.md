@@ -63,6 +63,22 @@ Removed compared with web.html: every collapsible details block, the advisor and
 | C4 Impact and feasibility (25%) | Exposure and pilot targeting (2), unit cost, coverage and break-even placement rate (7), a gated rollout that starts with a dry-run this season (9), a concrete ask of DOSM (9), SDG 8 and 14 (6, 9). |
 | C5 Creativity, AI/ML, geospatial, automation (10%) | Step 8 shows all four (NLP matching, multi-criteria ranking, time-series nowcast, robustness, maps, checksummed pipeline). The explainable-AI framing is on step 5, the animated geospatial hero on step 1, and the proposed LLM/embedding roadmap is labelled as not built. |
 
+### Design polish (impeccable skill, v4.6.0 rules)
+
+Applied from the skill's polish playbook and craft-floor rules (pbakaus/impeccable, read from its public repo). The skill's launcher binary was not run; its written guidance was applied by hand.
+
+- **No eyebrows or section numbers above headlines.** The "02 Who is exposed"-style kickers are gone; each headline carries the slide. "DOSM Datathon 2026 final" moved into the team line, and "Proposed, subject to partner agreement" moved below the timeline as a note.
+- **No thick coloured side borders on callouts.** Colour now lives in the words (the 41% in gold, the "Weakest input" lead-in in Scenario purple). Gates use a 1px rule.
+- **Slide 8 is an open grid** with 2px top rules instead of six boxed cards, and no tag labels.
+- **Slide 3's four stat tiles** became one typographic line.
+- **Authored SVG icons** (chevrons, expand, check, cross) replace the ◂ ▸ ⤢ ✓ ✗ ✕ glyphs.
+- **No zero-offset glow halos** on the month strip, the headline p-value dot or the full-screen button.
+- **One authored motion moment.** The hero title rise, wind field and island pulses stay; every chart renders in its final state, and slides cross-fade with an exponential ease-out.
+- **Contrast.** Text colours were darkened slightly so all small text passes 4.5:1 on the paper background: ink3 #56687A, storm #B5301F, obs #17773F, der #106E95, mod #A84A0C, goldd #8A5E08 (each about 5.1:1 or better).
+- **Browser surfaces.** Themed text selection, a gold focus ring and a themed notes scrollbar.
+- **Measure.** Prose lines are capped at about 70 characters.
+- **Intentional exception.** The hero wordmark stays at 170px, above the skill's 6rem display cap, because it is web.html's own identity.
+
 ### Consistency rules applied (Task 2)
 
 | Rule | In pitch.html | In dashboard.html |
