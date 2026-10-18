@@ -39,19 +39,29 @@ Step 4 shows the real `dashboard.html` at full resolution in a layer that nearly
 
 ### Step plan (7:50 in total; the bell rings at 8:00)
 
-| # | Step | Time | Window | Main content (source) |
+| # | Step | Time | Window | What the judges see (source) |
 |---|---|---|---|---|
-| 1 | Hook | 0:40 | 0:00 to 0:40 | Hero map and wind field. Lead number: east-coast landings 0.639 vs 0.977 west-coast control, a −35.4% gap. METMalaysia's 133-day 2024/25 window. Live countdown to 9 Nov. The team in one line. (web.html hero, 04, 06b) |
-| 2 | Who is exposed | 0:40 | to 1:20 | The 01b district table (13,703 workers, 52,655 worker-months), Besut first (41%), pilot map, 0.392%. (web.html 01b, 04, exposed) |
-| 3 | Trust | 0:35 | to 1:55 | 118 records, 7 datasets, 3 checksummed downloads, 0 fabricated values, the four grades with examples, "what we refused to invent". (web.html 03, 04) |
-| 4 | Live demo | 2:10 | to 4:05 | dashboard.html embedded. The demo path is in the notes: P00 → P02 → P03 → P04 → P06. |
-| 5 | Skill Bridge | 0:50 | to 4:55 | Condensed 05b ranking, the 05c score breakdown, the 28% seasonal exclusion, and the honest framing of seasonal fit 0.80. (web.html 05b, 05c, 08; dashboard Transition, WeightSensitivity and SkillEvidence tables) |
-| 6 | Fishing test | 0:40 | to 5:35 | Dumbbell chart 0.639 vs 0.977, −35.4%, 95% CI −46.8% to −21.7%. Headline p = 0.0083 (exact permutation), the other tests, the seasonal profile chart. (web.html 06, 06b) |
-| 7 | Cost | 0:45 | to 6:20 | RM 887, 2,741, RM 7.30M, 8,223, the RM 2,662 build-up, break-even placement rates 30.3% to 35.4%, RM 315.5M marked as an upper bound. (web.html 07) |
-| 8 | Where ML earns its place | 0:50 | to 7:10 | New. Six tiles for methods in use, then a separate PROPOSED roadmap marked "not built, not evaluated". (web.html 03, 05a, 05b, 08; dashboard P3, P7) |
-| 9 | Rollout and ask | 0:40 | to 7:50 | Shifted timeline with the gate wording kept exactly, plus three concrete asks of DOSM. (web.html 02b, 10, 11; dashboard P7) |
+| 1 | Hook | 0:40 | 0:00 to 0:40 | Animated east-coast map with wind field and pulsing islands. Lead number: east-coast landings 0.639 vs 0.977 west-coast control, a −35.4% gap. METMalaysia's 133-day window. Live countdown and month strip. The team in one line. (web.html hero, 04, 06b) |
+| 2 | Who is exposed | 0:40 | to 1:20 | Pilot map, and the 01b district table with a worker-month bar in each row (Besut in gold). Callouts: 41% in Besut, 0.392% of national tourism jobs. (web.html 01b, 04) |
+| 3 | Trust | 0:35 | to 1:55 | Four big numbers (118, 7, 3, 0). An "evidence ladder" of four coloured blocks from measured to assumed: 133 days, −35.4%, 13,703, RM 887. (web.html 03, 04) |
+| 4 | Live demo | 2:10 | to 4:05 | dashboard.html at full resolution. The demo-path page buttons (00, 02, 03, 04, 06) are outlined in gold. |
+| 5 | Skill Bridge | 0:50 | to 4:55 | Ranking bars, with excluded fishing jobs hatched red and marked "→ 0 allocation". Before/after bars for the seasonal exclusion (28% to fishing, then 0). Score waterfall ("explainable by construction"), with seasonal fit hatched as an analyst setting. Two short honesty notes. (web.html 05b, 05c, 06b, 08; dashboard Transition, SkillEvidence and P3) |
+| 6 | Fishing test | 0:40 | to 5:35 | Dumbbell chart 0.639 vs 0.977, −35.4%, 95% CI. Seasonal profile chart. A "p-value ladder": four two-sided tests as dots on a log scale against the 1% level, with the headline p = 0.0083 emphasised and the failing coast-pair test in red. (web.html 06, 06b) |
+| 7 | Cost | 0:45 | to 6:20 | Cost equation: stacked RM 1,100 + 1,320 + 242 bar = RM 2,662 ÷ 3 = RM 887. Default-scenario numbers, and a coverage bar (8,223 of 52,655, about 16%). Break-even placement bars against a one-third line. RM 315.5M marked as an upper bound. (web.html 07) |
+| 8 | Where ML earns its place | 0:50 | to 7:10 | Six visual cards in pipeline order: (1) verified-data flow 7 → 3 → 118 → 0; (2) mini TF-IDF similarity heatmap (5 × 8, from web.html 05a); (3) mini ranking with fishing marked ✕; (4) nowcast bars 0.731 ✓ vs 1.050 ✗ against the naive line; (5) stress-test bars 0 / 0 / 4 of 20; (6) the two maps. Then a dashed PROPOSED band, "not built yet", with 4 items. (web.html 03, 05a, 05b, 08; dashboard P3, P7) |
+| 9 | Rollout and ask | 0:40 | to 7:50 | Four-stage timeline with gates (pilot gate wording exact). Dark "Our ask of DOSM" band with three asks. SDG 8 and SDG 14 badges. (web.html 02b, 10, 11; dashboard P7) |
 
-Removed compared with web.html: every collapsible details block, the advisor and team cards (the team is one line on step 1), the TAM/SAM/SOM section, and the closing statistics.
+Removed compared with web.html: every collapsible details block, the advisor and team cards (the team is one line on step 1), the TAM/SAM/SOM section, and the closing statistics. Each slide now shows 50 to 150 words, most of them chart labels; all explanation is in the presenter notes (N).
+
+### How the slides map to the judging criteria
+
+| Criterion (weight) | Where it is earned |
+|---|---|
+| C1 Presentation (20%) | A story arc carried by the headlines: problem (1) → who (2) → why trust it (3) → see it live (4) → the bridge (5) → why not fishing (6) → what it costs (7) → how ML is used (8) → plan and ask (9). One visual idea per slide, timed notes, and a timer that turns amber at the 8:00 bell. |
+| C2 Live dashboard demo (25%) | Step 4: the real dashboard at near full screen, a big full-screen button, gold-outlined demo path, and a timed click script in the notes. Slides 5 to 7 repeat the key numbers in case the demo fails. |
+| C3 Analysis (20%) | Control-group design and CI (6), four tests including the failing one (6), exact score decomposition (5), the weakest input named on the slide (5), stress test (8), pre-season forecast not claimed (8), and Modelled/Scenario grades on every estimate. |
+| C4 Impact and feasibility (25%) | Exposure and pilot targeting (2), unit cost, coverage and break-even placement rate (7), a gated rollout that starts with a dry-run this season (9), a concrete ask of DOSM (9), SDG 8 and 14 (6, 9). |
+| C5 Creativity, AI/ML, geospatial, automation (10%) | Step 8 shows all four (NLP matching, multi-criteria ranking, time-series nowcast, robustness, maps, checksummed pipeline). The explainable-AI framing is on step 5, the animated geospatial hero on step 1, and the proposed LLM/embedding roadmap is labelled as not built. |
 
 ### Consistency rules applied (Task 2)
 
