@@ -1078,6 +1078,25 @@ main,.marq2,footer{position:relative}
 .about-flow li+li::after{content:"";position:absolute;left:-.55rem;top:50%;width:.45rem;height:.45rem;border-top:2px solid var(--gold);border-right:2px solid var(--gold);transform:translate(-50%,-50%) rotate(45deg)}
 .about-flow i{font-style:normal;width:1.6rem;height:1.6rem;border-radius:50%;display:grid;place-items:center;background:var(--ink);color:#fff;font-size:.8rem;font-weight:800}
 @media (max-width:1080px){.about-cards{grid-template-columns:1fr}.about-flow{flex-direction:column;align-items:center}.about-flow li+li{margin-left:0;margin-top:1.4rem}.about-flow li+li::before{left:50%;top:-1.25rem;width:2px;height:1rem}.about-flow li+li::after{left:50%;top:-.35rem;transform:translate(-50%,-50%) rotate(135deg)}}
+
+/* 02: the four steps as cards hanging from the numbered line */
+.scards::before{top:1.1rem}
+.scards .k{width:2.2rem;height:2.2rem;font-size:1.05rem;margin-left:.2rem;box-shadow:0 0 0 5px var(--paper)}
+.scard{position:relative;margin-top:1.1rem;background:#fff;border:1px solid var(--rule);border-radius:16px;padding:1.3rem 1.4rem 1.3rem;box-shadow:0 14px 36px rgba(13,34,54,.07);overflow:hidden;transition:transform .35s cubic-bezier(.2,.75,.15,1),box-shadow .35s}
+.scard::before{content:"";position:absolute;left:0;right:0;top:0;height:4px;background:var(--sc)}
+.scard::after{content:"";position:absolute;left:1.55rem;top:-1.1rem;width:2px;height:1.1rem;background:var(--rule2)}
+.scards>div:hover .scard{transform:translateY(-4px);box-shadow:0 22px 48px rgba(13,34,54,.13)}
+.scards .s1{--sc:#1F6FB2}.scards .s2{--sc:#0E8A9A}.scards .s3{--sc:#CF3B2C}.scards .s4{--sc:#E2A32A}
+.sic{width:2.8rem;height:2.8rem;border-radius:12px;display:grid;place-items:center;background:#F1F5F8;border:1px solid var(--rule);color:var(--sc)}
+.scards .s4 .sic{color:#9A6A0C}
+.sic svg{width:1.55rem;height:1.55rem}
+.scards h3{margin-top:.9rem}
+.scards p{color:#1F3246}
+.scards .sref{display:inline-block;margin-top:.7rem}
+.scards>div{display:flex;flex-direction:column}
+.scards .scard{flex:1 1 auto;display:flex;flex-direction:column}
+.scards .scard .sref{margin-top:auto;padding-top:.7rem;align-self:flex-start}
+@media (max-width:1080px){.scards .scard .sref{margin-top:.4rem}}
 </style>
 </head>
 <body>
@@ -1288,11 +1307,11 @@ main,.marq2,footer{position:relative}
     <div class="col">
       <h2>What Monsun Bridge does</h2>
       <p class="lede">Four steps turn a published closure date into a plan a district can budget.</p>
-      <div class="steps blk">
-        <div><span class="k">1</span><h3>Measure exposure</h3><p>Estimate which districts, and how many workers, the closure affects.</p><a class="sref" href="#window">See 01b and 04</a></div>
-        <div><span class="k">2</span><h3>Match skills to pathways</h3><p>Shortlist suitable jobs from each worker's occupational skills.</p><a class="sref" href="#ml">See 05a to 05c</a></div>
-        <div><span class="k">3</span><h3>Test alternative work</h3><p>Check whether the alternative work is also hit by the monsoon.</p><a class="sref" href="#finding1">See 06</a></div>
-        <div><span class="k">4</span><h3>Estimate programme costs</h3><p>Size the participants, training and support budget.</p><a class="sref" href="#finding2">See 07</a></div>
+      <div class="steps scards blk">
+        <div class="s1"><span class="k">1</span><div class="scard"><span class="sic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><circle cx="17" cy="9" r="2.4"/><path d="M15.6 14.2c3 .3 5.4 2.7 5.4 5.8"/></svg></span><h3>Measure exposure</h3><p>Estimate which districts, and how many workers, the closure affects.</p><a class="sref" href="#window">See 01b and 04</a></div></div>
+        <div class="s2"><span class="k">2</span><div class="scard"><span class="sic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg></span><h3>Match skills to pathways</h3><p>Shortlist suitable jobs from each worker's occupational skills.</p><a class="sref" href="#ml">See 05a to 05c</a></div></div>
+        <div class="s3"><span class="k">3</span><div class="scard"><span class="sic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 15.5c2 0 2-1.5 4-1.5s2 1.5 4 1.5 2-1.5 4-1.5"/><path d="M2 19.5c2 0 2-1.5 4-1.5s2 1.5 4 1.5 2-1.5 4-1.5 2 1.5 4 1.5 2-1.5 4-1.5"/><path d="M13.5 7.5l2.6 2.6L21 5.2"/></svg></span><h3>Test alternative work</h3><p>Check whether the alternative work is also hit by the monsoon.</p><a class="sref" href="#finding1">See 06</a></div></div>
+        <div class="s4"><span class="k">4</span><div class="scard"><span class="sic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="9" cy="6.5" rx="6" ry="2.5"/><path d="M3 6.5v4c0 1.4 2.7 2.5 6 2.5s6-1.1 6-2.5v-4"/><ellipse cx="15" cy="13.5" rx="6" ry="2.5"/><path d="M9 13.5v4c0 1.4 2.7 2.5 6 2.5s6-1.1 6-2.5v-4"/></svg></span><h3>Estimate programme costs</h3><p>Size the participants, training and support budget.</p><a class="sref" href="#finding2">See 07</a></div></div>
       </div>
     </div>
   </div>
@@ -2309,7 +2328,7 @@ main,.marq2,footer{position:relative}
     var fitAll=function(){
       var ws=$$('section.chap>.wrap');
       if(window.innerWidth<1081){ws.forEach(function(w){w.style.zoom='';w.style.removeProperty('--z')});return}
-      var H=window.innerHeight;
+      var H=window.innerHeight;document.documentElement.classList.add('fitting');
       ws.forEach(function(w){
         var s=w.parentNode,cs=getComputedStyle(s),pad=parseFloat(cs.paddingTop)+parseFloat(cs.paddingBottom);
         var o=[w].concat($$('.tw,.two>div,.rankrow>div',w));
@@ -2323,6 +2342,7 @@ main,.marq2,footer{position:relative}
         var lo=1,hi=1.22;for(var k=0;k<7;k++){var m=(lo+hi)/2;if(ok(m))lo=m;else hi=m}
         var zf=Math.floor(lo*100)/100;w.style.zoom=zf.toString();w.style.setProperty('--z',zf);
       });
+      document.documentElement.classList.remove('fitting');
       if(window.ScrollTrigger)window.ScrollTrigger.refresh();
     };
     var fitT;var fitSoon=function(){clearTimeout(fitT);fitT=setTimeout(function(){floorText();fitAll()},120)};
