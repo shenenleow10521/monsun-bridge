@@ -1,0 +1,867 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#06192C">
+<title>Monsun Bridge · Pitch</title>
+<meta name="description" content="Monsun Bridge, Team DATAVENGERS, DOSM Datathon 2026 final round: keyboard-stepped presenter page with the live dashboard, presenter notes and a timer.">
+<link rel="icon" type="image/png" href="img/favicon.png">
+<style>
+@font-face{font-family:"Archivo";src:url(fonts/archivo.woff) format("woff");font-weight:100 900;font-stretch:62% 125%;font-display:swap}
+@font-face{font-family:"Hanken Grotesk";src:url(fonts/hanken.woff) format("woff");font-weight:100 900;font-display:swap}
+:root{
+  --abyss:#06192C;--abyss2:#0B2742;--abyss3:#123557;
+  --paper:#F1F4F6;--white:#FFFFFF;
+  --ink:#0D2236;--ink2:#3F5368;--ink3:#6F8194;--rule:#D3DCE4;--rule2:#B9C6D2;
+  --gold:#E2A32A;--goldd:#9A6A0C;--storm:#CF3B2C;--cyan:#62C6D3;--sea:#1F6FB2;
+  --obs:#1F8A4C;--der:#1479A3;--mod:#C65A11;--scn:#A0357F;
+  --disp:"Archivo","Arial Narrow",system-ui,sans-serif;
+  --body:"Hanken Grotesk",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --nh:0px;
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;overflow:hidden;background:var(--abyss)}
+body{color:var(--ink);font-family:var(--body);-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%}
+p{margin:0}
+h1,h2,h3{margin:0;font-family:var(--disp);font-stretch:75%;letter-spacing:-.005em;text-wrap:balance}
+.num{font-family:var(--disp);font-stretch:75%;font-variant-numeric:tabular-nums lining-nums;font-weight:800;letter-spacing:-.01em}
+:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+
+/* ── stage: a 1920 × 1080 canvas scaled to the screen ── */
+#view{position:fixed;left:0;top:0;right:0;bottom:var(--nh);overflow:hidden}
+#stage{position:absolute;left:0;top:0;width:1920px;height:1080px;transform-origin:0 0}
+.slide{position:absolute;inset:0;overflow:hidden;background:var(--paper);padding:72px 112px 92px;display:flex;flex-direction:column;opacity:0;visibility:hidden;transition:opacity .45s,visibility 0s .45s;font-size:26px;line-height:1.45}
+.slide.on{opacity:1;visibility:visible;transition:opacity .45s}
+
+/* evidence grade: the deck's hexagon */
+.g{display:inline-flex;align-items:center;gap:.45em;font-size:20px;font-weight:700;white-space:nowrap;vertical-align:middle;font-family:var(--body);font-stretch:100%;letter-spacing:0}
+.g::before{content:"";width:.8em;height:.8em;flex:none;clip-path:polygon(25% 0,75% 0,100% 50%,75% 100%,25% 100%,0 50%);background:currentColor}
+.g.obs{color:var(--obs)}.g.der{color:var(--der)}.g.mod{color:var(--mod)}.g.scn{color:var(--scn)}
+.hero .g.obs{color:#5fd393}.hero .g.der{color:#5ec2ea}.hero .g.mod{color:#f2994f}.hero .g.scn{color:#e07ac2}
+
+/* slide header */
+.hd{flex:none}
+.kick{display:flex;align-items:baseline;gap:18px;font-weight:700;font-size:26px;color:var(--goldd)}
+.kick b{font-family:var(--disp);font-stretch:62%;font-weight:300;font-size:72px;line-height:.8;color:var(--goldd)}
+.hd h2{font-size:70px;font-weight:800;line-height:1;color:var(--ink);margin-top:12px;max-width:1700px}
+.body{flex:1;min-height:0;margin-top:36px}
+.ctitle{font-family:var(--disp);font-stretch:85%;font-weight:700;font-size:30px;line-height:1.2;color:var(--ink)}
+.csub{font-size:21px;color:var(--ink3);margin-top:4px}
+.note{font-size:21px;color:var(--ink3)}
+.badge{display:inline-block;font-weight:700;font-size:21px;color:var(--goldd);border:2px solid var(--gold);border-radius:5px;padding:4px 12px;margin-bottom:14px}
+.say{font-family:var(--disp);font-stretch:85%;font-weight:700;font-size:30px;line-height:1.25;color:var(--ink);border-left:6px solid var(--gold);padding:4px 0 4px 22px}
+
+/* tables */
+table.t{width:100%;border-collapse:collapse}
+.t th{text-align:left;font-weight:700;color:var(--ink3);font-size:20px;padding:0 18px 12px 0;border-bottom:2px solid var(--ink);white-space:nowrap}
+.t td{padding:16px 18px 16px 0;border-bottom:1px solid var(--rule);color:var(--ink2);vertical-align:baseline}
+.t td:first-child{color:var(--ink);font-weight:700}
+.t td.n,.t th.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap;padding-right:0}
+.t tr.tot td{font-weight:800;color:var(--ink);border-bottom:2px solid var(--ink)}
+.t .ok{color:var(--obs);font-weight:700}.t .no{color:var(--storm);font-weight:700}
+
+/* ── 1 hook (hero) ── */
+.hero{background:radial-gradient(120% 90% at 78% 30%,#0E3459 0%,var(--abyss) 62%);color:#E6EEF5;padding:64px 112px 46px}
+.hero canvas{position:absolute;inset:0;width:100%;height:100%}
+.hero::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(90deg,rgba(6,25,44,.8) 0%,rgba(6,25,44,.45) 42%,rgba(6,25,44,0) 70%),linear-gradient(0deg,rgba(6,25,44,.92) 0%,rgba(6,25,44,0) 40%)}
+#islands{position:absolute;inset:0;z-index:2;pointer-events:none}
+.isl{position:absolute;width:0;height:0}
+.isl i{position:absolute;left:-7px;top:-7px;width:14px;height:14px;border-radius:50%;background:var(--storm);animation:pulse 2.4s 1s infinite}
+.isl span{position:absolute;left:14px;top:-13px;font-size:19px;font-weight:600;color:#F3C6BF;white-space:nowrap}
+.isl.l span{left:auto;right:14px}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(207,59,44,.55)}70%{box-shadow:0 0 0 18px rgba(207,59,44,0)}100%{box-shadow:0 0 0 0 rgba(207,59,44,0)}}
+.hero .in{position:relative;z-index:3;height:100%;display:flex;flex-direction:column}
+.hero .kicker{font-size:25px;font-weight:600;color:#9FB4C9}
+.hero .kicker b{color:var(--gold)}
+.word{font-family:var(--disp);font-stretch:62%;font-weight:900;font-size:170px;line-height:.84;letter-spacing:-.01em;margin-top:14px;color:#fff}
+.word span{display:block;overflow:hidden}
+.word span i{display:block;font-style:normal}
+.word span+span i{color:var(--gold)}
+.hero.on .word span i{animation:rise 1.1s cubic-bezier(.2,.75,.15,1) both}
+.hero.on .word span+span i{animation-delay:.12s}
+@keyframes rise{from{transform:translateY(105%)}}
+.tagline{font-family:var(--disp);font-stretch:85%;font-size:44px;font-weight:600;margin-top:20px;color:#fff}
+.hero .lede{max-width:44ch;color:#C3D2E0;font-size:28px;line-height:1.45;margin-top:12px}
+.kpis{margin-top:auto;display:grid;grid-template-columns:1.6fr .9fr 1fr;border-top:1px solid rgba(255,255,255,.18)}
+.kpi{padding:20px 28px 22px 0}
+.kpi+.kpi{padding-left:28px;border-left:1px solid rgba(255,255,255,.12)}
+.kpi .k{font-size:21px;color:#B4C6D8;display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.kpi .v{font-size:84px;line-height:1;color:#fff;margin-top:10px;white-space:nowrap}
+.kpi .v small{font-size:.42em;color:#9FB4C9;font-weight:700}
+.kpi .d{font-size:20px;color:#9FB4C9;margin-top:8px}
+.kpi.count .v{color:var(--gold);font-size:72px}
+.pair{display:flex;align-items:flex-end;gap:34px;margin-top:10px}
+.pair>div{display:flex;flex-direction:column}
+.pair b{font-size:96px;line-height:1}
+.pair span{font-size:20px;font-weight:700;margin-top:4px}
+.pair .e b,.pair .e span{color:#FF8A7A}
+.pair .w b,.pair .w span{color:#8FC8F0}
+.pair .gap{margin-left:auto;align-items:flex-end}
+.pair .gap b{color:#fff;font-size:64px}
+.pair .gap span{color:#9FB4C9}
+.minical{display:grid;grid-template-columns:repeat(12,1fr);gap:3px;margin-top:14px;max-width:340px}
+.minical i{height:8px;background:rgba(255,255,255,.16)}
+.minical i.w{background:var(--storm)}
+.minical i.now{background:var(--gold);box-shadow:0 0 10px var(--gold)}
+.hero .team{font-size:21px;color:#9FB4C9;margin-top:6px}
+.hero .team b{color:#fff}
+
+/* ── 2 who is exposed ── */
+.exp{display:grid;grid-template-columns:660px 1fr;grid-template-rows:minmax(0,1fr);gap:72px;align-items:start}
+.mapcard{background:var(--white);border:1px solid var(--rule);border-radius:8px;padding:12px;height:100%;min-height:0;display:flex;justify-content:center}
+.mapcard img{height:100%;width:auto;max-width:100%;object-fit:contain}
+.exp .t{font-size:25px}
+.exp .t td{vertical-align:middle}
+.exp .t td.isl{color:var(--storm);font-weight:600;font-size:22px;white-space:nowrap}
+.t tr.first td{background:rgba(226,163,42,.12)}
+.t tr.first td:first-child{box-shadow:inset 6px 0 0 var(--gold);padding-left:16px}
+.pill{display:inline-block;font-style:normal;font-size:19px;font-weight:700;color:var(--goldd);border:1.5px solid var(--gold);border-radius:999px;padding:1px 10px;margin-left:10px;vertical-align:3px}
+.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:30px}
+.facts>div{border-top:2px solid var(--ink);padding-top:12px}
+.facts b{font-size:60px;line-height:1;color:var(--ink)}
+.facts>div:first-child b{color:var(--goldd)}
+.facts p{font-size:21px;color:var(--ink2);margin-top:8px;line-height:1.35}
+.gnote{font-size:21px;color:var(--ink2);margin-top:26px;line-height:1.4}
+
+/* ── 3 trust ── */
+.figs4{display:grid;grid-template-columns:repeat(4,1fr);gap:40px}
+.figs4>div{border-top:3px solid var(--ink);padding-top:14px}
+.figs4 b{font-size:120px;line-height:.95;color:var(--ink)}
+.figs4>div:last-child b{color:var(--obs)}
+.figs4 p{font-size:23px;color:var(--ink2);margin-top:8px;line-height:1.3}
+.grades{display:grid;grid-template-columns:repeat(4,1fr);border-top:2px solid var(--ink);margin-top:42px}
+.grades>div{padding:20px 26px 0 0}
+.grades>div+div{padding-left:26px;border-left:1px solid var(--rule)}
+.grades .g{font-size:24px}
+.grades h3{font-size:30px;margin-top:10px;line-height:1.1}
+.grades .eg{font-weight:700;color:var(--ink2);margin-top:10px;font-size:22px}
+.aside{border-left:5px solid var(--obs);padding:4px 0 4px 22px;color:var(--ink2);font-size:23px;margin-top:40px;max-width:1500px}
+.aside b{color:var(--ink)}
+.srcs{font-size:20px;color:var(--ink3);margin-top:22px}
+.trust{display:flex;flex-direction:column;justify-content:space-between;padding-bottom:10px}
+.trust .grades,.trust .aside{margin-top:0}
+
+/* ── 4 live demo (stage placeholder) ── */
+.demo-slide{background:var(--abyss);color:#B9CAD9;display:grid;place-items:center;text-align:center}
+.demo-slide a{color:var(--gold)}
+
+/* ── 5 skill bridge ── */
+.sk{display:grid;grid-template-columns:1fr .98fr;gap:76px}
+.rk{display:grid;grid-template-columns:330px 1fr 64px;gap:16px;align-items:center;font-size:23px;margin-top:11px}
+.rk .t{height:26px;background:#E3E9EE}
+.rk .t i{display:block;height:100%;width:0;background:var(--ink);transition:width 1.1s cubic-bezier(.2,.75,.15,1)}
+.on .rk .t i{width:var(--w)}
+.rk b{font-variant-numeric:tabular-nums;text-align:right}
+.rk.co span{color:var(--storm);font-weight:600}
+.rk.co .t i{background:var(--storm)}
+.rk.top span,.rk.top b{font-weight:800;color:var(--ink)}
+.key{display:flex;gap:24px;flex-wrap:wrap;font-size:19px;color:var(--ink3);margin-top:14px}
+.key i{display:inline-block;width:14px;height:14px;vertical-align:-1px;margin-right:8px}
+.x28{display:grid;grid-template-columns:auto 1fr;gap:22px;align-items:center;border-left:5px solid var(--storm);padding:6px 0 6px 22px;margin-top:26px}
+.x28 b.num{font-size:84px;line-height:1;color:var(--storm)}
+.x28 p{font-size:22px;color:var(--ink2);line-height:1.35}
+.x28 p strong{color:var(--ink)}
+.wf3 .r{display:grid;grid-template-columns:1fr auto;gap:16px;align-items:baseline;padding:8px 0;border-bottom:1px solid var(--rule);font-size:23px}
+.wf3 .r span small{color:var(--ink3);font-size:19px;margin-left:10px;font-variant-numeric:tabular-nums}
+.wf3 .r b{font-variant-numeric:tabular-nums}
+.wf3 .r.flag{background:rgba(160,53,127,.07);box-shadow:inset 5px 0 0 var(--scn);padding-left:14px}
+.wf3 .r.flag small{color:var(--scn);font-weight:700}
+.wf3 .r.neg b{color:var(--storm)}
+.wf3 .r.tot{border-top:2px solid var(--ink);border-bottom:0}
+.wf3 .r.tot span{font-weight:800;color:var(--ink)}
+.wf3 .r.tot b{font-family:var(--disp);font-stretch:80%;font-size:46px;color:var(--sea);line-height:1}
+.honest{margin-top:18px;display:grid;gap:12px}
+.honest p{font-size:21px;line-height:1.4;color:var(--ink2);border-left:5px solid var(--scn);padding:2px 0 2px 18px}
+.honest p+p{border-color:var(--sea)}
+.honest b{color:var(--ink)}
+
+/* ── 6 fishing test ── */
+.fish{display:flex;flex-direction:column}
+.db{position:relative;margin-top:6px}
+.db .axis{position:relative;height:160px;border-bottom:2px solid var(--ink)}
+.db .seg{position:absolute;top:105px;height:6px;background:linear-gradient(90deg,var(--storm),var(--sea));left:var(--a);width:0;transition:width 1.4s .3s cubic-bezier(.2,.75,.15,1)}
+.on .db .seg{width:var(--wd)}
+.db .pt{position:absolute;top:92px;width:32px;height:32px;margin-left:-16px;border-radius:50%;border:5px solid var(--paper)}
+.db .pt.e{background:var(--storm);left:var(--a)}
+.db .pt.w{background:var(--sea);left:var(--b)}
+.db .pl{position:absolute;top:0;white-space:nowrap}
+.db .pl b{display:block;font-family:var(--disp);font-stretch:75%;font-size:52px;line-height:1}
+.db .pl span{font-size:19px;color:var(--ink3);font-weight:700}
+.db .pl.e{left:var(--a);transform:translateX(-18px)}.db .pl.e b{color:var(--storm)}
+.db .pl.w{left:var(--b);transform:translateX(calc(-100% + 18px));text-align:right}.db .pl.w b{color:var(--sea)}
+.db .gaplab{position:absolute;top:116px;left:var(--m);transform:translateX(-50%);font-family:var(--disp);font-stretch:75%;font-weight:800;font-size:40px;white-space:nowrap;background:var(--paper);padding:0 12px}
+.db .ticks{display:flex;justify-content:space-between;font-size:19px;color:var(--ink3);margin-top:6px}
+.ciline{font-size:21px;color:var(--ink2);margin-top:6px}
+.fish .two{display:grid;grid-template-columns:600px 1fr;gap:72px;margin-top:16px;align-items:start}
+.fish .chart text{font-size:20px}
+.chart{width:100%;height:auto;display:block;overflow:visible}
+.chart text{font-family:var(--body);font-size:16px;fill:var(--ink3)}
+.chart .ln{fill:none;stroke-width:3.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1400;stroke-dashoffset:1400;transition:stroke-dashoffset 2s cubic-bezier(.2,.75,.15,1)}
+.on .chart .ln{stroke-dashoffset:0}
+.chart .anno{font-weight:700;fill:var(--storm)}
+.headp{border-top:3px solid var(--ink);padding-top:12px}
+.headp>b{font-size:72px;line-height:1;color:var(--obs)}
+.headp p b{color:var(--ink)}
+.headp p{font-size:22px;color:var(--ink2);margin-top:6px;line-height:1.35}
+.tests{font-size:21px;margin-top:12px}
+.tests td{padding:10px 14px 10px 0}
+.tests td.n{padding-right:22px}
+.fish .note{margin-top:10px;line-height:1.35}
+.fish .say{margin-top:16px;font-size:24px}
+
+/* ── 7 cost ── */
+dl.glance{display:grid;grid-template-columns:repeat(4,1fr);margin:0;border-top:2px solid var(--ink)}
+.glance>div{padding:14px 22px 0 0}
+.glance>div+div{padding-left:22px;border-left:1px solid var(--rule)}
+.glance dt{font-size:21px;font-weight:600;color:var(--ink3);display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.glance dd{margin:8px 0 0;font-family:var(--disp);font-stretch:80%;font-weight:800;font-size:76px;line-height:1;color:var(--ink);white-space:nowrap}
+.glance>div:first-child dd{color:var(--sea)}
+.glance p{font-size:20px;color:var(--ink2);margin-top:6px}
+.costrow{margin-top:34px}
+.costbar{display:flex;height:58px;margin-top:10px;overflow:hidden}
+.costbar span{display:grid;place-items:center;color:#fff;font-weight:700;font-size:22px;white-space:nowrap;transform-origin:left;transform:scaleX(0);transition:transform .7s cubic-bezier(.2,.75,.15,1)}
+.on .costbar span{transform:none}
+.on .costbar span:nth-child(2){transition-delay:.2s}.on .costbar span:nth-child(3){transition-delay:.4s}
+.be{margin-top:34px}
+.be2{position:relative;margin-top:30px}
+.be2 .r,.be2 .ax{display:grid;grid-template-columns:330px 1fr 100px;gap:16px;align-items:center}
+.be2 .r{padding:8px 0}
+.be2 .r span{font-weight:700;font-size:22px;line-height:1.15}
+.be2 .r small{display:block;font-weight:400;font-size:19px;color:var(--ink3);margin-top:2px}
+.be2 .t{position:relative;height:32px;background:#E3E9EE}
+.be2 .t i{position:absolute;left:0;top:0;bottom:0;width:0;background:var(--obs);transition:width 1.2s cubic-bezier(.2,.75,.15,1)}
+.on .be2 .t i{width:var(--w)}
+.be2 .r b{text-align:right;font-family:var(--disp);font-stretch:80%;font-size:36px;font-variant-numeric:tabular-nums}
+.be2 .tk{position:relative;height:24px;font-size:19px;color:var(--ink3)}
+.be2 .tk i{position:absolute;top:4px;transform:translateX(-50%);font-style:normal}
+.be2 .ref{position:absolute;top:-26px;bottom:24px;left:calc(346px + (100% - 462px) * .667);border-left:3px dashed var(--ink);pointer-events:none;z-index:1}
+.be2 .ref span{position:absolute;top:0;left:10px;font-size:19px;font-weight:700;white-space:nowrap}
+.fine{font-size:21px;color:var(--ink2);margin-top:26px;line-height:1.4}
+.fine b{color:var(--ink)}
+
+/* ── 8 ML ── */
+.band-lab,.plab{font-weight:800;font-size:20px;letter-spacing:.06em;text-transform:uppercase}
+.band-lab{color:var(--obs)}
+.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:20px 26px;margin-top:10px}
+.tiles article{background:var(--white);border:1px solid var(--rule);border-top:4px solid var(--sea);border-radius:6px;padding:16px 22px 18px}
+.tiles .tag{font-size:19px;font-weight:800;color:var(--sea);text-transform:uppercase;letter-spacing:.05em}
+.tiles h3{font-size:28px;line-height:1.1;margin-top:4px;color:var(--ink)}
+.tiles p:not(.tag){font-size:20px;line-height:1.38;color:var(--ink2);margin-top:8px}
+.tiles p b{color:var(--ink)}
+.tiles article.no{border-top-color:var(--obs)}
+.proposed{margin-top:22px;border:2px dashed var(--scn);border-radius:8px;padding:14px 24px 16px;background:rgba(160,53,127,.04)}
+.plab{color:var(--scn)}
+.proposed ol{margin:8px 0 0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(4,1fr);gap:22px;counter-reset:p}
+.proposed li{font-size:20px;line-height:1.35;color:var(--ink2);counter-increment:p}
+.proposed li::before{content:counter(p);display:inline-grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--scn);color:#fff;font-weight:800;font-size:17px;margin-right:8px;vertical-align:1px}
+.proposed li b{color:var(--ink)}
+
+/* ── 9 rollout and ask ── */
+.stages4{display:grid;grid-template-columns:repeat(4,1fr);border-top:3px solid var(--ink)}
+.stages4 .st{padding:16px 24px 0 0;position:relative}
+.stages4 .st+.st{padding-left:24px;border-left:1px solid var(--rule)}
+.stages4 .st::before{content:"";position:absolute;top:-11px;left:0;width:18px;height:18px;border-radius:50%;background:var(--paper);border:4px solid var(--ink)}
+.stages4 .st+.st::before{left:24px}
+.stages4 .st.now::before{background:var(--gold);border-color:var(--gold)}
+.st .when{font-weight:800;font-size:22px;color:var(--sea)}
+.st.now .when{color:var(--goldd)}
+.st h3{font-size:36px;margin-top:4px}
+.st p:not(.when){font-size:20px;color:var(--ink2);margin-top:6px;line-height:1.38}
+.st .why{color:var(--goldd)!important;font-weight:700}
+.gate{border-left:4px solid var(--gold);padding:2px 0 2px 16px;font-weight:700;font-size:20px;margin-top:12px;line-height:1.35}
+.gate b{display:block;color:var(--goldd);font-size:19px;text-transform:uppercase;letter-spacing:.05em}
+.gate small{display:block;font-weight:400;color:var(--ink3);margin-top:4px;font-size:19px}
+.ask{margin-top:30px;background:var(--abyss);color:#E6EEF5;border-radius:8px;padding:20px 30px 22px;display:grid;grid-template-columns:270px 1fr;gap:28px;align-items:start}
+.ask .alab{font-family:var(--disp);font-stretch:80%;font-weight:800;font-size:44px;line-height:1;color:var(--gold)}
+.ask ol{margin:0;padding-left:1.2em;display:grid;gap:8px;font-size:22px;line-height:1.35;color:#C3D2E0}
+.ask b{color:#fff}
+.closing{margin-top:auto;padding-top:18px;display:flex;align-items:baseline;gap:24px;font-size:24px;color:var(--ink2)}
+.closing b{font-family:var(--disp);font-stretch:62%;font-weight:900;font-size:46px;color:var(--ink);letter-spacing:.01em}
+.closing b span{color:var(--goldd)}
+.roll{display:flex;flex-direction:column}
+
+/* ── live dashboard layer (full resolution, outside the scaled stage) ── */
+#demo{position:fixed;left:0;top:0;right:0;bottom:var(--nh);z-index:20;background:var(--abyss);display:flex;flex-direction:column;visibility:hidden;opacity:0;pointer-events:none;transition:opacity .35s,visibility 0s .35s}
+#demo.on{visibility:visible;opacity:1;pointer-events:auto;transition:opacity .35s}
+#demo .bar{flex:none;display:flex;align-items:center;gap:10px;padding:10px 14px;color:#E6EEF5;min-width:0}
+body.timer-on #demo .bar{padding-right:clamp(150px,13vw,230px)}
+#demo .ttl{flex:none;font-family:var(--disp);font-stretch:75%;font-weight:800;font-size:clamp(17px,1.5vw,28px);white-space:nowrap}
+#demo .ttl em{font-style:normal;color:var(--gold);margin-right:8px}
+#demo .pages{flex:1;min-width:0;display:flex;gap:5px;overflow:hidden}
+#demo .pages button{flex:none;font:600 clamp(12px,.95vw,17px) var(--body);color:#B9CAD9;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.16);border-radius:6px;padding:7px 10px;cursor:pointer;white-space:nowrap}
+#demo .pages button b{color:var(--gold);margin-right:5px}
+#demo .pages .s{display:none}
+#demo .pages button:hover{color:#fff;border-color:var(--gold)}
+#demo .nav2{flex:none;font:700 clamp(15px,1.1vw,20px) var(--body);color:#fff;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.22);border-radius:6px;padding:9px 13px;cursor:pointer}
+#demo .fsb{flex:none;font:800 clamp(15px,1.25vw,22px) var(--body);color:var(--abyss);background:var(--gold);border:0;border-radius:7px;padding:clamp(9px,.8vw,14px) clamp(14px,1.3vw,24px);cursor:pointer;white-space:nowrap;box-shadow:0 0 0 0 rgba(226,163,42,.5);animation:glow 2.6s infinite}
+@keyframes glow{70%{box-shadow:0 0 0 12px rgba(226,163,42,0)}100%{box-shadow:0 0 0 0 rgba(226,163,42,0)}}
+#demo .fsb:hover{background:#f0b847}
+#demo .frame{flex:1;min-height:0;margin:0 12px 12px;border-radius:8px;overflow:hidden;background:#F4F6FA;position:relative}
+#demo iframe{position:absolute;inset:0;width:100%;height:100%;border:0;background:#F4F6FA}
+#demo:fullscreen .frame{margin:0 0 0;border-radius:0}
+#demo .kbd{position:absolute;left:50%;top:10px;transform:translateX(-50%);background:rgba(6,25,44,.92);color:#fff;font:600 clamp(13px,1vw,17px) var(--body);padding:8px 16px;border-radius:999px;opacity:0;transition:opacity .25s;pointer-events:none;z-index:2;white-space:nowrap}
+#demo .kbd.on{opacity:1}
+@media (max-width:1500px){#demo .pages .l{display:none}#demo .pages .s{display:inline}#demo .pages button{padding:7px 8px}}
+
+/* ── presenter notes (N), timer (T), controls, help ── */
+#notes{position:fixed;left:0;right:0;bottom:0;height:clamp(200px,32vh,420px);z-index:40;background:#041222;color:#D7E2EC;border-top:3px solid var(--gold);display:none;grid-template-columns:minmax(220px,24%) 1fr;gap:clamp(16px,2vw,40px);padding:clamp(12px,1.4vw,24px) clamp(16px,2vw,40px);font-size:clamp(15px,1.12vw,21px);line-height:1.45}
+#notes.on{display:grid}
+#notes .meta b{display:block;font-family:var(--disp);font-stretch:75%;font-weight:800;font-size:1.6em;color:#fff;line-height:1.05}
+#notes .meta p{color:#9FB4C9;margin-top:8px}
+#notes .meta .plan{color:var(--gold);font-weight:700}
+#notes .txt{overflow:auto;padding-right:8px}
+#notes ul{margin:0;padding-left:1.1em;display:grid;gap:.45em}
+#notes li b{color:#fff}
+#notes .cue{margin-top:.7em;color:var(--gold);font-weight:700}
+#notes .warn{margin-top:.5em;color:#F3C6BF}
+#timer{position:fixed;right:clamp(10px,1vw,18px);top:clamp(8px,.8vw,14px);z-index:45;display:none;align-items:baseline;gap:10px;background:rgba(4,18,34,.9);color:#fff;border:2px solid rgba(255,255,255,.2);border-radius:10px;padding:6px 14px;font-family:var(--disp);font-stretch:80%;font-weight:800;font-size:clamp(20px,1.7vw,32px);font-variant-numeric:tabular-nums;box-shadow:0 8px 24px rgba(0,0,0,.3)}
+#timer.on{display:flex}
+#timer small{font-family:var(--body);font-stretch:100%;font-weight:600;font-size:.48em;color:#9FB4C9}
+#timer.amber{background:#B7801A;border-color:var(--gold);color:#fff}
+#timer.amber small{color:#FFF0C7}
+#timer.red{background:var(--storm);border-color:#ff8a7a}
+#timer.red small{color:#fff}
+#ctrl{position:fixed;right:clamp(10px,1vw,18px);bottom:calc(var(--nh) + clamp(10px,1vw,18px));z-index:30;display:flex;align-items:center;gap:8px;transition:opacity .4s}
+#ctrl.idle{opacity:0}
+#ctrl button{width:44px;height:44px;border-radius:50%;border:0;cursor:pointer;color:#fff;background:rgba(6,25,44,.82);box-shadow:inset 0 0 0 1px rgba(255,255,255,.2);font-size:20px;display:grid;place-items:center}
+#ctrl button:hover{box-shadow:inset 0 0 0 2px var(--gold)}
+#ctrl span{font:700 15px var(--body);color:#fff;background:rgba(6,25,44,.82);border-radius:999px;padding:6px 12px;font-variant-numeric:tabular-nums}
+#prog{position:fixed;left:0;bottom:var(--nh);height:4px;z-index:31;background:linear-gradient(90deg,var(--cyan),var(--gold));transition:width .4s}
+#help{position:fixed;inset:0;z-index:60;background:rgba(4,18,34,.86);display:none;place-items:center;color:#E6EEF5}
+#help.on{display:grid}
+#help div{background:var(--abyss);border:1px solid rgba(255,255,255,.2);border-radius:12px;padding:28px 36px;font-size:clamp(15px,1.2vw,20px);line-height:1.8;min-width:min(90vw,520px)}
+#help h3{font-size:1.6em;color:var(--gold);margin-bottom:8px}
+#help kbd{display:inline-block;min-width:2.2em;text-align:center;font:700 .9em var(--body);background:#123557;border:1px solid rgba(255,255,255,.25);border-radius:5px;padding:0 .4em;margin-right:.5em}
+#toast{position:fixed;left:50%;top:18px;transform:translateX(-50%);z-index:50;background:rgba(4,18,34,.92);color:#fff;font:600 clamp(13px,1vw,17px) var(--body);padding:10px 18px;border-radius:999px;opacity:0;transition:opacity .4s;pointer-events:none;white-space:nowrap}
+#toast.on{opacity:1}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+}
+</style>
+</head>
+<body>
+<div id="view"><div id="stage">
+
+<!-- 1 Hook -->
+<section class="slide hero" id="s1" data-title="Hook" data-dur="40" aria-label="1 Hook">
+  <canvas id="mapc" aria-hidden="true"></canvas>
+  <canvas id="windc" aria-hidden="true"></canvas>
+  <div id="islands" aria-hidden="true"></div>
+  <div class="in">
+    <p class="kicker"><b>DOSM Datathon 2026</b>, final round</p>
+    <h1 class="word" aria-label="Monsun Bridge"><span><i>MONSUN</i></span><span><i>BRIDGE</i></span></h1>
+    <p class="tagline">The monsoon is predictable. So is the plan.</p>
+    <p class="lede">Every November the Northeast Monsoon reaches Malaysia's east coast. Island operators suspend, boat services stop, and tourism work stops for about four months.</p>
+    <div class="kpis">
+      <div class="kpi">
+        <div class="k">Fish landings in monsoon months, as a share of the rest of the year <span class="g der">Derived</span></div>
+        <div class="pair">
+          <div class="e"><b class="num">0.639</b><span>East coast</span></div>
+          <div class="w"><b class="num">0.977</b><span>West-coast control</span></div>
+          <div class="gap"><b class="num">−35.4%</b><span>gap</span></div>
+        </div>
+        <div class="d">Measured in official DOF monthly landings, five seasons: the obvious fallback slumps in the same months.</div>
+      </div>
+      <div class="kpi">
+        <div class="k">2024/25 window, dated by METMalaysia <span class="g obs">Observed</span></div>
+        <div class="v num">133 <small>days</small></div>
+        <div class="d">A published window, not a forecast</div>
+      </div>
+      <div class="kpi count">
+        <div class="k">Climatological window, 9 Nov to 22 Mar</div>
+        <div class="v num" id="sdays">—</div>
+        <div class="minical" id="minical"></div>
+      </div>
+    </div>
+    <p class="team">Team <b>DATAVENGERS</b> (IPTA-093), Universiti Malaya · Howard Woon Hao Zhe, Leow Shen En, Wong En Sheng, Ling Jing Jie · Advisor: Assoc. Prof. Dr Norjihan binti Abdul Ghani</p>
+  </div>
+  <div class="pn" hidden>
+    <ul>
+      <li>"Every November the Northeast Monsoon reaches Malaysia's east coast. <b>Island operators suspend, boat services stop</b>, and tourism work stops for about four months."</li>
+      <li>"This is not a forecast. METMalaysia dated the 2024/25 window: <b>133 days</b>."</li>
+      <li>"And the obvious fallback fails. In official fish-landings data the east coast falls to <b>0.639</b> of a normal month while the sheltered west coast holds <b>0.977</b>: a <b>35.4%</b> gap. Fishing slumps in the same months."</li>
+      <li>"We are Team DATAVENGERS from Universiti Malaya. Monsun Bridge turns that published calendar into a costed plan before the window opens. This year it opens in [read the countdown] days."</li>
+    </ul>
+    <p class="warn">Never say the islands "close": Terengganu issues no official closure order. Say operators suspend and boat services stop. 0.639 / 0.977 are graded Derived (computed from observed DOF landings); 133 days is Observed.</p>
+    <p class="cue">Press T as you start speaking (the timer also starts on your first →). Next: who is exposed.</p>
+  </div>
+</section>
+
+<!-- 2 Who is exposed -->
+<section class="slide" id="s2" data-title="Who is exposed" data-dur="40" aria-label="2 Who is exposed">
+  <header class="hd"><p class="kick"><b>02</b>Who is exposed</p><h2>13,703 tourism-linked workers are exposed when boat services stop.</h2></header>
+  <div class="body exp">
+    <div class="mapcard"><img src="img/deck/pilot-map.png" width="1100" height="1164" alt="Map of the four pilot districts with worker-month exposure, and the islands Perhentian, Lang Tengah, Redang, Kapas and Tioman"></div>
+    <div>
+      <table class="t">
+        <thead><tr><th>District</th><th>Island where boat services stop</th><th class="n">Workers</th><th class="n">Worker-months</th></tr></thead>
+        <tbody>
+          <tr class="first"><td>Besut<em class="pill">pilot starts here</em></td><td class="isl">Perhentian</td><td class="n">4,944</td><td class="n">21,603</td></tr>
+          <tr><td>Marang</td><td class="isl">Kapas</td><td class="n">3,276</td><td class="n">12,168</td></tr>
+          <tr><td>Rompin</td><td class="isl">Tioman</td><td class="n">2,418</td><td class="n">9,509</td></tr>
+          <tr><td>Kuala Nerus</td><td class="isl">Redang, Lang Tengah</td><td class="n">3,065</td><td class="n">9,375</td></tr>
+          <tr class="tot"><td>Total</td><td></td><td class="n">13,703</td><td class="n">52,655</td></tr>
+        </tbody>
+      </table>
+      <div class="facts">
+        <div><b class="num">41%</b><p>of worker-months are in Besut (21,603 of 52,655), so the pilot starts there</p></div>
+        <div><b class="num">133</b><p>days in the METMalaysia-dated window that the 52,655 worker-months sit inside</p></div>
+        <div><b class="num">0.392%</b><p>of Malaysia's tourism jobs: small enough to pilot, large enough to matter</p></div>
+      </div>
+      <p class="gnote"><span class="g mod">Modelled</span> District employment is observed (DOSM). The tourism planning share and dependency weight are declared assumptions, so this is a planning envelope, not a register.</p>
+    </div>
+  </div>
+  <div class="pn" hidden>
+    <ul>
+      <li>"Who is exposed? <b>13,703</b> tourism-linked workers across Besut, Marang, Kuala Nerus and Rompin: <b>52,655 worker-months</b> inside that 133-day window."</li>
+      <li>"Besut alone carries <b>21,603</b>, or 41%, so the pilot starts in Besut."</li>
+      <li>"The grade is honest: Modelled. District employment is observed DOSM data; the tourism planning share and dependency weight are our declared assumptions. Malaysia has no register of tourism workers, so this is a planning envelope, not a register."</li>
+      <li>"It is <b>0.392%</b> of Malaysia's tourism jobs: small enough to pilot, large enough to matter."</li>
+    </ul>
+    <p class="warn">The cohort includes mainland tourism-linked work, not only island operators (see QA_NOTES if a judge compares it with press figures).</p>
+    <p class="cue">Next: why you can trust these numbers.</p>
+  </div>
+</section>
+
+<!-- 3 Trust -->
+<section class="slide" id="s3" data-title="Trust" data-dur="35" aria-label="3 Trust">
+  <header class="hd"><p class="kick"><b>03</b>Why you can trust the numbers</p><h2>Every input is official. Every number declares its grade.</h2></header>
+  <div class="body trust">
+    <div class="figs4">
+      <div><b class="num">118</b><p>official records</p></div>
+      <div><b class="num">7</b><p>open datasets from DOSM, METMalaysia, DOF and the Ministry of Human Resources</p></div>
+      <div><b class="num">3</b><p>downloads verified by SHA-256 checksum and retrieval date</p></div>
+      <div><b class="num">0</b><p>fabricated, simulated or synthetic values</p></div>
+    </div>
+    <div class="grades">
+      <div><span class="g obs">Observed</span><h3>A published official value</h3><p class="eg">The 2024/25 window ran 133 days.</p></div>
+      <div><span class="g der">Derived</span><h3>A formula or test over observed inputs</h3><p class="eg">The −35.4% east–west landings gap.</p></div>
+      <div><span class="g mod">Modelled</span><h3>A planning output on declared assumptions</h3><p class="eg">The 13,703-worker planning cohort.</p></div>
+      <div><span class="g scn">Scenario</span><h3>A parameter you set on the dashboard</h3><p class="eg">RM 887 per worker-month.</p></div>
+    </div>
+    <p class="aside"><b>What we refused to invent.</b> Malaysia publishes no register of tourism workers and no measure of their income loss. So exposure is measured in worker-months, and what cannot be measured is withheld or exposed as a control you can move.</p>
+    <p class="srcs">DOSM Domestic Tourism Survey · METMalaysia Northeast Monsoon Review · DOSM Principal Labour Force by District · DOSM Household Income by District · DOF Monthly Marine Fish Landings · MASCO 2020 task descriptions · DOSM Tourism Satellite Account 2024</p>
+  </div>
+  <div class="pn" hidden>
+    <ul>
+      <li>"Why trust it? <b>118</b> official records from <b>seven</b> open datasets. The three we downloaded programmatically carry a SHA-256 checksum and a retrieval date. <b>Zero</b> fabricated, simulated or synthetic values."</li>
+      <li>"Every number wears one of four grades: Observed, Derived, Modelled, Scenario. The 133-day window is observed; the 35.4% gap is derived; RM 887 is a scenario you can move."</li>
+      <li>"What we could not measure, like workers' income loss, we withheld or turned into a control you can move."</li>
+    </ul>
+    <p class="cue">Transition: "Let me show you, live." Press → for the dashboard.</p>
+  </div>
+</section>
+
+<!-- 4 Live demo: the dashboard itself runs in the full-resolution layer #demo -->
+<section class="slide demo-slide" id="s4" data-title="Live demo" data-dur="130" data-demo aria-label="4 Live demo">
+  <p>The live dashboard opens here. If it does not load, open <a href="dashboard.html" target="_blank" rel="noopener">dashboard.html</a> directly.</p>
+  <div class="pn" hidden>
+    <ul>
+      <li><b>Drive it:</b> click inside the dashboard; ← → then change dashboard pages. Click the dark bar above it to give the keys back to the slides. ⤢ makes it fill the screen (Esc to leave).</li>
+      <li><b>00 Executive Summary, 10 s.</b> "Four claims, every tile carries its grade." The p = 0.0025 tile is the 2023 per-state Mann-Whitney test; our headline is the permutation test on slide 6.</li>
+      <li><b>02 Exposure Map, 25 s.</b> The District slicer opens on Besut. Switch to Rompin and back: "every card recomputes from the same formulas as the .pbix."</li>
+      <li><b>03 Skill Bridge, 35 s.</b> Boat Operator, Besut. "Top-ranked destination: Marine Operations Assistant, score 0.77." Point at the allocation table: "fishing destinations score about 0.26 and still receive exactly zero."</li>
+      <li><b>04 Action Planner, 30 s.</b> Change participation from 20% to 30%. "Participants and programme cost recompute; the per-worker-month cost does not, because it is a unit cost."</li>
+      <li><b>06 Robustness, 25 s.</b> "Every east-coast state below every west-coast state. And our weak spot is on our own dashboard: the seasonal-fit setting at −25% moves 4 of 20."</li>
+    </ul>
+    <p class="warn">If the dashboard misbehaves, press ⤢ or skip ahead: every number is repeated on slides 5 to 7. Do not read the household-income tile as a central estimate: it is an upper bound.</p>
+    <p class="cue">Back to slides (click the bar, then →): Skill Bridge.</p>
+  </div>
+</section>
+
+<!-- 5 Skill Bridge -->
+<section class="slide" id="s5" data-title="Skill Bridge" data-dur="50" aria-label="5 Skill Bridge">
+  <header class="hd"><p class="kick"><b>05</b>Skill Bridge</p><h2>Where can a Besut boat operator work when boat services stop?</h2></header>
+  <div class="body sk">
+    <div>
+      <p class="ctitle">Final score for eight possible jobs, 0 to 1</p>
+      <div class="rk top"><span>Marine Operations Assistant</span><div class="t"><i style="--w:77%"></i></div><b>0.77</b></div>
+      <div class="rk"><span>Mainland Heritage Guide</span><div class="t"><i style="--w:34%"></i></div><b>0.34</b></div>
+      <div class="rk"><span>Coastal Safety Assistant</span><div class="t"><i style="--w:32%"></i></div><b>0.32</b></div>
+      <div class="rk"><span>Market Sales Operator</span><div class="t"><i style="--w:29%"></i></div><b>0.29</b></div>
+      <div class="rk co"><span>Coastal Fishery Crew</span><div class="t"><i style="--w:26%"></i></div><b>0.26</b></div>
+      <div class="rk co"><span>Fish Processing Operator</span><div class="t"><i style="--w:25.7%"></i></div><b>0.26</b></div>
+      <div class="rk co"><span>Aquaculture Operator</span><div class="t"><i style="--w:25.6%"></i></div><b>0.26</b></div>
+      <div class="rk"><span>Guest Service Coordinator</span><div class="t"><i style="--w:25%"></i></div><b>0.25</b></div>
+      <div class="key"><span><i style="background:var(--ink)"></i>Can be allocated</span><span><i style="background:var(--storm)"></i>Removed by the seasonal exclusion</span></div>
+      <div class="x28"><b class="num">28%</b><p>of this group's modelled allocation would go to the three red, fishing-related pathways without the seasonal exclusion. <strong>With it: zero.</strong> Rankings are not job offers; employers confirm vacancies first.</p></div>
+    </div>
+    <div>
+      <p class="ctitle">Why Marine Operations Assistant scores 0.77</p>
+      <div class="wf3">
+        <div class="r"><span>Task similarity<small>0.40 × 0.963</small></span><b>+0.385</b></div>
+        <div class="r"><span>Geographic access<small>0.20 × 0.93</small></span><b>+0.186</b></div>
+        <div class="r flag"><span>Seasonal fit<small>0.20 × 0.80 · analyst setting</small></span><b>+0.160</b></div>
+        <div class="r"><span>Sector capacity<small>0.10 × 0.55</small></span><b>+0.055</b></div>
+        <div class="r neg"><span>Assumed training gap<small>−0.10 × 0.5 ÷ 3</small></span><b>−0.017</b></div>
+        <div class="r tot"><span>Final score<small>0.769 before rounding</small></span><b>0.77</b></div>
+      </div>
+      <div class="honest">
+        <p><b>Seasonal fit 0.80 is not measured.</b> It is one analyst setting applied to every non-fishing pathway, because no official monthly series exists for them; only the fishing pathways have a derived value, 0.639 from DOF landings. Our sensitivity test exposes it: lower it by 25% and 4 of 20 top ranks move.</p>
+        <p><b>Why the marine job still leads.</b> Its MASCO tasks include repairing and servicing marine engines and managing boat registration documents: off-season maintenance work. Task similarity makes the largest contribution.</p>
+      </div>
+    </div>
+  </div>
+  <div class="pn" hidden>
+    <ul>
+      <li>"For a Besut boat operator, <b>Marine Operations Assistant scores 0.77</b>, more than double the next option at 0.34."</li>
+      <li>"Be precise about why. Task similarity, <b>0.963</b> on the MASCO task text, makes the largest contribution. <b>Seasonal fit 0.80 is not measured</b>: it is one analyst setting we apply to every non-fishing pathway, because no official monthly series exists for them. Only the fishing pathways have a derived value, 0.639."</li>
+      <li>"That is exactly where our own sensitivity test bites: lower it by 25% and <b>4 of 20</b> top ranks move. We publish that."</li>
+      <li>"Why marine work still makes sense: its MASCO tasks include servicing marine engines and boat registration, which is off-season maintenance work. And rankings are not job offers: employers confirm vacancies first."</li>
+      <li>"Without the seasonal exclusion, <b>28%</b> of this group's allocation would have gone to fishing. With it, zero. Here is why."</li>
+    </ul>
+    <p class="cue">Next: the fishing test.</p>
+  </div>
+</section>
+
+<!-- 6 Fishing test -->
+<section class="slide" id="s6" data-title="Fishing test" data-dur="40" aria-label="6 Fishing test">
+  <header class="hd"><p class="kick"><b>06</b>Fishing test</p><h2>Fishing is not a fallback: it slumps in the same months.</h2></header>
+  <div class="body fish">
+    <p class="ctitle">Fish landings in monsoon months as a share of the rest of the year, five seasons. 1.0 means no drop. <span class="g der">Derived</span></p>
+    <div class="db" style="--a:27.8%;--b:95.4%;--m:61.6%;--wd:67.6%">
+      <div class="axis">
+        <div class="pl e"><b class="num">0.639</b><span>East coast</span></div>
+        <div class="pl w"><b class="num">0.977</b><span>West coast, the control</span></div>
+        <div class="seg"></div>
+        <div class="pt e"></div><div class="pt w"></div>
+        <div class="gaplab num">−35.4%</div>
+      </div>
+      <div class="ticks"><span>0.5</span><span>0.6</span><span>0.7</span><span>0.8</span><span>0.9</span><span>1.0 = no drop</span></div>
+    </div>
+    <p class="ciline">Estimated east–west gap −35.4%, 95% confidence interval −46.8% to −21.7%.</p>
+    <div class="two">
+      <div>
+        <p class="csub" style="margin:0 0 6px">Each month vs that coast's average month, 2018–2023 <span class="g obs">Observed</span></p>
+        <svg class="chart" viewBox="0 0 600 320" role="img" aria-label="Seasonal landings profile by coast: east coast falls to about 0.5 in December and January; west coast stays between 0.94 and 1.07"><rect x="211.6" y="14" width="250.9" height="278" fill="rgba(207,59,44,.07)"/><line x1="36" x2="588" y1="292.0" y2="292.0" stroke="rgba(13,34,54,0.09)"/><text x="28" y="296.0" text-anchor="end">0.4</text><line x1="36" x2="588" y1="236.4" y2="236.4" stroke="rgba(13,34,54,0.09)"/><text x="28" y="240.4" text-anchor="end">0.6</text><line x1="36" x2="588" y1="180.8" y2="180.8" stroke="rgba(13,34,54,0.09)"/><text x="28" y="184.8" text-anchor="end">0.8</text><line x1="36" x2="588" y1="125.2" y2="125.2" stroke="rgba(13,34,54,0.35)" stroke-dasharray="4 4"/><text x="28" y="129.2" text-anchor="end">1.0</text><line x1="36" x2="588" y1="69.6" y2="69.6" stroke="rgba(13,34,54,0.09)"/><text x="28" y="73.6" text-anchor="end">1.2</text><line x1="36" x2="588" y1="14.0" y2="14.0" stroke="rgba(13,34,54,0.09)"/><text x="28" y="18.0" text-anchor="end">1.4</text><text x="36.0" y="314" text-anchor="middle">Jul</text><text x="86.2" y="314" text-anchor="middle">Aug</text><text x="136.4" y="314" text-anchor="middle">Sep</text><text x="186.5" y="314" text-anchor="middle">Oct</text><text x="236.7" y="314" text-anchor="middle">Nov</text><text x="286.9" y="314" text-anchor="middle">Dec</text><text x="337.1" y="314" text-anchor="middle">Jan</text><text x="387.3" y="314" text-anchor="middle">Feb</text><text x="437.5" y="314" text-anchor="middle">Mar</text><text x="487.6" y="314" text-anchor="middle">Apr</text><text x="537.8" y="314" text-anchor="middle">May</text><text x="588.0" y="314" text-anchor="middle">Jun</text><polyline class="ln" points="36.0,93.0 86.2,97.4 136.4,127.1 186.5,135.5 236.7,149.1 286.9,178.3 337.1,192.8 387.3,179.1 437.5,87.4 487.6,79.3 537.8,82.4 588.0,101.3" stroke="#9AA6B6"/><polyline class="ln" points="36.0,106.6 86.2,111.6 136.4,118.5 186.5,111.0 236.7,109.1 286.9,137.7 337.1,142.4 387.3,133.8 437.5,138.3 487.6,138.5 537.8,137.2 588.0,117.7" stroke="#1F6FB2"/><polyline class="ln" points="36.0,86.8 86.2,72.7 136.4,40.7 186.5,41.0 236.7,156.9 286.9,261.7 337.1,253.9 387.3,208.3 437.5,129.4 487.6,71.8 537.8,89.3 588.0,90.2" stroke="#CF3B2C"/><text class="anno" x="312.0" y="283.7" text-anchor="middle">about half an average month</text></svg>
+        <div class="key" style="margin-top:6px"><span><i style="background:var(--storm)"></i>East coast</span><span><i style="background:var(--sea)"></i>West coast (control)</span><span><i style="background:#9AA6B6"></i>Sabah, Sarawak, Labuan</span></div>
+      </div>
+      <div>
+        <div class="headp"><b class="num">p = 0.0083</b><p><b>Exact permutation, our headline.</b> Of all 120 ways to label 3 of 10 states as east coast, ours is the most extreme.</p></div>
+        <table class="t tests"><tbody>
+          <tr><td>State × season panel, 50 state-seasons</td><td class="n">0.00062</td><td class="ok">Not chance</td></tr>
+          <tr><td>2023 per-state Mann-Whitney, Terengganu and Pahang</td><td class="n">0.0025</td><td class="ok">Not chance</td></tr>
+          <tr><td>Coast-pair test, only five pairs</td><td class="n">0.0625</td><td class="no">Not significant</td></tr>
+        </tbody></table>
+        <p class="note">All two-sided. We lead with 0.0083 because three east-coast states make cluster-robust errors anti-conservative; the permutation test needs no such assumption. An association, not a causal estimate.</p>
+        <p class="say">So fishing-related pathways receive zero allocation: better for workers (SDG 8) and for fish stocks (SDG 14).</p>
+      </div>
+    </div>
+  </div>
+  <div class="pn" hidden>
+    <ul>
+      <li>"Is the fishing drop real? East coast <b>0.639</b> against the sheltered west-coast control at <b>0.977</b>: a <b>−35.4%</b> gap, 95% confidence interval −46.8% to −21.7%."</li>
+      <li>"Our headline p is <b>0.0083</b>, an exact permutation test: of all 120 ways to label three of ten states as east coast, ours is the most extreme."</li>
+      <li>"We lead with it because with three treated states, clustered standard errors are anti-conservative, so the panel's smaller p, 0.00062, is the weaker evidence. The 0.0025 on the dashboard is the 2023 per-state Mann-Whitney test. The coast-pair test is not significant: five pairs cannot reach it."</li>
+      <li>"It is an association, not a causal estimate. But it is enough to set fishing pathways to zero: good for workers, SDG 8, and for fish stocks, SDG 14."</li>
+    </ul>
+    <p class="cue">Next: what it costs.</p>
+  </div>
+</section>
+
+<!-- 7 Cost -->
+<section class="slide" id="s7" data-title="Cost" data-dur="45" aria-label="7 Cost">
+  <header class="hd"><p class="kick"><b>07</b>Cost</p><h2>RM 887 covers one worker for one monsoon month.</h2></header>
+  <div class="body">
+    <dl class="glance">
+      <div><dt>Cost per worker-month <span class="g scn">Scenario</span></dt><dd>RM 887</dd><p>RM 2,662 per participant ÷ 3 months</p></div>
+      <div><dt>Participants <span class="g scn">Scenario</span></dt><dd>2,741</dd><p>20% of 13,703 workers</p></div>
+      <div><dt>Programme cost <span class="g scn">Scenario</span></dt><dd>RM 7.30M</dd><p>Three months per participant</p></div>
+      <div><dt>Worker-months covered <span class="g scn">Scenario</span></dt><dd>8,223</dd><p>About 16% of 52,655</p></div>
+    </dl>
+    <div class="costrow">
+      <p class="ctitle">Where RM 887 comes from: RM 2,662 per participant</p>
+      <div class="costbar"><span style="width:41.3%;background:var(--ink)">RM 1,100 training</span><span style="width:49.6%;background:var(--sea)">RM 1,320 support stipend</span><span style="width:9.1%;background:#9AA6B6">RM 242</span></div>
+      <p class="csub">1 training month × RM 1,100 · 2 support months × RM 1,100 × 60% · administration 10% of the two</p>
+    </div>
+    <div class="be">
+      <p class="ctitle">Break-even placement rate (participant earnings = programme cost)</p>
+      <p class="csub">Share of participants who must be placed, earning their destination group's median wage for three months</p>
+      <div class="be2">
+        <div class="ref" style="--x:66.7%"><span>One-third</span></div>
+        <div class="r"><span>Clerical support<small>median wage RM 2,931 a month</small></span><div class="t"><i style="--w:60.6%"></i></div><b>30.3%</b></div>
+        <div class="r"><span>Services and sales<small>median wage RM 2,561 a month</small></span><div class="t"><i style="--w:69.2%"></i></div><b>34.6%</b></div>
+        <div class="r"><span>Craft and trades<small>median wage RM 2,510 a month</small></span><div class="t"><i style="--w:70.8%"></i></div><b>35.4%</b></div>
+        <div class="ax"><span></span><div class="tk"><i style="left:0">0%</i><i style="left:20%">10%</i><i style="left:40%">20%</i><i style="left:60%">30%</i><i style="left:80%">40%</i><i style="left:100%">50%</i></div><span></span></div>
+      </div>
+    </div>
+    <p class="fine"><span class="g mod">Modelled</span> Household income exposure, <b>RM 315.5M, is an upper bound</b>: it assumes one tourism-linked worker per household. The break-even rate is arithmetic, not a measured return: participant earnings are not a return to government budgets.</p>
+  </div>
+  <div class="pn" hidden>
+    <ul>
+      <li>"<b>RM 887</b> covers one worker for one monsoon month: one training month at RM 1,100, two support months at 60% of that, plus 10% administration. That is RM 2,662 per participant over three months."</li>
+      <li>"At 20% participation that is <b>2,741</b> workers, <b>RM 7.30M</b>, and <b>8,223</b> worker-months covered."</li>
+      <li>"The <b>break-even placement rate</b>, where participant earnings equal programme cost, is about <b>one-third</b>: 30.3% to 35.4% depending on the destination wage."</li>
+      <li>"This is arithmetic, not a measured return; earnings are not a return to government budgets. And the RM 315.5M household income figure is an <b>upper bound</b>: it assumes one tourism-linked worker per household."</li>
+    </ul>
+    <p class="warn">Never say "pays for itself" or "returns what it costs". Every value here is Scenario: it moves with the slicers on dashboard page 04.</p>
+    <p class="cue">Next: where machine learning earns its place.</p>
+  </div>
+</section>
+
+<!-- 8 Where ML earns its place -->
+<section class="slide" id="s8" data-title="Where ML earns its place" data-dur="50" aria-label="8 Where ML earns its place">
+  <header class="hd"><p class="kick"><b>08</b>Where ML earns its place</p><h2>Machine learning only where it earns its place.</h2></header>
+  <div class="body">
+    <p class="band-lab">In use, in this build</p>
+    <div class="tiles">
+      <article><p class="tag">NLP job matching</p><h3>TF-IDF → truncated SVD → cosine</h3><p>Task text from the official MASCO 2020 classification, turned into comparable vectors: <b>13 documents, 417 terms, 8 components keeping 70.5% of variance</b> (seed 42).</p><p>A boat operator matches Marine Operations at 0.96, and every score traces back to task wording.</p></article>
+      <article><p class="tag">Multi-criteria ranking</p><h3>Five weighted criteria, one hard exclusion</h3><p>Similarity, access, seasonal fit, capacity and training gap, decomposed exactly, not approximated.</p><p><b>Seasonal exclusion:</b> co-seasonal fishing pathways are forced to zero allocation in the model, not in prose.</p></article>
+      <article><p class="tag">Time-series nowcast</p><h3>Ridge and GBR, rolling-origin CV</h3><p>Chosen on 2018–2022, scored once on held-out 2023 fish landings. One month ahead: <b>0.731 relative MAE</b>, 27% lower error than seasonal naive (not significant when clustered by state).</p><p>Pre-season: <b>1.050</b>, worse than naive, so not claimed.</p></article>
+      <article><p class="tag">Robustness</p><h3>32 weight combinations</h3><p>All five scoring weights moved together: <b>0 of 20</b> top-ranked pathways change.</p><p>The one setting that does matter is published: seasonal fit −25% moves <b>4 of 20</b>.</p></article>
+      <article><p class="tag">Geospatial</p><h3>Exposure on the map</h3><p>DOSM district and state boundaries put worker-month exposure and landings retention on the map, so verification starts where exposure is highest.</p></article>
+      <article><p class="tag">Automation</p><h3>Checksum-verified data pipeline</h3><p>Three datasets downloaded programmatically, each with a <b>SHA-256</b> checksum and retrieval date (2026-09-14), so the exact bytes can be reproduced. No pre-trained model, no network call at run time.</p></article>
+    </div>
+    <div class="proposed">
+      <p class="plab">Proposed roadmap · not built, not evaluated</p>
+      <ol>
+        <li><b>Learn the ranking weights</b> from pilot placement outcomes instead of analyst settings.</li>
+        <li><b>Map free-text job descriptions to MASCO codes</b> with embeddings or an LLM, plus human review during district verification.</li>
+        <li><b>Malay-language pathway cards</b> for each worker, generated from the score breakdown.</li>
+        <li><b>Use the nowcast as an in-season severity monitor</b>, not a pre-season forecast.</li>
+      </ol>
+    </div>
+  </div>
+  <div class="pn" hidden>
+    <ul>
+      <li>"Where does machine learning earn its place? First, <b>NLP job matching</b>: TF-IDF, truncated SVD and cosine similarity over MASCO task text. 13 documents, 417 terms, 8 components keeping 70.5% of the variance. Explainable by construction."</li>
+      <li>"Second, a <b>multi-criteria ranking</b> with a hard seasonal exclusion. Third, a <b>time-series nowcast</b>: ridge and gradient boosting, chosen by rolling-origin cross-validation on 2018 to 2022 and scored once on held-out 2023. One month ahead: 0.731 relative MAE, 27% lower error. Before the season opens it scored 1.050, worse than naive, so we do not claim it."</li>
+      <li>"Plus robustness across <b>32</b> weight combinations, a geospatial exposure map, and a checksum-verified pipeline."</li>
+      <li>"And clearly labelled as <b>proposed</b>, not built: learn the weights from pilot placements; map free-text job descriptions to MASCO with embeddings or an LLM plus human review; Malay-language pathway cards; and the nowcast as an in-season severity monitor."</li>
+    </ul>
+    <p class="warn">Do not claim the pre-season forecast, and do not present the roadmap items as built.</p>
+    <p class="cue">Next: rollout and our ask.</p>
+  </div>
+</section>
+
+<!-- 9 Rollout and ask -->
+<section class="slide" id="s9" data-title="Rollout and ask" data-dur="40" aria-label="9 Rollout and ask">
+  <header class="hd"><span class="badge">Proposed, subject to partner agreement</span><p class="kick"><b>09</b>Rollout and our ask</p><h2>Dry-run this season. Pilot Besut next. Expand on evidence.</h2></header>
+  <div class="body roll">
+    <div class="stages4">
+      <div class="st now"><p class="when">2026/27 · this season</p><h3>Desk dry-run</h3><p>With district officers: rehearse worker verification, vacancy confirmation and the data flow on paper. No participants enrolled.</p><p class="why">The 8–10-week verification lead time for this season has passed; the window opens in <span class="days">—</span>.</p></div>
+      <div class="st"><p class="when">2027/28</p><h3>Live Besut pilot</h3><p>100 participants, RM 266,200 indicative. Record placements, months worked and wages.</p><div class="gate"><b>Expansion gate</b>At least 43 of 100 placed, under the pre-specified pilot rule.<small>Threshold depends on the stated wage, work-duration and cost assumptions.</small></div></div>
+      <div class="st"><p class="when">2028/29</p><h3>Four-district rollout</h3><p>Besut, Marang, Kuala Nerus and Rompin: about 2,741 participants, RM 7.30M indicative.</p><div class="gate"><b>Expansion gate</b>Only after the pilot passes its evaluation and employers reconfirm seasonal vacancies.</div></div>
+      <div class="st"><p class="when">2029/30 onward</p><h3>Wider adoption</h3><p>Suitable districts with available official data; recalibrate on observed placements, duration and earnings.</p><div class="gate"><b>Expansion gate</b>Validate locally before expanding.</div></div>
+    </div>
+    <div class="ask">
+      <p class="alab">Our ask of DOSM</p>
+      <ol>
+        <li>A <b>district-level tourism-employment table</b> for Besut, Marang, Kuala Nerus and Rompin, replacing our largest modelled step, the tourism planning share.</li>
+        <li>A <b>quarterly slot for the worker-month exposure indicator</b>, so the plan refreshes on official data.</li>
+        <li>A <b>seat at the 2026/27 desk dry-run</b>, alongside the State EPU and Besut district officers.</li>
+      </ol>
+    </div>
+    <p class="closing"><b>MONSUN <span>BRIDGE</span></b>The monsoon is predictable. So is the plan. Thank you.</p>
+  </div>
+  <div class="pn" hidden>
+    <ul>
+      <li>"The 2026/27 season opens in [read the countdown] days, and the 8–10-week verification lead time has passed. So this season is a <b>desk dry-run</b> with district officers."</li>
+      <li>"2027/28: a live Besut pilot, <b>100 participants, RM 266,200</b> indicative. The gate: <b>"At least 43 of 100 placed, under the pre-specified pilot rule."</b> Then four districts in 2028/29, wider adoption after that."</li>
+      <li>"Our ask of DOSM is concrete: a district-level tourism-employment table for the four districts, a quarterly slot for the exposure indicator, and a seat at this season's dry-run."</li>
+      <li>"The monsoon is predictable. So is the plan. Thank you." The bell is due at 8:00.</li>
+    </ul>
+    <p class="warn">Read the gate sentence exactly as written. All stages are proposed, subject to partner agreement.</p>
+    <p class="cue">Q&amp;A: press a number key 1–9 to jump back to any slide.</p>
+  </div>
+</section>
+
+</div></div>
+
+<div id="demo" aria-label="Live dashboard">
+  <div class="bar">
+    <span class="ttl"><em>04</em>Live dashboard</span>
+    <div class="pages" id="dpages"></div>
+    <button class="nav2" type="button" data-go="-1" aria-label="Previous slide">◂</button>
+    <button class="nav2" type="button" data-go="1" aria-label="Next slide">▸</button>
+    <button class="fsb" type="button" id="dfs">⤢ Full screen</button>
+  </div>
+  <div class="frame"><iframe id="dash" title="Monsun Bridge interactive dashboard"></iframe><div class="kbd" id="kbd">Keys now drive the dashboard (← → change its pages). Click this dark bar to return to the slides.</div></div>
+</div>
+
+<aside id="notes" aria-label="Presenter notes"><div class="meta" id="nmeta"></div><div class="txt" id="ntxt"></div></aside>
+<div id="timer" role="timer" aria-live="off"><span id="tclock">0:00</span><small id="tplan"></small></div>
+<div id="prog"></div>
+<nav id="ctrl" aria-label="Slide controls"><button type="button" data-go="-1" aria-label="Previous slide">◂</button><span id="cnt">1 / 9</span><button type="button" data-go="1" aria-label="Next slide">▸</button></nav>
+<div id="help" role="dialog" aria-label="Keyboard shortcuts"><div>
+  <h3>Presenter keys</h3>
+  <p><kbd>→</kbd><kbd>Space</kbd><kbd>PgDn</kbd> next &nbsp; <kbd>←</kbd><kbd>PgUp</kbd> back</p>
+  <p><kbd>Home</kbd> restart from slide 1 and reset the timer</p>
+  <p><kbd>1</kbd>–<kbd>9</kbd> jump to a slide (for Q&amp;A)</p>
+  <p><kbd>F</kbd> full screen &nbsp; <kbd>N</kbd> presenter notes &nbsp; <kbd>T</kbd> timer (amber at 8:00)</p>
+  <p><kbd>?</kbd> this help &nbsp; <kbd>Esc</kbd> close</p>
+  <p style="color:#9FB4C9">On slide 4, click inside the dashboard to drive it; click the dark bar above it to give the keys back. Planned talk: 7:50.</p>
+</div></div>
+<div id="toast"></div>
+
+<script>
+(function(){
+  'use strict';
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var $=function(id){return document.getElementById(id)};
+  var slides=Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var N=slides.length,cur=-1;
+  var view=$('view'),stage=$('stage'),demo=$('demo'),dash=$('dash'),notes=$('notes'),timer=$('timer');
+  var root=document.documentElement;
+
+  /* planned time per slide (seconds) and the cumulative end of each */
+  var plan=slides.map(function(s){return +s.getAttribute('data-dur')||0}),ends=[],acc=0;
+  plan.forEach(function(d){acc+=d;ends.push(acc)});
+  function mmss(s){s=Math.max(0,Math.floor(s));return Math.floor(s/60)+':'+('0'+(s%60)).slice(-2)}
+
+  /* ── fit the 1920 × 1080 stage to the space left above the notes ── */
+  function fit(){
+    root.style.setProperty('--nh',notes.classList.contains('on')?notes.offsetHeight+'px':'0px');
+    var w=view.clientWidth,h=view.clientHeight,s=Math.min(w/1920,h/1080);
+    stage.style.transform='translate('+((w-1920*s)/2).toFixed(1)+'px,'+((h-1080*s)/2).toFixed(1)+'px) scale('+s.toFixed(5)+')';
+  }
+  window.addEventListener('resize',fit);
+
+  /* ── monsoon countdown: climatological window 9 Nov → 22 Mar (same rule as web.html) ── */
+  (function(){var now=new Date(),y=now.getFullYear(),msd=864e5;function d(yy,m,dd){return new Date(yy,m,dd)}
+    var on=d(y,10,9),off=d(y+1,2,22),prevOn=d(y-1,10,9),prevOff=d(y,2,22),txt,days=null;
+    if(now>=prevOn&&now<prevOff)txt='Window open, day '+Math.ceil((now-prevOn)/msd);
+    else if(now<on){days=Math.ceil((on-now)/msd);txt='Opens in '+days+' days'}
+    else if(now<off)txt='Window open, day '+Math.ceil((now-on)/msd);
+    else{days=Math.ceil((d(y+1,10,9)-now)/msd);txt='Opens in '+days+' days'}
+    $('sdays').textContent=txt;
+    Array.prototype.forEach.call(document.querySelectorAll('.days'),function(el){el.textContent=days===null?'progress':days+' days'});
+    var mc=$('minical'),c=(now.getMonth()-5+12)%12,html='';
+    for(var i=0;i<12;i++){html+='<i class="'+(i>=5&&i<=9?'w':'')+(i===c?' now':'')+'" title="'+['Jun','Jul','Aug','Sep','Oct','Nov','Dec','Jan','Feb','Mar','Apr','May'][i]+'"></i>'}
+    mc.innerHTML=html})();
+
+  /* ── hero: chart of the east coast + northeast wind field (from web.html) ── */
+  var GEO={"s":[{"n":"Selangor","c":"west","g":"M","k":[[[[101.753,2.82],[101.761,2.707],[101.706,2.596],[101.486,2.688],[101.411,2.81],[101.292,2.842],[101.285,2.879],[101.314,2.909],[101.343,2.892],[101.339,2.921],[101.38,2.908],[101.392,2.945],[101.375,2.907],[101.357,2.925],[101.393,2.986],[101.361,3.002],[101.358,3.078],[101.314,3.122],[101.302,3.257],[101.232,3.348],[101.185,3.358],[101.02,3.638],[100.929,3.691],[100.874,3.768],[100.813,3.782],[100.818,3.851],[100.943,3.87],[100.941,3.833],[100.979,3.815],[100.96,3.791],[100.97,3.771],[100.995,3.801],[101.025,3.805],[101.029,3.783],[101.059,3.795],[101.058,3.755],[101.089,3.782],[101.101,3.752],[101.075,3.759],[101.076,3.729],[101.122,3.737],[101.133,3.764],[101.135,3.736],[101.154,3.729],[101.154,3.745],[101.163,3.726],[101.165,3.75],[101.171,3.729],[101.19,3.732],[101.175,3.711],[101.198,3.728],[101.213,3.709],[101.248,3.719],[101.246,3.684],[101.263,3.669],[101.339,3.695],[101.32,3.77],[101.362,3.804],[101.519,3.678],[101.578,3.721],[101.609,3.775],[101.654,3.729],[101.736,3.713],[101.766,3.685],[101.814,3.606],[101.804,3.553],[101.761,3.508],[101.79,3.426],[101.757,3.375],[101.856,3.276],[101.931,3.257],[101.966,3.143],[101.95,3.108],[101.971,3.033],[101.941,3.019],[101.882,2.87],[101.75,2.873],[101.753,2.82]],[[101.731,3.04],[101.754,3.107],[101.735,3.14],[101.751,3.164],[101.732,3.176],[101.757,3.2],[101.74,3.237],[101.715,3.216],[101.66,3.246],[101.618,3.2],[101.614,3.155],[101.659,3.117],[101.653,3.05],[101.714,3.058],[101.731,3.04]],[[101.702,2.979],[101.661,2.964],[101.673,2.876],[101.706,2.929],[101.731,2.929],[101.702,2.979]]],[[[101.361,2.995],[101.389,2.991],[101.335,2.924],[101.347,2.897],[101.318,2.912],[101.278,2.881],[101.269,2.893],[101.31,2.962],[101.361,2.995]]],[[[101.257,2.937],[101.254,2.906],[101.234,2.899],[101.232,2.947],[101.253,2.965],[101.257,2.937]]],[[[101.264,3.059],[101.277,3.042],[101.264,3.026],[101.217,3.007],[101.232,3.045],[101.264,3.059]]]]},{"n":"Pahang","c":"east","g":"M","k":[[[[104.174,2.897],[104.224,2.767],[104.205,2.718],[104.159,2.717],[104.12,2.75],[104.121,2.788],[104.165,2.828],[104.147,2.87],[104.174,2.897]]],[[[102.931,4.099],[102.995,4.131],[103.054,4.12],[103.12,4.084],[103.165,4.034],[103.2,4.041],[103.212,4.013],[103.245,4.018],[103.312,3.882],[103.306,3.921],[103.336,3.954],[103.326,4.05],[103.301,4.082],[103.328,4.145],[103.319,4.195],[103.345,4.179],[103.444,4.186],[103.415,4.173],[103.408,4.131],[103.385,4.112],[103.399,4.041],[103.442,3.965],[103.402,3.966],[103.377,3.933],[103.374,3.805],[103.343,3.806],[103.326,3.745],[103.368,3.641],[103.474,3.519],[103.471,3.465],[103.441,3.449],[103.422,3.378],[103.447,3.131],[103.427,2.95],[103.478,2.825],[103.63,2.664],[103.587,2.65],[103.6,2.631],[103.611,2.651],[103.621,2.628],[103.61,2.594],[103.623,2.586],[103.597,2.57],[103.616,2.558],[103.59,2.534],[103.623,2.533],[103.638,2.487],[103.624,2.463],[103.355,2.59],[103.148,2.52],[102.972,2.594],[102.794,2.804],[102.695,2.832],[102.68,2.896],[102.666,2.885],[102.466,3.019],[102.389,3.119],[102.159,3.179],[102.142,3.198],[102.059,3.168],[102.044,3.226],[101.985,3.238],[101.972,3.274],[101.939,3.29],[101.917,3.263],[101.858,3.276],[101.757,3.375],[101.79,3.426],[101.761,3.508],[101.804,3.553],[101.814,3.606],[101.737,3.713],[101.654,3.729],[101.593,3.803],[101.606,3.876],[101.573,3.916],[101.573,4.0],[101.555,4.028],[101.578,4.086],[101.505,4.132],[101.507,4.206],[101.451,4.223],[101.463,4.255],[101.443,4.272],[101.442,4.33],[101.42,4.343],[101.437,4.389],[101.391,4.408],[101.357,4.395],[101.352,4.426],[101.331,4.432],[101.359,4.495],[101.384,4.506],[101.357,4.54],[101.349,4.592],[101.373,4.614],[101.413,4.615],[101.471,4.574],[101.483,4.603],[101.52,4.613],[101.55,4.577],[101.624,4.546],[101.662,4.564],[101.673,4.594],[101.764,4.623],[101.777,4.753],[101.8,4.763],[101.82,4.751],[101.823,4.718],[101.841,4.72],[101.849,4.685],[101.889,4.671],[101.903,4.609],[101.943,4.666],[101.964,4.764],[101.985,4.74],[102.001,4.762],[102.014,4.736],[102.049,4.725],[102.115,4.761],[102.124,4.722],[102.198,4.638],[102.224,4.628],[102.233,4.652],[102.271,4.663],[102.334,4.636],[102.38,4.712],[102.449,4.712],[102.502,4.668],[102.549,4.71],[102.604,4.687],[102.596,4.738],[102.611,4.779],[102.662,4.755],[102.683,4.715],[102.732,4.684],[102.841,4.68],[102.882,4.609],[102.859,4.601],[102.865,4.562],[102.838,4.557],[102.847,4.498],[102.88,4.464],[102.93,4.468],[102.944,4.451],[102.973,4.481],[103.027,4.409],[103.007,4.377],[103.018,4.335],[102.97,4.33],[102.931,4.279],[102.935,4.245],[102.914,4.215],[102.922,4.158],[102.893,4.137],[102.931,4.099]]]]},{"n":"Pulau Pinang","c":"west","g":"M","k":[[[[100.537,5.267],[100.553,5.144],[100.4,5.127],[100.432,5.21],[100.406,5.264],[100.419,5.282],[100.405,5.339],[100.363,5.381],[100.375,5.523],[100.339,5.579],[100.529,5.556],[100.537,5.267]]],[[[100.188,5.477],[100.212,5.461],[100.276,5.479],[100.346,5.42],[100.318,5.395],[100.284,5.258],[100.231,5.287],[100.183,5.27],[100.198,5.311],[100.197,5.422],[100.178,5.434],[100.176,5.472],[100.188,5.477]]]]},{"n":"Kedah","c":"west","g":"M","k":[[[[100.737,5.305],[100.729,5.264],[100.692,5.245],[100.588,5.097],[100.553,5.077],[100.557,5.092],[100.516,5.095],[100.52,5.118],[100.497,5.14],[100.553,5.144],[100.525,5.369],[100.529,5.556],[100.338,5.58],[100.333,5.662],[100.381,5.678],[100.351,5.704],[100.366,5.771],[100.353,5.975],[100.327,6.046],[100.286,6.097],[100.264,6.175],[100.198,6.263],[100.307,6.409],[100.364,6.454],[100.368,6.54],[100.424,6.518],[100.493,6.523],[100.513,6.49],[100.563,6.495],[100.652,6.443],[100.709,6.471],[100.738,6.509],[100.753,6.458],[100.812,6.444],[100.855,6.231],[100.874,6.264],[100.9,6.233],[100.946,6.243],[100.968,6.284],[101.019,6.246],[101.113,6.251],[101.126,6.193],[101.074,6.169],[101.058,6.142],[101.122,6.11],[101.099,6.052],[101.122,5.984],[101.085,5.916],[101.028,5.918],[100.991,5.785],[100.942,5.766],[100.982,5.723],[100.976,5.686],[100.966,5.649],[100.942,5.651],[100.948,5.631],[100.924,5.619],[100.946,5.582],[100.934,5.52],[100.869,5.471],[100.849,5.351],[100.818,5.321],[100.737,5.305]]],[[[99.841,6.29],[99.818,6.237],[99.815,6.215],[99.836,6.214],[99.826,6.188],[99.814,6.165],[99.799,6.186],[99.787,6.174],[99.771,6.227],[99.798,6.269],[99.841,6.29]]],[[[99.83,6.473],[99.897,6.406],[99.888,6.378],[99.91,6.391],[99.899,6.363],[99.914,6.333],[99.864,6.292],[99.847,6.323],[99.807,6.318],[99.729,6.258],[99.718,6.353],[99.653,6.362],[99.641,6.434],[99.733,6.431],[99.73,6.397],[99.747,6.43],[99.792,6.424],[99.829,6.459],[99.845,6.444],[99.818,6.464],[99.83,6.473]]]]},{"n":"Perak","c":"west","g":"M","k":[[[[100.761,4.042],[100.763,4.085],[100.691,4.16],[100.659,4.169],[100.628,4.134],[100.623,4.164],[100.605,4.148],[100.59,4.165],[100.614,4.167],[100.61,4.211],[100.596,4.205],[100.61,4.214],[100.585,4.227],[100.584,4.295],[100.556,4.308],[100.585,4.376],[100.573,4.431],[100.612,4.437],[100.613,4.517],[100.63,4.544],[100.582,4.575],[100.583,4.615],[100.613,4.652],[100.578,4.698],[100.589,4.772],[100.554,4.812],[100.562,4.856],[100.547,4.88],[100.501,4.867],[100.487,4.894],[100.501,4.917],[100.439,4.926],[100.362,5.091],[100.4,5.127],[100.495,5.134],[100.52,5.118],[100.516,5.095],[100.566,5.079],[100.661,5.18],[100.692,5.245],[100.729,5.264],[100.735,5.311],[100.817,5.321],[100.849,5.351],[100.869,5.471],[100.934,5.52],[100.946,5.582],[100.924,5.619],[100.948,5.631],[100.942,5.651],[100.966,5.649],[100.976,5.686],[100.982,5.723],[100.95,5.745],[100.946,5.77],[100.995,5.787],[101.037,5.739],[101.061,5.745],[101.143,5.615],[101.251,5.698],[101.271,5.805],[101.34,5.811],[101.391,5.876],[101.484,5.87],[101.583,5.932],[101.629,5.874],[101.663,5.867],[101.68,5.738],[101.646,5.702],[101.643,5.643],[101.677,5.62],[101.649,5.555],[101.689,5.535],[101.741,5.545],[101.739,5.428],[101.754,5.408],[101.674,5.352],[101.61,5.394],[101.601,5.348],[101.576,5.341],[101.575,5.303],[101.549,5.271],[101.524,5.278],[101.472,5.014],[101.422,4.984],[101.454,4.922],[101.445,4.858],[101.402,4.842],[101.412,4.801],[101.395,4.761],[101.374,4.759],[101.387,4.717],[101.335,4.693],[101.375,4.629],[101.349,4.592],[101.357,4.54],[101.384,4.507],[101.359,4.495],[101.33,4.433],[101.352,4.426],[101.357,4.395],[101.391,4.408],[101.437,4.389],[101.42,4.343],[101.442,4.33],[101.443,4.272],[101.463,4.255],[101.451,4.223],[101.507,4.206],[101.505,4.132],[101.575,4.093],[101.555,4.028],[101.573,4.0],[101.573,3.916],[101.606,3.876],[101.593,3.803],[101.627,3.771],[101.605,3.774],[101.578,3.721],[101.519,3.678],[101.356,3.803],[101.32,3.768],[101.339,3.695],[101.263,3.669],[101.246,3.684],[101.248,3.719],[101.213,3.709],[101.198,3.728],[101.175,3.711],[101.19,3.732],[101.171,3.729],[101.165,3.75],[101.163,3.726],[101.154,3.745],[101.153,3.729],[101.135,3.736],[101.132,3.764],[101.123,3.738],[101.077,3.729],[101.075,3.759],[101.101,3.752],[101.089,3.782],[101.058,3.756],[101.059,3.795],[101.028,3.783],[101.025,3.805],[100.997,3.801],[100.985,3.773],[100.966,3.772],[100.96,3.796],[100.979,3.812],[100.94,3.836],[100.941,3.87],[100.808,3.849],[100.786,3.824],[100.723,3.841],[100.694,3.887],[100.697,4.013],[100.714,4.031],[100.758,4.013],[100.761,4.042]]]]},{"n":"Kelantan","c":"east","g":"M","k":[[[[101.815,4.759],[101.777,4.753],[101.764,4.623],[101.673,4.594],[101.662,4.564],[101.624,4.546],[101.55,4.577],[101.52,4.613],[101.483,4.603],[101.47,4.574],[101.413,4.615],[101.372,4.613],[101.335,4.693],[101.387,4.717],[101.374,4.759],[101.395,4.761],[101.412,4.801],[101.402,4.842],[101.445,4.858],[101.454,4.922],[101.422,4.984],[101.472,5.014],[101.524,5.278],[101.549,5.271],[101.575,5.303],[101.576,5.341],[101.601,5.348],[101.61,5.394],[101.674,5.352],[101.754,5.408],[101.739,5.428],[101.741,5.545],[101.689,5.535],[101.649,5.555],[101.677,5.62],[101.643,5.643],[101.646,5.702],[101.68,5.738],[101.675,5.791],[101.707,5.811],[101.76,5.797],[101.827,5.734],[101.839,5.79],[101.867,5.792],[101.88,5.834],[101.943,5.874],[101.921,5.915],[101.944,5.987],[101.976,6.032],[102.054,6.081],[102.093,6.147],[102.078,6.172],[102.087,6.244],[102.127,6.218],[102.168,6.22],[102.127,6.216],[102.161,6.202],[102.225,6.225],[102.346,6.166],[102.461,5.929],[102.537,5.847],[102.381,5.682],[102.411,5.543],[102.383,5.517],[102.406,5.442],[102.388,5.41],[102.445,5.362],[102.42,5.31],[102.414,5.182],[102.466,5.166],[102.527,5.11],[102.499,5.074],[102.519,5.026],[102.498,5.005],[102.522,4.959],[102.508,4.901],[102.573,4.894],[102.65,4.848],[102.667,4.778],[102.657,4.759],[102.611,4.779],[102.601,4.768],[102.604,4.687],[102.549,4.71],[102.502,4.668],[102.449,4.712],[102.38,4.712],[102.345,4.64],[102.271,4.663],[102.233,4.652],[102.224,4.628],[102.13,4.713],[102.115,4.761],[102.049,4.725],[102.014,4.736],[102.001,4.762],[101.985,4.74],[101.964,4.764],[101.943,4.666],[101.903,4.609],[101.889,4.671],[101.847,4.687],[101.815,4.759]]]]},{"n":"Negeri Sembilan","c":"west","g":"M","k":[[[[102.625,2.629],[102.638,2.6],[102.607,2.564],[102.616,2.469],[102.594,2.45],[102.592,2.405],[102.362,2.488],[102.274,2.457],[102.174,2.498],[102.139,2.456],[102.062,2.456],[102.048,2.42],[102.03,2.439],[101.977,2.39],[101.929,2.424],[101.857,2.415],[101.836,2.502],[101.814,2.523],[101.793,2.515],[101.791,2.581],[101.701,2.61],[101.728,2.621],[101.761,2.707],[101.75,2.873],[101.882,2.87],[101.941,3.019],[101.971,3.033],[101.95,3.108],[101.966,3.143],[101.94,3.19],[101.945,3.227],[101.917,3.263],[101.937,3.289],[101.972,3.274],[101.985,3.238],[102.044,3.226],[102.059,3.168],[102.142,3.198],[102.159,3.179],[102.389,3.119],[102.466,3.019],[102.666,2.885],[102.68,2.896],[102.7,2.833],[102.625,2.629]]]]},{"n":"W.P. Kuala Lumpur","c":"west","g":"M","k":[[[[101.667,3.244],[101.715,3.216],[101.74,3.237],[101.757,3.2],[101.732,3.176],[101.751,3.164],[101.735,3.14],[101.754,3.107],[101.731,3.039],[101.714,3.058],[101.653,3.05],[101.659,3.117],[101.614,3.155],[101.636,3.231],[101.667,3.244]]]]},{"n":"Perlis","c":"west","g":"M","k":[[[[100.21,6.721],[100.23,6.694],[100.293,6.709],[100.294,6.682],[100.327,6.664],[100.325,6.62],[100.304,6.608],[100.371,6.531],[100.364,6.454],[100.205,6.292],[100.199,6.257],[100.168,6.292],[100.12,6.422],[100.159,6.478],[100.157,6.576],[100.183,6.576],[100.172,6.693],[100.21,6.721]]]]},{"n":"Johor","c":"both","g":"M","k":[[[[103.776,1.46],[103.712,1.457],[103.672,1.428],[103.608,1.288],[103.555,1.34],[103.516,1.306],[103.508,1.264],[103.441,1.324],[103.38,1.504],[103.324,1.57],[103.171,1.632],[103.008,1.734],[102.939,1.739],[102.884,1.785],[102.894,1.82],[102.832,1.852],[102.77,1.87],[102.713,1.853],[102.693,1.863],[102.631,1.952],[102.549,2.028],[102.562,2.05],[102.489,2.099],[102.492,2.12],[102.518,2.113],[102.54,2.14],[102.53,2.168],[102.483,2.178],[102.468,2.201],[102.496,2.224],[102.511,2.349],[102.54,2.388],[102.592,2.405],[102.594,2.45],[102.615,2.465],[102.607,2.564],[102.638,2.595],[102.624,2.625],[102.7,2.833],[102.794,2.804],[102.972,2.594],[103.148,2.52],[103.355,2.59],[103.608,2.458],[103.638,2.487],[103.623,2.533],[103.59,2.531],[103.615,2.554],[103.597,2.574],[103.625,2.603],[103.611,2.651],[103.593,2.634],[103.593,2.66],[103.658,2.665],[103.732,2.631],[103.754,2.65],[103.76,2.615],[103.814,2.588],[103.806,2.574],[103.846,2.509],[103.818,2.493],[103.837,2.444],[103.96,2.314],[103.952,2.294],[103.981,2.251],[103.959,2.244],[103.961,2.204],[104.009,2.153],[104.114,1.97],[104.131,1.921],[104.11,1.925],[104.107,1.884],[104.135,1.847],[104.162,1.847],[104.248,1.65],[104.264,1.61],[104.255,1.562],[104.282,1.525],[104.273,1.49],[104.297,1.433],[104.276,1.425],[104.284,1.369],[104.243,1.368],[104.2,1.336],[104.14,1.34],[104.088,1.369],[104.114,1.395],[104.083,1.433],[103.896,1.428],[103.811,1.478],[103.776,1.46]]],[[[104.526,2.462],[104.538,2.439],[104.518,2.428],[104.497,2.463],[104.509,2.475],[104.526,2.462]]]]},{"n":"Melaka","c":"west","g":"M","k":[[[[102.431,2.454],[102.592,2.405],[102.54,2.388],[102.511,2.349],[102.496,2.224],[102.468,2.2],[102.483,2.178],[102.53,2.168],[102.54,2.14],[102.518,2.113],[102.492,2.12],[102.489,2.099],[102.371,2.134],[102.196,2.218],[102.157,2.216],[102.058,2.339],[101.969,2.384],[102.03,2.439],[102.048,2.42],[102.062,2.456],[102.139,2.456],[102.174,2.498],[102.274,2.457],[102.362,2.488],[102.431,2.454]]]]},{"n":"Terengganu","c":"east","g":"M","k":[[[[103.465,4.57],[103.475,4.525],[103.447,4.507],[103.444,4.472],[103.49,4.311],[103.442,4.235],[103.445,4.181],[103.345,4.179],[103.319,4.195],[103.328,4.145],[103.301,4.082],[103.326,4.05],[103.336,3.954],[103.306,3.921],[103.313,3.882],[103.245,4.018],[103.212,4.013],[103.2,4.041],[103.165,4.034],[103.12,4.084],[103.054,4.12],[102.995,4.131],[102.93,4.099],[102.908,4.113],[102.893,4.137],[102.922,4.158],[102.914,4.215],[102.935,4.245],[102.931,4.279],[102.97,4.33],[103.018,4.335],[103.007,4.377],[103.027,4.409],[102.973,4.481],[102.944,4.451],[102.93,4.468],[102.88,4.464],[102.847,4.498],[102.838,4.557],[102.865,4.562],[102.859,4.601],[102.882,4.609],[102.841,4.68],[102.777,4.67],[102.683,4.715],[102.657,4.759],[102.65,4.848],[102.573,4.894],[102.508,4.901],[102.522,4.959],[102.498,5.005],[102.519,5.026],[102.499,5.074],[102.527,5.11],[102.466,5.166],[102.414,5.182],[102.42,5.31],[102.445,5.362],[102.388,5.41],[102.406,5.442],[102.383,5.517],[102.411,5.543],[102.381,5.682],[102.537,5.847],[102.63,5.784],[102.684,5.711],[102.853,5.572],[102.993,5.514],[103.113,5.387],[103.438,4.784],[103.391,4.775],[103.427,4.779],[103.448,4.689],[103.447,4.657],[103.432,4.654],[103.465,4.57]]],[[[103.007,5.814],[103.012,5.785],[103.04,5.787],[102.996,5.747],[102.986,5.781],[103.007,5.814]]],[[[102.769,5.901],[102.77,5.884],[102.755,5.894],[102.744,5.88],[102.739,5.902],[102.761,5.924],[102.769,5.901]]]]},{"n":"W.P. Putrajaya","c":"west","g":"M","k":[[[[101.698,2.972],[101.731,2.953],[101.731,2.929],[101.706,2.929],[101.673,2.876],[101.661,2.964],[101.698,2.972]]]]}],"d":[{"n":"Rompin","g":"M","k":[[[[102.739,3.379],[102.756,3.379],[102.773,3.365],[102.826,3.377],[102.824,3.36],[102.85,3.32],[102.861,3.315],[102.888,3.276],[102.897,3.279],[102.91,3.27],[102.92,3.272],[102.935,3.311],[102.945,3.308],[102.954,3.316],[102.959,3.293],[102.98,3.277],[103.004,3.29],[103.019,3.287],[103.02,3.294],[103.034,3.298],[103.061,3.324],[103.068,3.322],[103.078,3.294],[103.074,3.278],[103.083,3.265],[103.089,3.268],[103.09,3.256],[103.111,3.241],[103.109,3.228],[103.127,3.213],[103.128,3.205],[103.116,3.189],[103.124,3.184],[103.117,3.166],[103.124,3.163],[103.101,3.145],[103.109,3.122],[103.081,3.118],[103.066,3.103],[103.079,3.098],[103.08,3.084],[103.109,3.083],[103.119,3.066],[103.131,3.066],[103.136,3.017],[103.116,3.017],[103.119,3.005],[103.128,3.0],[103.125,2.99],[103.153,2.986],[103.165,2.959],[103.235,2.966],[103.365,2.964],[103.428,2.947],[103.451,2.868],[103.478,2.825],[103.545,2.748],[103.63,2.664],[103.632,2.659],[103.618,2.652],[103.595,2.661],[103.587,2.65],[103.593,2.634],[103.6,2.631],[103.6,2.646],[103.611,2.651],[103.611,2.633],[103.621,2.628],[103.612,2.619],[103.625,2.603],[103.61,2.594],[103.623,2.586],[103.605,2.585],[103.597,2.57],[103.601,2.565],[103.612,2.575],[103.616,2.558],[103.613,2.554],[103.609,2.562],[103.605,2.56],[103.593,2.548],[103.59,2.534],[103.594,2.526],[103.623,2.533],[103.616,2.518],[103.629,2.506],[103.63,2.491],[103.638,2.487],[103.627,2.465],[103.617,2.462],[103.609,2.471],[103.608,2.458],[103.472,2.527],[103.453,2.547],[103.418,2.552],[103.355,2.59],[103.289,2.578],[103.148,2.52],[102.969,2.597],[102.794,2.804],[102.781,2.808],[102.78,2.819],[102.754,2.841],[102.752,2.856],[102.739,2.864],[102.751,2.896],[102.745,2.909],[102.759,2.917],[102.756,2.991],[102.775,3.015],[102.786,3.046],[102.767,3.058],[102.761,3.055],[102.757,3.077],[102.743,3.082],[102.741,3.102],[102.751,3.109],[102.749,3.125],[102.733,3.116],[102.724,3.122],[102.737,3.153],[102.758,3.146],[102.803,3.172],[102.776,3.202],[102.755,3.207],[102.748,3.219],[102.737,3.22],[102.726,3.253],[102.718,3.262],[102.706,3.261],[102.697,3.28],[102.695,3.299],[102.704,3.307],[102.701,3.317],[102.715,3.32],[102.727,3.334],[102.728,3.371],[102.735,3.381],[102.739,3.379]]],[[[104.171,2.897],[104.18,2.893],[104.18,2.883],[104.19,2.876],[104.185,2.87],[104.19,2.868],[104.186,2.864],[104.198,2.834],[104.194,2.832],[104.215,2.8],[104.207,2.799],[104.206,2.781],[104.221,2.776],[104.224,2.767],[104.216,2.745],[104.221,2.737],[104.217,2.723],[104.205,2.718],[104.185,2.722],[104.159,2.717],[104.12,2.75],[104.121,2.788],[104.129,2.801],[104.164,2.826],[104.16,2.846],[104.149,2.856],[104.155,2.863],[104.147,2.87],[104.155,2.875],[104.157,2.893],[104.171,2.897]]],[[[103.975,2.7],[103.994,2.696],[103.993,2.675],[103.988,2.673],[103.98,2.685],[103.982,2.674],[103.975,2.677],[103.975,2.7]]],[[[103.96,2.701],[103.966,2.7],[103.967,2.691],[103.957,2.683],[103.951,2.699],[103.96,2.701]]],[[[104.107,2.915],[104.115,2.912],[104.103,2.906],[104.098,2.911],[104.106,2.912],[104.102,2.919],[104.107,2.915]]]]},{"n":"Besut","g":"M","k":[[[[102.436,5.745],[102.488,5.791],[102.537,5.847],[102.558,5.839],[102.63,5.784],[102.673,5.724],[102.651,5.711],[102.666,5.687],[102.668,5.638],[102.65,5.619],[102.643,5.595],[102.617,5.587],[102.624,5.562],[102.611,5.54],[102.622,5.517],[102.608,5.508],[102.6,5.512],[102.606,5.505],[102.591,5.483],[102.596,5.48],[102.59,5.469],[102.597,5.452],[102.59,5.438],[102.594,5.429],[102.578,5.415],[102.59,5.402],[102.579,5.384],[102.587,5.369],[102.567,5.368],[102.546,5.357],[102.529,5.332],[102.511,5.337],[102.51,5.349],[102.482,5.359],[102.46,5.348],[102.447,5.355],[102.442,5.369],[102.432,5.369],[102.423,5.391],[102.415,5.388],[102.388,5.41],[102.387,5.424],[102.396,5.424],[102.406,5.442],[102.392,5.474],[102.395,5.496],[102.383,5.517],[102.4,5.528],[102.403,5.541],[102.411,5.543],[102.4,5.578],[102.404,5.613],[102.391,5.631],[102.389,5.671],[102.381,5.682],[102.389,5.695],[102.401,5.698],[102.436,5.745]]],[[[102.771,5.911],[102.77,5.884],[102.763,5.884],[102.755,5.894],[102.744,5.88],[102.739,5.902],[102.755,5.911],[102.761,5.924],[102.771,5.911]]],[[[102.726,5.938],[102.724,5.918],[102.733,5.904],[102.724,5.893],[102.717,5.896],[102.716,5.921],[102.719,5.936],[102.726,5.938]]]]},{"n":"Marang","g":"M","k":[[[[103.085,5.267],[103.095,5.257],[103.107,5.263],[103.121,5.255],[103.117,5.252],[103.128,5.243],[103.13,5.231],[103.12,5.21],[103.146,5.214],[103.154,5.25],[103.165,5.256],[103.174,5.25],[103.186,5.267],[103.179,5.261],[103.191,5.237],[103.222,5.193],[103.312,5.011],[103.388,4.877],[103.375,4.87],[103.368,4.858],[103.342,4.85],[103.335,4.865],[103.308,4.879],[103.287,4.869],[103.269,4.897],[103.236,4.909],[103.231,4.955],[103.218,4.962],[103.214,4.984],[103.167,5.04],[103.158,5.049],[103.152,5.044],[103.14,5.065],[103.133,5.066],[103.118,5.103],[103.114,5.106],[103.1,5.096],[103.081,5.108],[103.052,5.147],[103.056,5.17],[103.047,5.196],[103.052,5.202],[103.044,5.204],[103.048,5.219],[103.069,5.231],[103.067,5.236],[103.075,5.244],[103.068,5.248],[103.078,5.252],[103.085,5.267]]]]},{"n":"Kuala Nerus","g":"M","k":[[[[103.062,5.438],[103.108,5.393],[103.14,5.344],[103.127,5.345],[103.103,5.324],[103.101,5.334],[103.07,5.343],[103.067,5.35],[103.045,5.323],[103.02,5.316],[102.997,5.299],[102.99,5.307],[102.981,5.304],[102.992,5.266],[102.978,5.259],[102.986,5.237],[102.979,5.233],[102.934,5.267],[102.93,5.294],[102.907,5.306],[102.924,5.322],[102.93,5.32],[102.918,5.361],[102.922,5.38],[102.91,5.447],[102.915,5.451],[102.936,5.438],[102.998,5.5],[103.062,5.438]]],[[[103.004,5.811],[103.007,5.815],[103.015,5.805],[103.013,5.784],[103.022,5.792],[103.04,5.787],[103.028,5.761],[103.013,5.749],[102.996,5.747],[102.986,5.781],[102.993,5.812],[103.004,5.811]]]]}]};
+  var LON0=99.3,LON1=105.1,LAT0=1.1,LAT1=6.95,HW=1920,HH=1080;
+  var ISL=[['Perhentian',102.73,5.91,1],['Lang Tengah',102.9,5.8,0],['Redang',103.01,5.78,1],['Kapas',103.27,5.22,1],['Tioman',104.16,2.79,1]];
+  var box=(function(){var s=Math.min(HH*.76,HW*.5);return {s:s,x:HW-s-HW*.035,y:Math.max(40,(HH-s)/2-70)}})();
+  function P(lon,lat){return [box.x+(lon-LON0)/(LON1-LON0)*box.s,box.y+(LAT1-lat)/(LAT1-LAT0)*box.s]}
+  function drawMap(){
+    var c=$('mapc'),dpr=Math.min(2,window.devicePixelRatio||1);c.width=HW*dpr;c.height=HH*dpr;
+    var x=c.getContext('2d');x.setTransform(dpr,0,0,dpr,0,0);x.clearRect(0,0,HW,HH);
+    function poly(f,fill,stroke,lw){var polys=f.g==='M'?f.k:[f.k];x.beginPath();polys.forEach(function(p){p.forEach(function(r){r.forEach(function(pt,i){var q=P(pt[0],pt[1]);if(i)x.lineTo(q[0],q[1]);else x.moveTo(q[0],q[1])});x.closePath()})});if(fill){x.fillStyle=fill;x.fill()}if(stroke){x.strokeStyle=stroke;x.lineWidth=lw;x.stroke()}}
+    GEO.s.forEach(function(f){var east=f.c==='east'||f.c==='both';poly(f,east?'rgba(98,198,211,.10)':'rgba(255,255,255,.035)','rgba(170,205,230,.30)',1)});
+    GEO.d.forEach(function(f){poly(f,'rgba(226,163,42,.30)','rgba(226,163,42,.9)',1.4)});
+    x.strokeStyle='rgba(98,198,211,.10)';x.lineWidth=1;x.setLineDash([3,5]);
+    for(var k=1;k<=3;k++){x.beginPath();var a=P(102.3+k*.28,6.55),b=P(103.6+k*.3,4.6),c2=P(104.1+k*.3,2.2);x.moveTo(a[0],a[1]);x.quadraticCurveTo(b[0],b[1],c2[0],c2[1]);x.stroke()}
+    x.setLineDash([]);
+    x.font='italic 500 18px "Hanken Grotesk",sans-serif';x.fillStyle='rgba(160,195,220,.55)';var sl=P(104.15,4.6);x.fillText('South China Sea',sl[0],sl[1]);
+    var il=$('islands');if(!il.children.length){ISL.forEach(function(s){var d=document.createElement('div');d.className='isl'+(s[0]==='Perhentian'?' l':'');d.innerHTML='<i></i>'+(s[3]?'<span>'+s[0]+'</span>':'');il.appendChild(d)})}
+    Array.prototype.forEach.call(il.children,function(d,i){var q=P(ISL[i][1],ISL[i][2]);d.style.left=q[0]+'px';d.style.top=q[1]+'px'});
+  }
+  var wind=(function(canvas,opt){
+    var ctx=canvas.getContext('2d'),W=HW,H=HH,pts=[],run=false,t0=performance.now();
+    canvas.width=W;canvas.height=H;
+    function spawn(p,any){if(any||Math.random()<.5){p.x=Math.random()*W*1.1;p.y=Math.random()*H}else if(Math.random()<.55){p.x=W+5;p.y=Math.random()*H}else{p.x=Math.random()*W*1.2;p.y=-5}p.age=0;p.life=80+Math.random()*160;return p}
+    for(var i=0;i<opt.max;i++)pts.push(spawn({},true));
+    function ang(x,y,t){return 2.43+.5*Math.sin(x*.0042+t*.00028)*Math.cos(y*.0051-t*.0002)+.28*Math.sin((x+y)*.0024+t*.00037)}
+    function frame(now){if(!run)return;var t=now-t0,g=.55+.45*Math.pow(Math.sin(t/2900),2),sp=(1.15+1.25*g)*opt.speed;
+      ctx.globalCompositeOperation='destination-out';ctx.fillStyle='rgba(0,0,0,'+opt.fade+')';ctx.fillRect(0,0,W,H);ctx.globalCompositeOperation='source-over';
+      ctx.lineWidth=opt.lw;ctx.lineCap='round';
+      for(var i=0;i<pts.length;i++){var p=pts[i],a=ang(p.x,p.y,t),nx=p.x+Math.cos(a)*sp,ny=p.y+Math.sin(a)*sp;
+        var al=Math.min(1,p.age/18)*Math.min(1,(p.life-p.age)/30)*opt.alpha*(.7+.5*g);
+        ctx.strokeStyle=(i%opt.goldEvery===0?'rgba(226,163,42,':'rgba('+opt.rgb+',')+al.toFixed(3)+')';
+        ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(nx,ny);ctx.stroke();
+        p.x=nx;p.y=ny;p.age++;if(p.age>p.life||p.x<-10||p.y>H+10)spawn(p)}
+      requestAnimationFrame(frame)}
+    return {start:function(){if(run||reduce)return;run=true;requestAnimationFrame(frame)},stop:function(){run=false}};
+  })($('windc'),{max:900,speed:1.4,fade:.075,lw:1.4,alpha:.38,rgb:'170,225,240',goldEvery:9});
+  drawMap();if(document.fonts&&document.fonts.ready)document.fonts.ready.then(drawMap);
+
+  /* ── live dashboard layer ── */
+  var dpages=[['00','Executive Summary','Summary'],['01','Monsoon Clock','Clock'],['02','Exposure Map','Exposure'],['03','Skill Bridge','Skills'],['04','Action Planner','Planner'],['05','Risk, Cost and Return','Cost'],['06','Robustness','Robust'],['07','Evidence','Evidence']];
+  var dloaded=false;
+  function loadDash(){if(!dloaded){dloaded=true;dash.src='dashboard.html?embed=1'}}
+  function dashPage(i){
+    try{if(dash.contentWindow&&dash.contentWindow.MB){dash.contentWindow.MB.go(i);return}}catch(e){/* file:// pages cannot reach into the frame: reload it on that page */}
+    dash.src='dashboard.html?embed=1&p='+i+'#page'+i;dloaded=true;
+  }
+  dpages.forEach(function(p,i){var b=document.createElement('button');b.type='button';b.innerHTML='<b>'+p[0]+'</b><span class="l">'+p[1]+'</span><span class="s">'+p[2]+'</span>';b.title='Dashboard page '+p[0]+' '+p[1];
+    b.addEventListener('click',function(){dashPage(i)});$('dpages').appendChild(b)});
+  function fsOf(){return document.fullscreenElement||document.webkitFullscreenElement||null}
+  function reqFs(el){var f=el.requestFullscreen||el.webkitRequestFullscreen;if(f){var r=f.call(el);if(r&&r.catch)r.catch(function(){})}}
+  function exitFs(){var f=document.exitFullscreen||document.webkitExitFullscreen;if(f&&fsOf()){var r=f.call(document);return r&&r.then?r:Promise.resolve()}return Promise.resolve()}
+  var deckWasFs=false;
+  $('dfs').addEventListener('click',function(){if(fsOf()===demo){exitFs()}else{deckWasFs=fsOf()===root;reqFs(demo)}});
+  document.addEventListener('fullscreenchange',function(){$('dfs').textContent=fsOf()===demo?'⤡ Exit full screen':'⤢ Full screen';setTimeout(fit,60)});
+  /* when keys go into the dashboard frame, say so; clicking the bar brings them back */
+  var kbd=$('kbd');
+  window.addEventListener('blur',function(){setTimeout(function(){if(document.activeElement===dash)kbd.classList.add('on')},0)});
+  window.addEventListener('focus',function(){kbd.classList.remove('on')});
+  demo.querySelector('.bar').addEventListener('mousedown',function(){if(document.activeElement===dash){dash.blur();window.focus()}});
+
+  /* ── presenter notes ── */
+  function renderNotes(){
+    var s=slides[cur],pn=s.querySelector('.pn'),start=cur?ends[cur-1]:0;
+    $('nmeta').innerHTML='<b>'+(cur+1)+' / '+N+' · '+s.getAttribute('data-title')+'</b>'+
+      '<p class="plan">'+mmss(plan[cur])+' planned · '+mmss(start)+' → '+mmss(ends[cur])+'</p>'+
+      '<p>Total plan '+mmss(ends[N-1])+' · bell at 8:00</p>'+
+      (cur<N-1?'<p>Next: '+slides[cur+1].getAttribute('data-title')+'</p>':'<p>Last slide: Q&amp;A follows</p>');
+    $('ntxt').innerHTML=pn?pn.innerHTML:'';$('ntxt').scrollTop=0;
+  }
+  function toggleNotes(){notes.classList.toggle('on');fit();if(notes.classList.contains('on'))renderNotes()}
+
+  /* ── elapsed timer: starts on the first move or on T; amber at 8:00, red at 10:00 ── */
+  var t0=null,tick=null;
+  function startTimer(){if(t0!==null)return;t0=Date.now();tick=setInterval(drawTimer,250);drawTimer()}
+  function resetTimer(){t0=null;clearInterval(tick);tick=null;drawTimer()}
+  function drawTimer(){var e=t0===null?0:(Date.now()-t0)/1000;$('tclock').textContent=mmss(e);
+    $('tplan').textContent=cur>=0?'slide '+(cur+1)+' ends '+mmss(ends[cur]):'';
+    timer.classList.toggle('amber',e>=480&&e<600);timer.classList.toggle('red',e>=600)}
+  function toggleTimer(){var on=!timer.classList.contains('on');timer.classList.toggle('on',on);document.body.classList.toggle('timer-on',on);if(on)startTimer();drawTimer()}
+
+  /* ── stepping ── */
+  function go(i,first){
+    i=Math.max(0,Math.min(N-1,i));if(i===cur)return;
+    if(!first)startTimer();
+    var leavingDemo=cur>=0&&slides[cur].hasAttribute('data-demo');
+    if(cur>=0){slides[cur].classList.remove('on');slides[cur].setAttribute('aria-hidden','true')}
+    cur=i;var s=slides[cur];s.classList.add('on');s.removeAttribute('aria-hidden');
+    var isDemo=s.hasAttribute('data-demo');
+    if(cur>=N-7)loadDash();
+    demo.classList.toggle('on',isDemo);demo.setAttribute('aria-hidden',isDemo?'false':'true');
+    if(leavingDemo&&!isDemo&&fsOf()===demo){exitFs().then(function(){if(deckWasFs)reqFs(root)})}
+    if(cur===0)wind.start();else wind.stop();
+    $('cnt').textContent=(cur+1)+' / '+N;$('prog').style.width=((cur+1)/N*100)+'%';
+    try{history.replaceState(null,'','#'+(cur+1))}catch(e){}
+    if(notes.classList.contains('on'))renderNotes();
+    drawTimer();
+  }
+  Array.prototype.forEach.call(document.querySelectorAll('[data-go]'),function(b){b.addEventListener('click',function(){go(cur+(+b.getAttribute('data-go')));b.blur()})});
+
+  var help=$('help');
+  document.addEventListener('keydown',function(e){
+    if(e.ctrlKey||e.metaKey||e.altKey)return;
+    var k=e.key;
+    if(help.classList.contains('on')&&k!=='?'){help.classList.remove('on');if(k==='Escape')return}
+    if(k==='ArrowRight'||k===' '||k==='Spacebar'||k==='PageDown'||k==='ArrowDown'){e.preventDefault();go(cur+1)}
+    else if(k==='ArrowLeft'||k==='PageUp'||k==='ArrowUp'){e.preventDefault();go(cur-1)}
+    else if(k==='Home'){e.preventDefault();go(0);resetTimer()}
+    else if(k==='End'){e.preventDefault();go(N-1)}
+    else if(/^[1-9]$/.test(k)&&+k<=N){go(+k-1)}
+    else if(k==='f'||k==='F'){if(fsOf())exitFs();else reqFs(root)}
+    else if(k==='n'||k==='N'){toggleNotes()}
+    else if(k==='t'||k==='T'){toggleTimer()}
+    else if(k==='?'||k==='h'||k==='H'){help.classList.toggle('on')}
+  });
+  help.addEventListener('click',function(){help.classList.remove('on')});
+
+  /* controls fade out when the mouse rests */
+  var ctrl=$('ctrl'),idle;function wake(){ctrl.classList.remove('idle');clearTimeout(idle);idle=setTimeout(function(){ctrl.classList.add('idle')},2500)}
+  window.addEventListener('mousemove',wake,{passive:true});wake();
+
+  /* start */
+  slides.forEach(function(s){s.setAttribute('aria-hidden','true')});
+  fit();
+  var h=parseInt((location.hash||'').slice(1),10);
+  go(h>=1&&h<=N?h-1:0,true);
+  setTimeout(loadDash,1500);
+  var toast=$('toast');toast.textContent='→ next · ← back · F full screen · N notes · T timer · ? keys';
+  setTimeout(function(){toast.classList.add('on')},400);setTimeout(function(){toast.classList.remove('on')},4400);
+})();
+</script>
+</body>
+</html>
