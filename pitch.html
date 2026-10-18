@@ -531,7 +531,7 @@ body.timer-on #demo .bar{padding-right:clamp(150px,13vw,230px)}
         <div><b class="num">0.392%</b><p>of Malaysia's tourism jobs: <strong>pilot-sized</strong></p></div>
         <div><b class="num">RM 315.5M</b><p>household income exposed: an <strong>upper bound</strong></p></div>
       </div>
-      <p class="gnote"><span class="g mod">Modelled</span> Employment observed (DOSM); tourism share and dependency weight assumed; income assumes one worker per household. A planning envelope, not a register.</p>
+      <p class="gnote"><span class="g mod">Modelled</span> Employment observed (DOSM); tourism share and dependency weight assumed. A planning envelope, not a register.</p>
     </div>
   </div>
   <div class="pn" hidden>
@@ -621,8 +621,8 @@ body.timer-on #demo .bar{padding-right:clamp(150px,13vw,230px)}
         <div class="r tot"><span class="nm">Final score</span><div class="t"><i style="--l:0%;--w:96.1%"></i></div><b>0.77</b></div>
       </div>
       <div class="honest">
-        <p><b>Weakest input:</b> seasonal fit 0.80 is one analyst setting (no official monthly series). −25% moves 4 of 20 ranks.</p>
-        <p><b>Why marine fits:</b> its MASCO tasks are marine-engine servicing and boat registration: off-season maintenance.</p>
+        <p><b>Weakest input:</b> seasonal fit 0.80 is an analyst setting (no official monthly series); −25% moves 4 of 20 ranks.</p>
+        <p><b>Why marine fits:</b> MASCO tasks include engine servicing and boat registration, off-season work.</p>
       </div>
     </div>
   </div>
@@ -741,7 +741,7 @@ body.timer-on #demo .bar{padding-right:clamp(150px,13vw,230px)}
           <span>Snorkel</span><i style="background:rgba(16,58,98,.05)"></i><i class="best" style="background:rgba(16,58,98,.49)"></i><i class="na"></i><i style="background:rgba(16,58,98,.05)"></i><i style="background:rgba(16,58,98,.06)"></i><i class="fs" style="background:rgba(16,58,98,.15)"></i><i style="background:rgba(16,58,98,.05)"></i><i style="background:rgba(16,58,98,.05)"></i>
           <span>Vendor</span><i style="background:rgba(16,58,98,.08)"></i><i style="background:rgba(16,58,98,.06)"></i><i style="background:rgba(16,58,98,.05)"></i><i class="best" style="background:rgba(16,58,98,.13)"></i><i class="na"></i><i class="fs" style="background:rgba(16,58,98,.06)"></i><i style="background:rgba(16,58,98,.07)"></i><i style="background:rgba(16,58,98,.11)"></i>
         </div>
-        <p class="cp"><b>Boat → marine ops 0.96 · dive → coastal safety 0.90.</b> 13 documents · 417 terms · 8 components · 70.5% variance.</p>
+        <p class="cp"><b>Boat → marine ops: 0.96.</b> 13 documents · 417 terms · 8 components · 70.5% variance.</p>
       </article>
       <article>
         <h3>Nowcast of fish landings, held-out 2023</h3>
@@ -750,7 +750,7 @@ body.timer-on #demo .bar{padding-right:clamp(150px,13vw,230px)}
           <div class="vb ok"><i style="--h:48.7%"><b>0.731</b></i><small><svg class="ic"><use href="#i-check"/></svg> ridge, 1 month ahead</small></div>
           <div class="vb no"><i style="--h:70%"><b>1.050</b></i><small><svg class="ic"><use href="#i-x"/></svg> GBR, pre-season</small></div>
         </div></div>
-        <p class="cp">Relative MAE vs seasonal naive, lower is better; models chosen by rolling-origin CV on 2018–2022. <b>Pre-season not claimed.</b></p>
+        <p class="cp">Relative MAE, lower is better. Rolling-origin CV on 2018–2022. <b>Pre-season not claimed.</b></p>
       </article>
       <article>
         <h3>Stress test: 32 weight combinations</h3>
@@ -759,12 +759,12 @@ body.timer-on #demo .bar{padding-right:clamp(150px,13vw,230px)}
           <div class="r"><span>All five weights together</span><div class="t"><i style="--w:0%"></i></div><b>0</b></div>
           <div class="r hi"><span>Seasonal-fit setting −25%</span><div class="t"><i style="--w:20%"></i></div><b>4</b></div>
         </div></div>
-        <p class="cp">Top-20 ranks that change. The weak spot is shown, not hidden.</p>
+        <p class="cp">Top-20 ranks that change.</p>
       </article>
       <article>
         <h3>Geospatial: exposure and landings, mapped</h3>
         <div class="vz geo"><figure><img src="img/deck/pilot-map.png" alt="Pilot-district exposure map"><figcaption>exposure by district</figcaption></figure><figure><img src="img/deck/retention-map.png" alt="State landings retention map"><figcaption>landings retention by state</figcaption></figure></div>
-        <p class="cp">On DOSM district and state boundaries.</p>
+        <p class="cp">DOSM boundaries.</p>
       </article>
     </div>
     <p class="also">Also in the plan: <b>multi-criteria ranking with seasonal exclusion</b> (slide 5) and a <b>checksum-verified pipeline</b> (slide 3).</p>
@@ -796,7 +796,7 @@ body.timer-on #demo .bar{padding-right:clamp(150px,13vw,230px)}
   <header class="hd"><h2>Dry-run now. Pilot Besut. Scale on evidence.</h2></header>
   <div class="body roll">
     <div class="stages4">
-      <div class="st now"><p class="when">2026/27 · this season</p><h3>Desk dry-run</h3><p class="det">Rehearse verification with district officers. <b>No enrolment.</b></p><p class="why">Too late to enrol this season; window opens in <span class="days">—</span>.</p></div>
+      <div class="st now"><p class="when">2026/27 · this season</p><h3>Desk dry-run</h3><p class="det">District officers rehearse. <b>No enrolment.</b></p><p class="why">Too late to enrol this season; window opens in <span class="days">—</span>.</p></div>
       <div class="st"><p class="when">2027/28</p><h3>Besut pilot</h3><p class="det"><b>100</b> participants · <b>RM 266,200</b> indicative</p><div class="gate"><b>Gate</b>At least 43 of 100 placed, under the pre-specified pilot rule.</div></div>
       <div class="st"><p class="when">2028/29</p><h3>Four districts</h3><p class="det">About <b>2,741</b> participants · <b>RM 7.30M</b> indicative</p><div class="gate"><b>Gate</b>Pilot passes; employers reconfirm vacancies.</div></div>
       <div class="st"><p class="when">2029/30 onward</p><h3>Wider adoption</h3><p class="det">Recalibrated on observed outcomes</p><div class="gate"><b>Gate</b>Data, seasonality and employer demand checked locally.</div></div>
@@ -805,8 +805,8 @@ body.timer-on #demo .bar{padding-right:clamp(150px,13vw,230px)}
     <div class="ask">
       <p class="alab">Our ask of DOSM</p>
       <div><b>District tourism-employment table</b>replaces our largest assumption</div>
-      <div><b>Quarterly exposure indicator</b>the plan refreshes on official data</div>
-      <div><b>A seat at the 2026/27 dry-run</b>with State EPU and district officers</div>
+      <div><b>Quarterly exposure indicator</b>refreshed on official data</div>
+      <div><b>A seat at the 2026/27 dry-run</b>with State EPU and districts</div>
     </div>
     <p class="closing"><b>MONSUN <span>BRIDGE</span></b>The monsoon is predictable. So is the plan. Thank you.<span class="sdgs"><span class="sdg s8"><span><small>SDG</small>8</span></span><span class="sdg s14"><span><small>SDG</small>14</span></span></span></p>
   </div>
