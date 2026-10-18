@@ -585,13 +585,12 @@ body.timer-on #demo .bar{padding-right:clamp(150px,13vw,230px)}
   <div class="pn" hidden>
     <ul>
       <li><b>Drive it:</b> click inside the dashboard; ← → then change dashboard pages. Click the dark bar above it to give the keys back to the slides. The gold Full screen button makes it fill the screen (Esc to leave). Gold-outlined page buttons = the demo path.</li>
-      <li><b>00 Executive Summary, 10 s.</b> Point only at the KPI row: "every tile carries its grade." Do not read the text panels. The p = 0.0025 tile is the 2023 per-state Mann-Whitney test; our headline is the permutation test on slide 6.</li>
-      <li><b>02 Exposure Map, 25 s.</b> The District slicer opens on Besut. Switch to Rompin and back: "every card recomputes from the same formulas as the .pbix."</li>
-      <li><b>03 Skill Bridge, 35 s.</b> Boat Operator, Besut. "Top-ranked destination: Marine Operations Assistant, score 0.77." Point at the allocation table: "fishing destinations score about 0.26 and still receive exactly zero."</li>
+      <li><b>02 Exposure Map, 35 s (the dashboard opens here).</b> "Same data and formulas as our Power BI file." The District slicer is on Besut. Switch to Rompin and back: every card recomputes. Do not read out the "Transition priority" tile: its value differs from web.html (see QA_NOTES).</li>
+      <li><b>03 Skill Bridge, 40 s.</b> Boat Operator, Besut. "Top-ranked destination: Marine Operations Assistant, score 0.77." Point at the allocation table: "fishing destinations score about 0.26 and still receive exactly zero."</li>
       <li><b>04 Action Planner, 30 s.</b> Change participation from 20% to 30%. "Participants and programme cost recompute; the per-worker-month cost does not, because it is a unit cost."</li>
       <li><b>06 Robustness, 25 s.</b> "Every east-coast state below every west-coast state. And our weak spot is on our own dashboard: the seasonal-fit setting at −25% moves 4 of 20."</li>
     </ul>
-    <p class="warn">On page 00 do not point at the test table's Verdict column (its last cell truncates). If the dashboard misbehaves, press Full screen or skip ahead: every number is repeated on slides 5 to 7. Do not read the household-income tile as a central estimate: it is an upper bound.</p>
+    <p class="warn">Page 00 (Executive Summary) is one click away if a judge asks for the overview; there, do not point at the test table's Verdict column (its last cell truncates). If the dashboard misbehaves, press Full screen or skip ahead: every number is repeated on slides 5 to 7. Do not read the household-income tile as a central estimate: it is an upper bound.</p>
     <p class="cue">Back to slides (click the bar, then →): Skill Bridge.</p>
   </div>
 </section>
@@ -975,13 +974,13 @@ body.timer-on #demo .bar{padding-right:clamp(150px,13vw,230px)}
   /* ── live dashboard layer ── */
   var dpages=[['00','Executive Summary','Summary'],['01','Monsoon Clock','Clock'],['02','Exposure Map','Exposure'],['03','Skill Bridge','Skills'],['04','Action Planner','Planner'],['05','Risk, Cost and Return','Cost'],['06','Robustness','Robust'],['07','Evidence','Evidence']];
   var dloaded=false;
-  function loadDash(){if(!dloaded){dloaded=true;dash.src='dashboard.html?embed=1'}}
+  function loadDash(){if(!dloaded){dloaded=true;dash.src='dashboard.html?embed=1#page2'}}
   function dashPage(i){
     try{if(dash.contentWindow&&dash.contentWindow.MB){dash.contentWindow.MB.go(i);return}}catch(e){/* file:// pages cannot reach into the frame: reload it on that page */}
     dash.src='dashboard.html?embed=1&p='+i+'#page'+i;dloaded=true;
   }
   dpages.forEach(function(p,i){var b=document.createElement('button');b.type='button';b.innerHTML='<b>'+p[0]+'</b><span class="l">'+p[1]+'</span><span class="s">'+p[2]+'</span>';b.title='Dashboard page '+p[0]+' '+p[1];
-    if([0,2,3,4,6].indexOf(i)>-1)b.className='path';b.addEventListener('click',function(){dashPage(i)});$('dpages').appendChild(b)});
+    if([2,3,4,6].indexOf(i)>-1)b.className='path';b.addEventListener('click',function(){dashPage(i)});$('dpages').appendChild(b)});
   function fsOf(){return document.fullscreenElement||document.webkitFullscreenElement||null}
   function reqFs(el){var f=el.requestFullscreen||el.webkitRequestFullscreen;if(f){var r=f.call(el);if(r&&r.catch)r.catch(function(){})}}
   function exitFs(){var f=document.exitFullscreen||document.webkitExitFullscreen;if(f&&fsOf()){var r=f.call(document);return r&&r.then?r:Promise.resolve()}return Promise.resolve()}
