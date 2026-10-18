@@ -95,6 +95,12 @@ A separate reviewer scored the deck from screenshots against C1–C5. Changes ma
 - **Slide 9.** "Too late to enrol this season"; the last gate now names what is checked locally.
 - **dashboard.html (labels only).** The page 00 "Why five tests" note and the page 06 "What these tests show" note now name the exact permutation test (p = 0.0083) as the headline, matching rule (c) and the slides. The label check passes with 19 changed text fields.
 
+Second review (scores rose to C1 8, C2 6.5, C3 8.5, C4 8, C5 7). Its must-fixes were applied:
+- **dashboard.html, labels only (21 fields now).** Page 00 claim 4 is shortened to one line: "4. Priced: RM 887 per worker-month; break-even placement rate (participant earnings = programme cost) about a third." The "four claims" box no longer overflows. "WHY FIVE TESTS AND NOT ONE" became "WHY MORE THAN ONE TEST", with "Several, each stated two-sided…" in place of "Five stated two-sided…".
+- **Slide 8.** The two PNG thumbnails, whose labels were unreadable, are replaced by one choropleth drawn from the DOSM state polygons and shaded by the dashboard's per-state monsoon retention (CoastState), with the pilot districts in gold.
+- **Slides 3 and 6.** "panel estimate, tested" on slide 3; the "0.4" axis label no longer touches "Jul" on slide 6.
+- **Not fixable under R2.** The page 00 test table's Verdict cell "Rejected at 1% — this is the design floor, and it is attained" truncates. It is table data, so the slide 4 notes tell the presenter not to point at it.
+
 Not applied, because they conflict with the brief:
 - removing the fish-landings numbers from the hook;
 - swapping slides 5 and 6;

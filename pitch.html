@@ -425,7 +425,7 @@ body.timer-on #demo .bar{padding-right:clamp(150px,13vw,230px)}
 .costlab{display:flex;font-size:19px;color:var(--ink2);margin-top:6px}
 .costlab span{text-align:center;white-space:nowrap}
 .costlab span:last-child{text-align:right}
-.ml4{display:grid;grid-template-columns:1.15fr .85fr;gap:34px 56px}
+.ml4{display:grid;grid-template-columns:1.15fr .85fr;gap:28px 56px}
 .ml4 article{border-top:2px solid var(--ink);padding-top:12px;display:flex;flex-direction:column}
 .ml4 h3{font-size:29px;line-height:1.1;color:var(--ink)}
 .ml4 .vz{height:190px;margin-top:12px;display:flex;align-items:center}
@@ -444,7 +444,13 @@ body.timer-on #demo .bar{padding-right:clamp(150px,13vw,230px)}
 .ml4 .vbars .bn{bottom:calc(130px * .667)}
 .ml4 .vbars .vb{flex:0 0 230px}
 .ml4 .vbars .vb i{width:130px}
-.ml4 .geo{gap:22px}
+.ml4 .geo{gap:30px}
+#mapr{width:190px;height:190px;flex:none}
+.geoleg{font-size:19px;color:var(--ink2);line-height:1.3}
+.geoleg .gr{display:block;width:260px;height:16px;background:linear-gradient(90deg,#B5301F,#DCE6EE)}
+.geoleg .ends{display:flex;justify-content:space-between;width:260px;font-size:18px;color:var(--ink3);margin:2px 0 8px}
+.geoleg .gd{display:inline-block;width:16px;height:16px;background:#E2A32A;border:2px solid #8A5E08;vertical-align:-2px;margin-right:8px}
+.geoleg p+p{margin-top:2px}
 .ml4 .geo figure{margin:0;display:flex;flex-direction:column;align-items:center}
 .ml4 .geo img{height:160px;width:auto}
 .ml4 .geo figcaption{font-size:18px;color:var(--ink2);margin-top:4px}
@@ -453,6 +459,7 @@ body.timer-on #demo .bar{padding-right:clamp(150px,13vw,230px)}
 .rungs b{font-size:96px}
 .rungs>div{padding:30px 28px 30px}
 .proof{margin-top:56px}
+#s3 .body{justify-content:space-evenly}
 .proof b{font-size:96px}
 .refuse{margin-top:44px}
 .be2 .t i{background:var(--ink)}
@@ -553,7 +560,7 @@ body.timer-on #demo .bar{padding-right:clamp(150px,13vw,230px)}
     <div class="ladder">
       <div class="rungs">
         <div class="o"><b class="num">133 days</b><span><strong>Observed</strong> · METMalaysia window</span></div>
-        <div class="d"><b class="num">−35.4%</b><span><strong>Derived</strong> · fishing gap, tested</span></div>
+        <div class="d"><b class="num">−35.4%</b><span><strong>Derived</strong> · panel estimate, tested</span></div>
         <div class="m"><b class="num">13,703</b><span><strong>Modelled</strong> · planning cohort</span></div>
         <div class="s"><b class="num">RM 887</b><span><strong>Scenario</strong> · you set it, live</span></div>
       </div>
@@ -584,7 +591,7 @@ body.timer-on #demo .bar{padding-right:clamp(150px,13vw,230px)}
       <li><b>04 Action Planner, 30 s.</b> Change participation from 20% to 30%. "Participants and programme cost recompute; the per-worker-month cost does not, because it is a unit cost."</li>
       <li><b>06 Robustness, 25 s.</b> "Every east-coast state below every west-coast state. And our weak spot is on our own dashboard: the seasonal-fit setting at −25% moves 4 of 20."</li>
     </ul>
-    <p class="warn">If the dashboard misbehaves, press Full screen or skip ahead: every number is repeated on slides 5 to 7. Do not read the household-income tile as a central estimate: it is an upper bound.</p>
+    <p class="warn">On page 00 do not point at the test table's Verdict column (its last cell truncates). If the dashboard misbehaves, press Full screen or skip ahead: every number is repeated on slides 5 to 7. Do not read the household-income tile as a central estimate: it is an upper bound.</p>
     <p class="cue">Back to slides (click the bar, then →): Skill Bridge.</p>
   </div>
 </section>
@@ -656,7 +663,7 @@ body.timer-on #demo .bar{padding-right:clamp(150px,13vw,230px)}
     <div class="two">
       <div>
         <p class="csub" style="margin:0 0 6px">Each month vs that coast's average month, 2018–2023 <span class="g obs">Observed</span></p>
-        <svg class="chart" viewBox="0 0 600 320" role="img" aria-label="Seasonal landings profile by coast: east coast falls to about 0.5 in December and January; west coast stays between 0.94 and 1.07"><rect x="211.6" y="14" width="250.9" height="278" fill="rgba(207,59,44,.07)"/><line x1="36" x2="588" y1="292.0" y2="292.0" stroke="rgba(13,34,54,0.09)"/><text x="28" y="296.0" text-anchor="end">0.4</text><line x1="36" x2="588" y1="236.4" y2="236.4" stroke="rgba(13,34,54,0.09)"/><text x="28" y="240.4" text-anchor="end">0.6</text><line x1="36" x2="588" y1="180.8" y2="180.8" stroke="rgba(13,34,54,0.09)"/><text x="28" y="184.8" text-anchor="end">0.8</text><line x1="36" x2="588" y1="125.2" y2="125.2" stroke="rgba(13,34,54,0.35)" stroke-dasharray="4 4"/><text x="28" y="129.2" text-anchor="end">1.0</text><line x1="36" x2="588" y1="69.6" y2="69.6" stroke="rgba(13,34,54,0.09)"/><text x="28" y="73.6" text-anchor="end">1.2</text><line x1="36" x2="588" y1="14.0" y2="14.0" stroke="rgba(13,34,54,0.09)"/><text x="28" y="18.0" text-anchor="end">1.4</text><text x="36.0" y="314" text-anchor="middle">Jul</text><text x="86.2" y="314" text-anchor="middle">Aug</text><text x="136.4" y="314" text-anchor="middle">Sep</text><text x="186.5" y="314" text-anchor="middle">Oct</text><text x="236.7" y="314" text-anchor="middle">Nov</text><text x="286.9" y="314" text-anchor="middle">Dec</text><text x="337.1" y="314" text-anchor="middle">Jan</text><text x="387.3" y="314" text-anchor="middle">Feb</text><text x="437.5" y="314" text-anchor="middle">Mar</text><text x="487.6" y="314" text-anchor="middle">Apr</text><text x="537.8" y="314" text-anchor="middle">May</text><text x="588.0" y="314" text-anchor="middle">Jun</text><polyline class="ln" points="36.0,106.6 86.2,111.6 136.4,118.5 186.5,111.0 236.7,109.1 286.9,137.7 337.1,142.4 387.3,133.8 437.5,138.3 487.6,138.5 537.8,137.2 588.0,117.7" stroke="#1F6FB2"/><polyline class="ln" points="36.0,86.8 86.2,72.7 136.4,40.7 186.5,41.0 236.7,156.9 286.9,261.7 337.1,253.9 387.3,208.3 437.5,129.4 487.6,71.8 537.8,89.3 588.0,90.2" stroke="#CF3B2C"/><text class="anno" x="312.0" y="283.7" text-anchor="middle">about half an average month</text></svg>
+        <svg class="chart" viewBox="0 0 600 320" role="img" aria-label="Seasonal landings profile by coast: east coast falls to about 0.5 in December and January; west coast stays between 0.94 and 1.07"><rect x="211.6" y="14" width="250.9" height="278" fill="rgba(207,59,44,.07)"/><line x1="36" x2="588" y1="292.0" y2="292.0" stroke="rgba(13,34,54,0.09)"/><text x="28" y="288.0" text-anchor="end">0.4</text><line x1="36" x2="588" y1="236.4" y2="236.4" stroke="rgba(13,34,54,0.09)"/><text x="28" y="240.4" text-anchor="end">0.6</text><line x1="36" x2="588" y1="180.8" y2="180.8" stroke="rgba(13,34,54,0.09)"/><text x="28" y="184.8" text-anchor="end">0.8</text><line x1="36" x2="588" y1="125.2" y2="125.2" stroke="rgba(13,34,54,0.35)" stroke-dasharray="4 4"/><text x="28" y="129.2" text-anchor="end">1.0</text><line x1="36" x2="588" y1="69.6" y2="69.6" stroke="rgba(13,34,54,0.09)"/><text x="28" y="73.6" text-anchor="end">1.2</text><line x1="36" x2="588" y1="14.0" y2="14.0" stroke="rgba(13,34,54,0.09)"/><text x="28" y="18.0" text-anchor="end">1.4</text><text x="36.0" y="314" text-anchor="middle">Jul</text><text x="86.2" y="314" text-anchor="middle">Aug</text><text x="136.4" y="314" text-anchor="middle">Sep</text><text x="186.5" y="314" text-anchor="middle">Oct</text><text x="236.7" y="314" text-anchor="middle">Nov</text><text x="286.9" y="314" text-anchor="middle">Dec</text><text x="337.1" y="314" text-anchor="middle">Jan</text><text x="387.3" y="314" text-anchor="middle">Feb</text><text x="437.5" y="314" text-anchor="middle">Mar</text><text x="487.6" y="314" text-anchor="middle">Apr</text><text x="537.8" y="314" text-anchor="middle">May</text><text x="588.0" y="314" text-anchor="middle">Jun</text><polyline class="ln" points="36.0,106.6 86.2,111.6 136.4,118.5 186.5,111.0 236.7,109.1 286.9,137.7 337.1,142.4 387.3,133.8 437.5,138.3 487.6,138.5 537.8,137.2 588.0,117.7" stroke="#1F6FB2"/><polyline class="ln" points="36.0,86.8 86.2,72.7 136.4,40.7 186.5,41.0 236.7,156.9 286.9,261.7 337.1,253.9 387.3,208.3 437.5,129.4 487.6,71.8 537.8,89.3 588.0,90.2" stroke="#CF3B2C"/><text class="anno" x="312.0" y="283.7" text-anchor="middle">about half an average month</text></svg>
         <div class="key" style="margin-top:6px"><span><i style="background:var(--storm)"></i>East coast</span><span><i style="background:var(--sea)"></i>West coast (control)</span></div>
       </div>
       <div>
@@ -763,8 +770,8 @@ body.timer-on #demo .bar{padding-right:clamp(150px,13vw,230px)}
       </article>
       <article>
         <h3>Geospatial: exposure and landings, mapped</h3>
-        <div class="vz geo"><figure><img src="img/deck/pilot-map.png" alt="Pilot-district exposure map"><figcaption>exposure by district</figcaption></figure><figure><img src="img/deck/retention-map.png" alt="State landings retention map"><figcaption>landings retention by state</figcaption></figure></div>
-        <p class="cp">DOSM boundaries.</p>
+        <div class="vz geo"><canvas id="mapr" role="img" aria-label="Peninsular states shaded by monsoon fish-landings retention, east-coast states lowest, with the four pilot districts in gold"></canvas><div class="geoleg"><p><span class="gr"></span></p><p class="ends"><span>low</span><span>high</span></p><p>monsoon landings retention, by state</p><p><i class="gd"></i>pilot districts</p></div></div>
+        <p class="cp">East-coast states keep the least. DOSM boundaries, DOF landings.</p>
       </article>
     </div>
     <p class="also">Also in the plan: <b>multi-criteria ranking with seasonal exclusion</b> (slide 5) and a <b>checksum-verified pipeline</b> (slide 3).</p>
@@ -950,6 +957,20 @@ body.timer-on #demo .bar{padding-right:clamp(150px,13vw,230px)}
     l.innerHTML=html;
   }
   drawDistricts();if(document.fonts&&document.fonts.ready)document.fonts.ready.then(drawDistricts);
+
+  /* ── slide 8: states shaded by monsoon landings retention (DOF; dashboard CoastState), pilot districts in gold ── */
+  function drawRetention(){
+    var c=$('mapr');if(!c)return;var W=190,H=190,dpr=Math.min(2,window.devicePixelRatio||1);c.width=W*dpr;c.height=H*dpr;
+    var x=c.getContext('2d');x.setTransform(dpr,0,0,dpr,0,0);x.clearRect(0,0,W,H);
+    var RET={'Johor':0.4743,'Kedah':1.0901,'Kelantan':0.5333,'Melaka':0.9756,'Negeri Sembilan':0.8986,'Pahang':0.7118,'Perak':0.9328,'Perlis':0.9861,'Pulau Pinang':0.9784,'Selangor':0.9922,'Terengganu':0.6439};
+    var L0=99.6,L1=104.7,B0=1.2,B1=6.8,s=Math.min(W/(L1-L0),H/(B1-B0)),ox=(W-(L1-L0)*s)/2,oy=(H-(B1-B0)*s)/2;
+    function Q(lon,lat){return [ox+(lon-L0)*s,oy+(B1-lat)*s]}
+    function poly(f,fill,stroke,lw){var ps=f.g==='M'?f.k:[f.k];x.beginPath();ps.forEach(function(pp){pp.forEach(function(r){r.forEach(function(pt,i){var q=Q(pt[0],pt[1]);if(i)x.lineTo(q[0],q[1]);else x.moveTo(q[0],q[1])});x.closePath()})});if(fill){x.fillStyle=fill;x.fill()}if(stroke){x.strokeStyle=stroke;x.lineWidth=lw;x.stroke()}}
+    function col(r){if(r===undefined)return '#DCE6EE';var t=Math.max(0,Math.min(1,(r-0.45)/0.55));return 'rgb('+Math.round(181+(220-181)*t)+','+Math.round(48+(230-48)*t)+','+Math.round(31+(238-31)*t)+')'}
+    GEO.s.forEach(function(f){poly(f,col(RET[f.n]),'#FFFFFF',0.8)});
+    GEO.d.forEach(function(f){poly(f,'#E2A32A','#8A5E08',1.2)});
+  }
+  drawRetention();
 
   /* ── live dashboard layer ── */
   var dpages=[['00','Executive Summary','Summary'],['01','Monsoon Clock','Clock'],['02','Exposure Map','Exposure'],['03','Skill Bridge','Skills'],['04','Action Planner','Planner'],['05','Risk, Cost and Return','Cost'],['06','Robustness','Robust'],['07','Evidence','Evidence']];
