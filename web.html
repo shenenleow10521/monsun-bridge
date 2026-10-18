@@ -1010,6 +1010,9 @@ main,.marq2,footer{position:relative}
 @media (prefers-reduced-motion:reduce){.nextbtn .chev{animation:none}}
 
 #finding1c .sdgrow{margin-top:1.6rem}
+/* 01 timeline: labels sit on a solid band so the gaps between months don't cut through the words */
+.cal .lc{background:var(--storm);border-radius:2px;line-height:1.7}
+.cal .lp{background:#F4E8CC;border-radius:2px;line-height:1.7}
 
 /* ───────── website (wide-screen) edition: content spans the full screen width, each section fills a screen ───────── */
 @media (min-width:1081px){
@@ -1158,66 +1161,6 @@ main,.marq2,footer{position:relative}
   .say{font-size:1.3rem}
   .sb{gap:2rem}
 }
-/* readability on a projector: secondary text (chart subtitles, notes, labels, table headers) is larger and darker */
-@media (min-width:1081px){
-  .chap .csub{font-size:1.06rem!important;color:var(--ink2)}
-  .chap .note{font-size:1rem!important;color:var(--ink2)}
-  .chap .t th{font-size:.9rem!important;color:var(--ink2)}
-  .chap .t td.c{font-size:.9rem!important}
-  .chap .key span,.chap .hkey span{font-size:1rem!important}
-  .chap .tk i,.chap .ticks span{font-size:.86rem!important;color:var(--ink2)}
-  .chap small{font-size:.86rem!important}
-  .chap .gate small{font-size:.9rem!important}
-  .chap .g{font-size:.82rem!important}
-  .chap .gantt .mo span,.chap .gantt .mo i{font-size:.92rem!important}
-  .chap .gantt .gr.q em{font-size:.86rem!important}
-  .chap .shade span{font-size:.86rem!important}
-  .chap .pl span,.chap .be2 .r>span,.chap .rk>span,.chap .r>span{font-size:.92rem!important}
-  .chap .r>span small,.chap .nm small{font-size:.86rem!important}
-  .chap .ft span{font-size:.9rem!important}
-  .chap .grp th{font-size:.9rem!important}
-  .chap dl dt,.chap .eqs span{font-size:.92rem!important}
-  .chap .cn small{font-size:.95rem!important;color:var(--ink2)}
-  .chap .chart text{font-size:14.5px!important;fill:var(--ink2)}
-  .chap .circ text[font-size="12"]{font-size:15px!important}
-}
-/* readability pass 2: a floor for every small label, table, chart and caption, so judges can read it from a distance */
-@media (min-width:1081px){
-  .chap .t td{font-size:1rem!important}
-  .chap .t th,.chap .t th.n,.chap .grp th{font-size:.95rem!important}
-  .chap .t td.c,.chap .t td.isl{font-size:.95rem!important}
-  .chap .r>span,.chap .r .nm,.chap .rk>span,.chap .pl span,.chap .eqs span,.chap .r>b,.chap .hb>span,.chap .qbar>span{font-size:1rem!important}
-  .chap .r>span small,.chap .nm small,.chap small{font-size:.92rem!important}
-  .chap dl dt,.chap .row dt{font-size:1rem!important}
-  .chap .tk i,.chap .ticks span{font-size:.92rem!important}
-  .chap .g{font-size:.86rem!important}
-  .chap .cal .mo span{font-size:.95rem!important}
-  .chap .gantt .mo span,.chap .gantt .mo i,.chap .gantt .phs i{font-size:.95rem!important}
-  .chap .gantt .gl span{font-size:.95rem!important}
-  .chap .gantt .gr.q em,.chap .shade span{font-size:.92rem!important}
-  .chap .propose,.chap .badge{font-size:.95rem!important}
-  .chap .parts span,.chap .costkey span{font-size:.95rem!important}
-  .chap .gate b,.chap .gate small,.chap .stg .k,.chap p.k{font-size:.95rem!important}
-  .chap .ft span,.chap .v small{font-size:.95rem!important}
-  .chap .sref,.chap .next .btn,.chap .back{font-size:.95rem!important}
-  .chap .ref span{font-size:.92rem!important}
-  .chap .sk2 .t span,.chap .fc .t em,.chap .t em{font-size:.88rem!important}
-  .chap .sk2>span{font-size:1rem!important}
-  .chap .eg,.chap .grades p{font-size:1rem!important}
-  .chap .chart text{font-size:16px!important}
-  .chap .circ text[font-size="12"]{font-size:16px!important}
-  /* dark pages */
-  .hero .k{font-size:.95rem!important}
-  .hero .bulletin .d,.hero .bulletin p{font-size:.95rem!important}
-  .hero .fine{font-size:.9rem!important}
-  .hero .g{font-size:.86rem!important}
-  #islands span{font-size:.85rem!important}
-  .adv-dl dt{font-size:1rem!important}
-  .st-tx p{font-size:1rem!important}
-  .dash .pg span{font-size:.95rem!important}
-  .dash .dnotes div{font-size:1rem!important}
-  .close .four p{font-size:1rem!important}
-}
 /* small spacing give-backs so the larger text still fits one screen */
 @media (min-width:1081px){
   .rankrow .rk{margin-top:.3rem}
@@ -1228,9 +1171,44 @@ main,.marq2,footer{position:relative}
   .grades>div{padding-top:.85rem}
   #impact .gantt .gr{padding:.2rem 0}
 }
+
+/* readability: raise-only rules (a script in the website edition also lifts any remaining small text to a floor) */
 @media (min-width:1081px){
-  .chap .glance p{font-size:.95rem!important}
-  .chap .g,.hero .g{font-size:.9rem!important}
+  .chap .csub{font-size:1.06rem;color:var(--ink2)}
+  .chap .note{font-size:1rem;color:var(--ink2)}
+  .chap .t th{color:var(--ink2)}
+  .chap .tk i,.chap .ticks span{color:var(--ink2)}
+  .chap .cn small{color:var(--ink2)}
+  .chap .chart text{font-size:16px!important;fill:var(--ink2)}
+  .chap .circ text[font-size="12"]{font-size:16px!important}
+  .hero .k{font-size:.95rem}
+  .hero .bulletin .d,.hero .bulletin p{font-size:.95rem}
+  .hero .fine{font-size:.9rem}
+  #islands span{font-size:.85rem}
+  .adv-dl dt{font-size:1rem}
+  .st-tx p{font-size:1rem}
+  .dash .pg span{font-size:.95rem}
+  .dash .dnotes div{font-size:1rem}
+  .close .four p{font-size:1rem}
+}
+/* 01: tighter rows so the page can grow its text instead of carrying empty space */
+@media (min-width:1081px){
+  #problem .chain{margin-top:1.8rem}
+  #problem .chain .r{padding:.7rem 0}
+  #problem .cal{margin-top:1.6rem;padding-top:2.6rem}
+  #problem .cal .grid{height:5.6rem}
+  #problem .gapline{margin-top:1.2rem}
+}
+/* 01 timeline: the marker line and the labels follow the timeline's own height */
+@media (min-width:1081px){
+  .cal{--pt:3rem;--gh:7rem;padding-top:var(--pt)}
+  .cal .grid{height:var(--gh)}
+  .cal .pin{height:calc(var(--pt) + var(--gh))}
+  .cal .lp,.cal .lc{top:calc(var(--pt) + var(--gh)/2 - .85em)}
+  #problem .cal{--pt:2.6rem;--gh:5.6rem;padding-top:var(--pt)}
+}
+@media (min-width:1081px) and (max-height:800px){
+  .cal{--pt:2.6rem;--gh:6rem}
 }
 </style>
 </head>
@@ -2375,6 +2353,49 @@ main,.marq2,footer{position:relative}
     window.addEventListener('scroll',function(){if(!upd.r){upd.r=true;requestAnimationFrame(function(){upd.r=false;upd()})}},{passive:true});
     window.addEventListener('resize',upd);window.addEventListener('load',upd);upd();
   })();
+
+  /* ── 16. website edition: each section's content grows to use the free room on its screen (up to 35%), never past it ── */
+  if(document.documentElement.classList.contains('webed')){
+    /* text floor: anything smaller than 0.95rem is lifted to it; nothing is ever made smaller.
+       Labels printed inside coloured bars keep their size so they still fit their bar. */
+    var floorText=function(){
+      if(window.innerWidth<1081)return;
+      var rem=parseFloat(getComputedStyle(document.documentElement).fontSize),min=rem*.95;
+      $$('section.chap *,.hero *,.adv-sec *,.team-sec *,.dash .lamp *,.dash .pguide *,.dash .dnotes *,.close *').forEach(function(el){
+        if(el.closest('svg,.costbar,.nav,.slidenav'))return;
+        var p=el.parentElement;if(p&&p.classList.contains('t')&&p.tagName!=='TABLE')return;
+        if(el.closest('.sk2 .t,.fc .t,.wf2 .t,.be2 .t,.qbar .t,.hb .t,.rk .t,.fp .t'))return;
+        var has=false;for(var n=el.firstChild;n;n=n.nextSibling){if(n.nodeType===3&&n.nodeValue.trim().length>1){has=true;break}}
+        if(!has)return;
+        if(parseFloat(getComputedStyle(el).fontSize)<min-.2)el.style.fontSize=(min/rem).toFixed(3)+'rem';
+      });
+    };
+    floorText();
+    var fitAll=function(){
+      var ws=$$('section.chap>.wrap');
+      if(window.innerWidth<1081){ws.forEach(function(w){w.style.zoom=''});return}
+      var H=window.innerHeight;
+      ws.forEach(function(w){
+        var s=w.parentNode,cs=getComputedStyle(s),pad=parseFloat(cs.paddingTop)+parseFloat(cs.paddingBottom);
+        var o=[w].concat($$('.tw,.two>div,.rankrow>div',w));
+        var over=function(){return o.map(function(e){return e.scrollWidth-e.clientWidth})};
+        w.style.zoom=1;var base=over();
+        var ok=function(z){w.style.zoom=z;
+          if(w.getBoundingClientRect().height+pad>H-4)return false;
+          var now=over();for(var i=0;i<now.length;i++){if(now[i]>Math.max(base[i],0)+2)return false}
+          return true};
+        if(!ok(1)){w.style.zoom='';return}
+        var lo=1,hi=1.35;for(var k=0;k<7;k++){var m=(lo+hi)/2;if(ok(m))lo=m;else hi=m}
+        w.style.zoom=(Math.floor(lo*100)/100).toString();
+      });
+      if(window.ScrollTrigger)window.ScrollTrigger.refresh();
+    };
+    var fitT;var fitSoon=function(){clearTimeout(fitT);fitT=setTimeout(function(){floorText();fitAll()},120)};
+    window.addEventListener('resize',fitSoon);
+    window.addEventListener('load',fitSoon);
+    if(document.fonts&&document.fonts.ready)document.fonts.ready.then(fitSoon);
+    fitSoon();
+  }
 
   if(reduce||!G||!ST)return;
   G.registerPlugin(ST);

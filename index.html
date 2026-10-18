@@ -1010,6 +1010,9 @@ main,.marq2,footer{position:relative}
 @media (prefers-reduced-motion:reduce){.nextbtn .chev{animation:none}}
 
 #finding1c .sdgrow{margin-top:1.6rem}
+/* 01 timeline: labels sit on a solid band so the gaps between months don't cut through the words */
+.cal .lc{background:var(--storm);border-radius:2px;line-height:1.7}
+.cal .lp{background:#F4E8CC;border-radius:2px;line-height:1.7}
 </style>
 </head>
 <body>
@@ -2153,6 +2156,49 @@ main,.marq2,footer{position:relative}
     window.addEventListener('scroll',function(){if(!upd.r){upd.r=true;requestAnimationFrame(function(){upd.r=false;upd()})}},{passive:true});
     window.addEventListener('resize',upd);window.addEventListener('load',upd);upd();
   })();
+
+  /* ── 16. website edition: each section's content grows to use the free room on its screen (up to 35%), never past it ── */
+  if(document.documentElement.classList.contains('webed')){
+    /* text floor: anything smaller than 0.95rem is lifted to it; nothing is ever made smaller.
+       Labels printed inside coloured bars keep their size so they still fit their bar. */
+    var floorText=function(){
+      if(window.innerWidth<1081)return;
+      var rem=parseFloat(getComputedStyle(document.documentElement).fontSize),min=rem*.95;
+      $$('section.chap *,.hero *,.adv-sec *,.team-sec *,.dash .lamp *,.dash .pguide *,.dash .dnotes *,.close *').forEach(function(el){
+        if(el.closest('svg,.costbar,.nav,.slidenav'))return;
+        var p=el.parentElement;if(p&&p.classList.contains('t')&&p.tagName!=='TABLE')return;
+        if(el.closest('.sk2 .t,.fc .t,.wf2 .t,.be2 .t,.qbar .t,.hb .t,.rk .t,.fp .t'))return;
+        var has=false;for(var n=el.firstChild;n;n=n.nextSibling){if(n.nodeType===3&&n.nodeValue.trim().length>1){has=true;break}}
+        if(!has)return;
+        if(parseFloat(getComputedStyle(el).fontSize)<min-.2)el.style.fontSize=(min/rem).toFixed(3)+'rem';
+      });
+    };
+    floorText();
+    var fitAll=function(){
+      var ws=$$('section.chap>.wrap');
+      if(window.innerWidth<1081){ws.forEach(function(w){w.style.zoom=''});return}
+      var H=window.innerHeight;
+      ws.forEach(function(w){
+        var s=w.parentNode,cs=getComputedStyle(s),pad=parseFloat(cs.paddingTop)+parseFloat(cs.paddingBottom);
+        var o=[w].concat($$('.tw,.two>div,.rankrow>div',w));
+        var over=function(){return o.map(function(e){return e.scrollWidth-e.clientWidth})};
+        w.style.zoom=1;var base=over();
+        var ok=function(z){w.style.zoom=z;
+          if(w.getBoundingClientRect().height+pad>H-4)return false;
+          var now=over();for(var i=0;i<now.length;i++){if(now[i]>Math.max(base[i],0)+2)return false}
+          return true};
+        if(!ok(1)){w.style.zoom='';return}
+        var lo=1,hi=1.35;for(var k=0;k<7;k++){var m=(lo+hi)/2;if(ok(m))lo=m;else hi=m}
+        w.style.zoom=(Math.floor(lo*100)/100).toString();
+      });
+      if(window.ScrollTrigger)window.ScrollTrigger.refresh();
+    };
+    var fitT;var fitSoon=function(){clearTimeout(fitT);fitT=setTimeout(function(){floorText();fitAll()},120)};
+    window.addEventListener('resize',fitSoon);
+    window.addEventListener('load',fitSoon);
+    if(document.fonts&&document.fonts.ready)document.fonts.ready.then(fitSoon);
+    fitSoon();
+  }
 
   if(reduce||!G||!ST)return;
   G.registerPlugin(ST);
