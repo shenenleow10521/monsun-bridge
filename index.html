@@ -2229,20 +2229,20 @@ main,.marq2,footer{position:relative}
     floorText();
     var fitAll=function(){
       var ws=$$('section.chap>.wrap');
-      if(window.innerWidth<1081){ws.forEach(function(w){w.style.zoom=''});return}
+      if(window.innerWidth<1081){ws.forEach(function(w){w.style.zoom='';w.style.removeProperty('--z')});return}
       var H=window.innerHeight;
       ws.forEach(function(w){
         var s=w.parentNode,cs=getComputedStyle(s),pad=parseFloat(cs.paddingTop)+parseFloat(cs.paddingBottom);
         var o=[w].concat($$('.tw,.two>div,.rankrow>div',w));
         var over=function(){return o.map(function(e){return e.scrollWidth-e.clientWidth})};
         w.style.zoom=1;var base=over();
-        var ok=function(z){w.style.zoom=z;
+        var ok=function(z){w.style.zoom=z;w.style.setProperty('--z',z);
           if(w.getBoundingClientRect().height+pad>H-4)return false;
           var now=over();for(var i=0;i<now.length;i++){if(now[i]>Math.max(base[i],0)+2)return false}
           return true};
-        if(!ok(1)){w.style.zoom='';return}
+        if(!ok(1)){w.style.zoom='';w.style.setProperty('--z',1);return}
         var lo=1,hi=1.35;for(var k=0;k<7;k++){var m=(lo+hi)/2;if(ok(m))lo=m;else hi=m}
-        w.style.zoom=(Math.floor(lo*100)/100).toString();
+        var zf=Math.floor(lo*100)/100;w.style.zoom=zf.toString();w.style.setProperty('--z',zf);
       });
       if(window.ScrollTrigger)window.ScrollTrigger.refresh();
     };

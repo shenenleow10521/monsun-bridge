@@ -1231,6 +1231,30 @@ main,.marq2,footer{position:relative}
   .chap .chart .tipn{font-size:16px}
   .chap .chart .tipv{font-size:17px}
 }
+/* one title size on every page: page content may grow into free space, but titles and chapter numbers are held at a single size */
+@media (min-width:1081px){
+  .webed .chap>.wrap{--z:1}
+  .webed .chap h2{font-size:calc(3.05rem / var(--z))!important}
+  .webed .chap .cn{font-size:calc(clamp(6.2rem,6.4vw,9.5rem) / var(--z))!important}
+  .webed .chap .cn small{font-size:calc(.95rem / var(--z))!important;max-width:calc(180px / var(--z))}
+  .webed .chap .badge{font-size:calc(.95rem / var(--z))!important}
+  /* 09: the dashboard title takes the same size, on one line across the top */
+  .webed .dash>.wrap{grid-template-columns:minmax(0,.78fr) minmax(0,2fr);grid-template-rows:auto auto 1fr}
+  .webed .dash .lamp{grid-column:1/-1;grid-row:1;display:block;margin-bottom:1.2rem}
+  .webed .dash .lamp .dnum{display:inline-block;font-size:2.1rem;margin-right:.6rem;vertical-align:baseline}
+  .webed .dash .lamp .eyebrow{display:inline-block;vertical-align:baseline}
+  .webed .dash .lamp h2{font-size:3.05rem!important;max-width:none;margin-top:.3rem}
+  .webed .dash .lamp p{max-width:110ch;margin-top:.5rem}
+  .webed .dash .pguide{grid-column:1;grid-row:2;margin-top:0}
+  .webed .dash>.wrap{grid-template-columns:minmax(0,1fr) auto}
+  .webed .dash .device{grid-column:2;grid-row:2/4;width:min(calc(100vw - 2 * clamp(40px,4.4vw,104px) - 2.6rem - 41rem),calc((100vh - 20.5rem) * 1.6));max-width:none;margin:0;align-self:start}
+  .webed .dash .dnotes{grid-column:1;grid-row:3;grid-template-columns:1fr;gap:.6rem;margin:.8rem 0 0;max-width:none;width:auto}
+  .webed .dash .pg{padding:.36rem .6rem .36rem 0}
+  .webed .dash .dnotes div b{margin-bottom:2px}
+}
+@media (min-width:1081px){
+  .webed .dash .lamp h2,.webed .dash .lamp p{margin-left:0;margin-right:0}
+}
 </style>
 </head>
 <body>
@@ -2431,20 +2455,20 @@ main,.marq2,footer{position:relative}
     floorText();
     var fitAll=function(){
       var ws=$$('section.chap>.wrap');
-      if(window.innerWidth<1081){ws.forEach(function(w){w.style.zoom=''});return}
+      if(window.innerWidth<1081){ws.forEach(function(w){w.style.zoom='';w.style.removeProperty('--z')});return}
       var H=window.innerHeight;
       ws.forEach(function(w){
         var s=w.parentNode,cs=getComputedStyle(s),pad=parseFloat(cs.paddingTop)+parseFloat(cs.paddingBottom);
         var o=[w].concat($$('.tw,.two>div,.rankrow>div',w));
         var over=function(){return o.map(function(e){return e.scrollWidth-e.clientWidth})};
         w.style.zoom=1;var base=over();
-        var ok=function(z){w.style.zoom=z;
+        var ok=function(z){w.style.zoom=z;w.style.setProperty('--z',z);
           if(w.getBoundingClientRect().height+pad>H-4)return false;
           var now=over();for(var i=0;i<now.length;i++){if(now[i]>Math.max(base[i],0)+2)return false}
           return true};
-        if(!ok(1)){w.style.zoom='';return}
+        if(!ok(1)){w.style.zoom='';w.style.setProperty('--z',1);return}
         var lo=1,hi=1.35;for(var k=0;k<7;k++){var m=(lo+hi)/2;if(ok(m))lo=m;else hi=m}
-        w.style.zoom=(Math.floor(lo*100)/100).toString();
+        var zf=Math.floor(lo*100)/100;w.style.zoom=zf.toString();w.style.setProperty('--z',zf);
       });
       if(window.ScrollTrigger)window.ScrollTrigger.refresh();
     };
