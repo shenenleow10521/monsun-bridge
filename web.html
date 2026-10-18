@@ -1280,6 +1280,23 @@ main,.marq2,footer{position:relative}
   .circ{max-height:calc(100vh - 16rem);width:auto;margin-inline:auto}
   .hero .bulletin{margin-top:18px}
 }
+/* like a slide deck: the number and title sit at the same height on every page (content starts at the top instead of being centred) */
+@media (min-width:1081px){
+  .webed .chap{justify-content:flex-start}
+}
+@media (min-width:1081px){
+  /* pages with a "Proposed" tag: the tag moves under the title so the title stays at the standard height */
+  .webed #users .col,.webed #rollout .col,.webed #reach .col{display:flex;flex-direction:column}
+  .webed #users .col>h2,.webed #rollout .col>h2,.webed #reach .col>h2{order:-2}
+  .webed #users .col>.badge,.webed #rollout .col>.badge,.webed #reach .col>.badge{order:-1;align-self:flex-start;margin:.7rem 0 0}
+}
+@media (min-width:1081px){
+  /* left margin and number column stay the same width on every page */
+  .webed .chap>.wrap{grid-template-columns:calc(var(--gut) / var(--z)) minmax(0,1fr);padding-inline:calc(clamp(40px,4.4vw,104px) / var(--z))}
+}
+@media (min-width:2200px){
+  .webed .chap>.wrap{padding-inline:calc(clamp(104px,6vw,180px) / var(--z))}
+}
 </style>
 </head>
 <body>
