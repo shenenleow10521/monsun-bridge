@@ -1008,6 +1008,8 @@ main,.marq2,footer{position:relative}
 .slbtn:hover .tip,.slbtn:focus-visible .tip{opacity:1;transform:translateY(0)}
 @media (max-width:760px){.slidenav{right:14px;bottom:14px;gap:8px}.nextbtn{width:46px;height:46px}.prevbtn{width:40px;height:40px}.slbtn .tip{display:none}}
 @media (prefers-reduced-motion:reduce){.nextbtn .chev{animation:none}}
+
+#finding1c .sdgrow{margin-top:1.6rem}
 </style>
 </head>
 <body>
@@ -1447,7 +1449,8 @@ main,.marq2,footer{position:relative}
       <h2>Is the drop real?</h2>
       <p class="lede">We compared fish landings on the east coast with the sheltered west coast, which has the same economy and fleet rules but no monsoon closure. Ten states, twelve months, five seasons.</p>
 
-      <div class="blk">
+      <div class="two blk top">
+        <div>
         <p class="ctitle">How large is the east–west gap?</p>
         <p class="csub">Fish landings in monsoon months as a share of the rest of the year, average of five seasons. 1.0 means no drop.</p>
         <div class="db" data-viz style="--a:27.8%;--b:95.4%;--m:61.6%;--wd:67.6%">
@@ -1462,9 +1465,7 @@ main,.marq2,footer{position:relative}
         </div>
         <p class="find">East-coast landings fall to 0.64 of normal while the sheltered west coast stays at 0.98. The estimated gap is −35.4%.</p>
         <p class="note">95% confidence interval −46.8% to −21.7%. <span class="g der">Derived</span></p>
-      </div>
-
-      <div class="two blk top">
+        </div>
         <div>
           <p class="ctitle">Could the gap be due to chance?</p>
           <p class="csub">Four statistical tests, all two-sided</p>
@@ -1482,6 +1483,21 @@ main,.marq2,footer{position:relative}
             <p>Designs: state × season difference-in-differences with season fixed effects and state-clustered SE (n = 50); exact permutation (n = 120); Wilcoxon signed-rank on coast pairs (n = 5, whose smallest possible two-sided p is 0.0625); Mann-Whitney on 2023 landings (n = 12, U = 0).</p>
           </details>
         </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- 06c -->
+<section class="chap" id="finding1c">
+  <div class="wrap">
+    <div class="cn">06c<small>Finding 1: what it changes</small></div>
+    <div class="col">
+      <h2>Does the result hold, and what does it change?</h2>
+      <p class="lede">We re-ran the test in different ways, then applied the result to the plan.</p>
+
+      <div class="two blk top">
         <div data-viz class="fpw">
           <p class="ctitle">Does the result depend on how we set it up?</p>
           <p class="csub">Estimated east–west gap under each version of the test</p>
@@ -1495,10 +1511,8 @@ main,.marq2,footer{position:relative}
           <p class="find">The gap stays near −35% in every version. An earlier −40.3% estimate was withdrawn.</p>
           <p class="note">The line on the headline estimate is its 95% confidence interval.</p>
         </div>
-      </div>
-
-      <div class="two blk top">
         <div>
+          <div>
           <p class="ctitle">What does this change in the plan?</p>
           <p class="csub">Modelled allocation for one worker group, without and with the seasonal rule</p>
           <div class="stk">
@@ -1508,9 +1522,10 @@ main,.marq2,footer{position:relative}
           <div class="key"><span><i style="background:var(--ink)"></i>Marine Operations Assistant</span><span><i style="background:#6E8EB0"></i>Other land-side pathways</span><span><i style="background:var(--storm)"></i>Fishing-related pathways</span></div>
           <p class="find">With the seasonal rule, fishing-related pathways receive zero allocation and the modelled allocation shifts to the remaining pathways.</p>
         </div>
-        <div class="sdgrow">
+          <div class="sdgrow">
           <div class="sdgs" style="margin-top:0;flex-direction:column"><span class="sdg s8"><span><small>SDG</small>8</span></span><span class="sdg s14"><span><small>SDG</small>14</span></span></div>
           <div><h3>Good for workers and for fish stocks</h3><p>Marine fisheries slow down in the same months, so they cannot absorb tourism workers. Pushing more labour into stressed fleets would be ineffective for workers (SDG 8) and unhelpful for marine life (SDG 14).</p></div>
+        </div>
         </div>
       </div>
       <p class="say blk">Fishing is not a safe fallback during the monsoon, so fishing-related pathways receive zero allocation.</p>
@@ -1527,7 +1542,8 @@ main,.marq2,footer{position:relative}
       <h2>What would it cost to support workers through the monsoon?</h2>
       <p class="lede">The default scenario supports 2,741 workers for three months at an estimated cost of RM 7.30M.</p>
 
-      <div class="blk">
+      <div class="two blk top">
+        <div>
         <p class="ctitle">The default scenario at a glance</p>
         <dl class="glance">
           <div><dt>Household income exposure <span class="g mod">Modelled</span></dt><dd>RM 315.5M</dd><p>Assumes one tourism-linked worker per household</p></div>
@@ -1537,8 +1553,7 @@ main,.marq2,footer{position:relative}
         </dl>
         <p class="note" style="font-size:.95rem;color:var(--ink2)">20% of workers participate; their three-month programme covers about 16% of total exposed worker-months. The first figure counts people, the second counts months.</p>
       </div>
-
-      <div class="blk" data-viz>
+        <div data-viz>
         <p class="ctitle big">Where does RM 887 come from?</p>
         <p class="csub">Cost per participant at the default settings: one training month and two support months at RM 1,100 a month</p>
         <div class="costbar">
@@ -1554,8 +1569,28 @@ main,.marq2,footer{position:relative}
         </div>
         <p class="find">Each participant costs RM 2,662 for three months of cover, which is RM 887 per worker-month.</p>
       </div>
+      </div>
 
-      <div class="blk" data-viz>
+      <details class="more"><summary>How the default scenario is set</summary>
+        <p>Default settings: 20% participation, 1 training month, 2 support months, RM 1,100 a month, stipend at 60% of the training rate, administration at 10%. 2,741 participants × RM 2,662 = RM 7.30M. Paying the full unit rate on all three months would give RM 9.05M; we show the factor so the headline reconciles.</p>
+        <p>Placement rate to offset costs = cost per worker-month ÷ median monthly wage of the destination group, which assumes a placed participant earns that wage for three months.</p>
+        <p>All of these are graded Scenario: move a slicer on dashboard page 04 and every figure on this page moves with it. The four districts employ 210,200 people in total.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+
+<!-- 07b -->
+<section class="chap" id="finding2b">
+  <div class="wrap">
+    <div class="cn">07b<small>Finding 2: offset and priority</small></div>
+    <div class="col">
+      <h2>What placement rate offsets the cost, and where do we start?</h2>
+      <p class="lede">Two checks before a pilot: how many participants must find work, and which district goes first.</p>
+
+      <div class="two blk top">
+        <div data-viz>
         <p class="ctitle big">What placement rate would offset programme costs?</p>
         <p class="csub">Share of participants who must be placed, earning their destination group's median wage for three months, for modelled earnings to equal programme costs</p>
         <div class="be2 wide">
@@ -1568,8 +1603,7 @@ main,.marq2,footer{position:relative}
         <p class="find">Under the assumed wages and employment duration, modelled participant earnings equal programme costs at roughly one-third placement.</p>
         <p class="note">Arithmetic, not a measured return. Participant earnings are not a return to government budgets, and placement duration and the wage workers would otherwise earn are not observed. <span class="g mod">Modelled</span></p>
       </div>
-
-      <div class="blk">
+        <div>
         <p class="ctitle">Which district should come first?</p>
         <p class="csub">Exposure and priority by pilot district</p>
         <div class="tw"><table class="t dist">
@@ -1583,12 +1617,7 @@ main,.marq2,footer{position:relative}
           </tbody></table></div>
         <p class="find">Besut has the most exposure and the highest priority index, so the proposed pilot starts there.</p>
       </div>
-
-      <details class="more"><summary>How the default scenario is set</summary>
-        <p>Default settings: 20% participation, 1 training month, 2 support months, RM 1,100 a month, stipend at 60% of the training rate, administration at 10%. 2,741 participants × RM 2,662 = RM 7.30M. Paying the full unit rate on all three months would give RM 9.05M; we show the factor so the headline reconciles.</p>
-        <p>Placement rate to offset costs = cost per worker-month ÷ median monthly wage of the destination group, which assumes a placed participant earns that wage for three months.</p>
-        <p>All of these are graded Scenario: move a slicer on dashboard page 04 and every figure on this page moves with it. The four districts employ 210,200 people in total.</p>
-      </details>
+      </div>
     </div>
   </div>
 </section>
@@ -1804,7 +1833,7 @@ main,.marq2,footer{position:relative}
 
   /* ── nav: hide on scroll down, season strip, active chapter ── */
   var nav=$('nav'),fill=$('sfill'),dot=$('sdot'),lastY=0;
-  var groups=[['top',null],['about',null],['advisor','#team'],['team','#team'],['problem','#problem'],['exposed','#problem'],['window','#problem'],['scope','#problem'],['users','#problem'],['method','#method'],['evidence','#method'],['ml','#method'],['ml2','#method'],['worker','#method'],['finding1','#finding1'],['finding1b','#finding1'],['finding2','#finding1'],['finding3','#finding1'],['dashboard','#dashboard'],['impact','#impact'],['rollout','#impact'],['reach','#impact'],['close',null]];
+  var groups=[['top',null],['about',null],['advisor','#team'],['team','#team'],['problem','#problem'],['exposed','#problem'],['window','#problem'],['scope','#problem'],['users','#problem'],['method','#method'],['evidence','#method'],['ml','#method'],['ml2','#method'],['worker','#method'],['finding1','#finding1'],['finding1b','#finding1'],['finding1c','#finding1'],['finding2','#finding1'],['finding2b','#finding1'],['finding3','#finding1'],['dashboard','#dashboard'],['impact','#impact'],['rollout','#impact'],['reach','#impact'],['close',null]];
   var links={};Array.prototype.forEach.call(document.querySelectorAll('.nav nav a'),function(a){links[a.getAttribute('href')]=a});
   function onScroll(){
     var y=window.scrollY,h=document.documentElement.scrollHeight-window.innerHeight,p=h>0?Math.min(1,y/h):0;
