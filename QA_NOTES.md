@@ -124,6 +124,12 @@ Short answers for the 5-minute Q&A. Every figure is quoted from web.html (W), da
 
 ---
 
+### 17. The dashboard shows Besut's priority as 91.7, but your website says 87.5. Which is right? (live demo, page 02)
+- **One-sentence answer:** "Both versions rank the districts in the same order: Besut, then Rompin, Marang and Kuala Nerus. The dashboard uses the priority formula stated on page 02, and the pilot choice does not depend on which version you read."
+- **The two sets of values:** dashboard 91.7 / 88.2 / 76.9 / 54.1; web.html 87.5 / 70.0 / 57.6 / 35.7.
+- **Dashboard formula:** PPI = 100 × (0.50 × WME/max + 0.30 × vulnerability + 0.20 × dependency/max). [D page 02]
+- **TO CONFIRM WITH TEAM:** why web.html's values differ (an earlier formula or different inputs?). Don't guess on stage.
+
 ## Inconsistencies a judge might spot (fix or prepare an answer)
 Details are in CHANGES_PITCH.md section 5.
 - "118 official records" vs the record counts in web.html 03's dataset table. **TO CONFIRM** how 118 is counted.
