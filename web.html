@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="webed attop">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -1064,6 +1064,116 @@ main,.marq2,footer{position:relative}
   .tagline{margin-top:14px}
   .hero .lede{font-size:1rem;margin-top:10px}
   .bulletin{margin-top:26px}
+}
+
+/* ───────── one section = one screen (website edition). Text keeps its size; space comes from padding, one-line titles and side-by-side layouts ───────── */
+@media (min-width:1081px){
+  html{font-size:clamp(13px,min(.97vw,1.72vh),22px)}
+  .chap{padding-block:6.4vh 3.6vh}
+  .chap.cont{padding-top:6.4vh}
+  .adv-sec,.team-sec{padding-block:6.4vh 4vh}
+  .close{padding-block:7vh 5vh}
+  /* the menu bar stays out of the way while presenting: it slides in near the top edge, or at the top of the page */
+  .webed .nav{transform:translateY(-100%)}
+  .webed .nav.peek,.webed.attop .nav{transform:none}
+  .cal{margin-top:2.4rem;padding-top:3rem}
+  .cal .grid{height:7rem}
+  .panel{padding:1.3rem}
+  .grades>div{padding:1.1rem 1.1rem .3rem 0}
+  .sb{gap:2.8rem}
+  .chap h2{font-size:3.05rem;max-width:none;line-height:1.02}
+  .chap .lede{max-width:100ch;margin-top:.6rem}
+  .chap .blk{margin-top:2.8vh}
+  .chap .badge{margin-bottom:.5rem}
+  .say{font-size:1.45rem;max-width:60ch}
+  .rankrow .rk{margin-top:.45rem}
+  .rankrow .rk .t{height:20px}
+  .t td{padding:.62em .8em .62em 0}
+  .t th{padding:0 .8em .5em 0}
+  .mapcard img{max-height:calc(100vh - 21rem);width:auto;max-width:100%;margin-inline:auto;display:block}
+
+  /* 03 data: the three counts and the note share one row under the table */
+  #method .three{gap:1.6rem}
+  #method .figs .f .v{font-size:2.4rem}
+  /* 06 fishing: line chart and the takeaway on the left, map on the right */
+  #finding1>.wrap>div:nth-child(2){display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);column-gap:2.6rem;align-items:start}
+  #finding1>.wrap>div:nth-child(2)>h2,#finding1>.wrap>div:nth-child(2)>.lede{grid-column:1/-1}
+  #finding1>.wrap>div:nth-child(2)>.two{display:contents}
+  #finding1>.wrap>div:nth-child(2)>.two>div{margin-top:2.8vh}
+  #finding1>.wrap>div:nth-child(2)>.two>div:first-child{grid-column:1;grid-row:3}
+  #finding1>.wrap>div:nth-child(2)>.two>div:last-child{grid-column:2;grid-row:3/5}
+  #finding1 .mapcard img{max-height:calc(100vh - 30rem)}
+  #finding1>.wrap>div:nth-child(2)>.two>div:first-child svg{max-height:calc(100vh - 36rem);display:block;margin-inline:auto}
+  #finding1>.wrap>div:nth-child(2)>.say{grid-column:1;grid-row:4;margin-top:2.4vh}
+
+  /* 06b is the drop real: two columns, three rows */
+  #finding1b>.wrap>div:nth-child(2){display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:2.6rem;align-items:start}
+  #finding1b>.wrap>div:nth-child(2)>h2,#finding1b>.wrap>div:nth-child(2)>.lede{grid-column:1/-1}
+  #finding1b>.wrap>div:nth-child(2)>.two{display:contents}
+  #finding1b>.wrap>div:nth-child(2)>.two>div{margin-top:2.4vh}
+  #finding1b>.wrap>div:nth-child(2)>div.blk:not(.two){grid-column:1;grid-row:3}
+  #finding1b>.wrap>div:nth-child(2)>:nth-child(4)>div:first-child{grid-column:2;grid-row:3}
+  #finding1b>.wrap>div:nth-child(2)>:nth-child(4)>div:last-child{grid-column:2;grid-row:4}
+  #finding1b>.wrap>div:nth-child(2)>:nth-child(5)>div:first-child{grid-column:1;grid-row:4}
+  #finding1b>.wrap>div:nth-child(2)>:nth-child(5)>div:last-child{grid-column:1;grid-row:5}
+  #finding1b>.wrap>div:nth-child(2)>.say{grid-column:2;grid-row:5;margin-top:2.4vh}
+
+  /* 07 cost: four blocks in a 2 × 2 grid */
+  #finding2>.wrap>div:nth-child(2){display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:2.6rem;align-items:start}
+  #finding2>.wrap>div:nth-child(2)>h2,#finding2>.wrap>div:nth-child(2)>.lede,#finding2>.wrap>div:nth-child(2)>details{grid-column:1/-1}
+  #finding2>.wrap>div:nth-child(2)>.blk{margin-top:2.2vh}
+  #finding2 .be2.wide .t{height:22px}
+  #finding2 .t td{padding:.42em .8em .42em 0}
+
+  /* 10 how it runs: timeline left, why-it-can-run and SDGs stacked right */
+  #impact>.wrap>div:nth-child(2){display:grid;grid-template-columns:minmax(0,1.65fr) minmax(0,1fr);column-gap:2.6rem;align-items:start}
+  #impact>.wrap>div:nth-child(2)>h2,#impact>.wrap>div:nth-child(2)>.lede,#impact>.wrap>div:nth-child(2)>details{grid-column:1/-1}
+  #impact>.wrap>div:nth-child(2)>.blk:nth-of-type(1){grid-column:1;grid-row:3/5}
+  #impact>.wrap>div:nth-child(2)>.blk:nth-of-type(2){grid-column:2;grid-row:3}
+  #impact>.wrap>div:nth-child(2)>.blk:nth-of-type(3){grid-column:2;grid-row:4}
+  #impact .whys{grid-template-columns:1fr 1fr;row-gap:1rem}
+  #impact .whys>div:nth-child(odd){padding-left:0!important;border-left:0!important}
+  #impact .whys>div:nth-child(n+3){padding-top:.9rem!important;border-top:1px solid var(--rule)}
+  #impact .blk .two{grid-template-columns:1fr;gap:1rem}
+  #impact .gantt{--lc:19.6rem}
+  #impact .gantt .gh,#impact .gantt .gr{grid-template-columns:18.8rem 1fr;gap:.8rem}
+  #impact .gantt .gr{padding:.3rem 0}
+  #impact .gantt .gl span{margin-top:0}
+
+  /* 09 dashboard: title and page guide left, live dashboard and notes right */
+  .dash{padding-block:6.4vh 3.6vh}
+  .dash>.wrap{display:grid;grid-template-columns:minmax(0,.78fr) minmax(0,2fr);column-gap:2.6rem;align-items:start}
+  .dash .lamp{grid-column:1;grid-row:1;text-align:left;margin:0;max-width:none}
+  .dash .lamp h2{font-size:2.4rem;max-width:none}
+  .dash .pguide{grid-column:1;grid-row:2/4;grid-template-columns:1fr 1fr;margin-top:.8rem}
+  .dash .pg{padding:.55rem .7rem .55rem 0}
+  .dash .pg:nth-child(4n+2),.dash .pg:nth-child(4n+3),.dash .pg:nth-child(4n+4){padding-left:0;border-left:0}
+  .dash .pg:nth-child(even){padding-left:.8rem;border-left:1px solid rgba(255,255,255,.1)}
+  .dash .pg b{font-size:1rem;margin-bottom:2px}
+  .dash .pg span{line-height:1.32;font-size:.84rem}
+  .dash .lamp p{line-height:1.5}
+  .dash .device{grid-column:2;grid-row:1/3;max-width:min(100%,calc((100vh - 21rem) * 1.6));margin:0 0 0 auto;width:100%}
+  .dash .dnotes{grid-column:2;grid-row:3;margin-top:1.3rem;gap:1.6rem;max-width:min(100%,calc((100vh - 21rem) * 1.6));margin-left:auto;width:100%}
+}
+/* shorter laptop screens: spacing tightens a little more, text stays the same size */
+@media (min-width:1081px) and (max-height:900px){
+  .chap,.dash{padding-block:5.4vh 2.6vh}
+  .chap.cont{padding-top:5.4vh}
+  .chap .blk{margin-top:2.1vh}
+  .chap .lede{margin-top:.35rem}
+  .grades>div{padding:.8rem .9rem .2rem 0}
+  .two{gap:1.8rem}
+  #impact .gantt .gr{padding:.18rem 0}
+  #impact .whys{row-gap:.6rem}
+}
+@media (min-width:1081px) and (max-height:800px){
+  .word{font-size:clamp(3.6rem,min(13vw,13.5vh),15rem)}
+  .cal{margin-top:1.8rem;padding-top:2.6rem}
+  .cal .grid{height:6rem}
+  .rankrow .rk .t{height:16px}
+  .rankrow .rk{margin-top:.3rem}
+  .say{font-size:1.3rem}
+  .sb{gap:2rem}
 }
 </style>
 </head>
@@ -2155,21 +2265,29 @@ main,.marq2,footer{position:relative}
     var top=function(s){return s.getBoundingClientRect().top+window.scrollY};
     /* the slide you are on = the last one whose start has scrolled under the nav bar */
     var current=function(){var y=window.scrollY+PAD+8,c=0;for(var i=0;i<slides.length;i++){if(top(slides[i])<=y)c=i;else break}return c};
+    var webed=document.documentElement.classList.contains('webed');
+    var restBelow=function(){if(!webed)return 0;var r=slides[current()].getBoundingClientRect(),m=r.bottom-window.innerHeight;return m>24?m:0};
+    var aboveStart=function(){if(!webed)return 0;var d=window.scrollY+PAD-top(slides[current()]);return d>24?d:0};
     var setTip=function(el,btn,verb,l){el.innerHTML=(l[0]?'<b>'+l[0]+'</b>':'')+l[1];btn.setAttribute('aria-label',verb+(l[0]?l[0]+' ':'')+l[1])};
     var upd=function(){
       var h=document.documentElement.scrollHeight-window.innerHeight,p=h>0?Math.min(1,window.scrollY/h):0;
       pr.style.strokeDashoffset=(C*(1-p)).toFixed(1);
       var c=current(),atEnd=c>=slides.length-1||p>.995;
       nb.classList.toggle('up',atEnd);
-      if(atEnd){ntip.innerHTML='Back to the top';nb.setAttribute('aria-label','Back to the top')}
+      var rest=restBelow();
+      if(rest&&!(p>.995)){nb.classList.remove('up');ntip.innerHTML='Rest of this section';nb.setAttribute('aria-label','Show the rest of this section')}
+      else if(atEnd){ntip.innerHTML='Back to the top';nb.setAttribute('aria-label','Back to the top')}
       else setTip(ntip,nb,'Next section: ',label(slides[c+1]));
       var first=c===0&&window.scrollY<40;
       pb.classList.toggle('off',first);pb.tabIndex=first?-1:0;pb.setAttribute('aria-hidden',first?'true':'false');
-      if(!first)setTip(ptip,pb,'Previous section: ',label(slides[Math.max(0,c-1)]));
+      if(!first){if(aboveStart()){ptip.innerHTML='Start of this section';pb.setAttribute('aria-label','Back to the start of this section')}else setTip(ptip,pb,'Previous section: ',label(slides[Math.max(0,c-1)]))}
     };
     var go=function(i){var y=i<=0?0:Math.max(0,top(slides[i])-PAD);window.scrollTo({top:y,behavior:reduce?'auto':'smooth'})};
-    nb.addEventListener('click',function(){var c=current();go(nb.classList.contains('up')?0:c+1)});
-    pb.addEventListener('click',function(){go(current()-1)});
+    nb.addEventListener('click',function(){var r=restBelow();if(r&&!nb.classList.contains('up')){window.scrollTo({top:window.scrollY+Math.min(r,window.innerHeight*.85),behavior:reduce?'auto':'smooth'});return}var c=current();go(nb.classList.contains('up')?0:c+1)});
+    pb.addEventListener('click',function(){if(aboveStart()){go(current());return}go(current()-1)});
+    if(webed){var navEl=document.querySelector('.nav'),root=document.documentElement;
+      window.addEventListener('pointermove',function(e){if(e.clientY<64)navEl.classList.add('peek');else if(e.clientY>140)navEl.classList.remove('peek')},{passive:true});
+      var at=function(){root.classList.toggle('attop',window.scrollY<40)};window.addEventListener('scroll',at,{passive:true});at()}
     window.addEventListener('scroll',function(){if(!upd.r){upd.r=true;requestAnimationFrame(function(){upd.r=false;upd()})}},{passive:true});
     window.addEventListener('resize',upd);window.addEventListener('load',upd);upd();
   })();
