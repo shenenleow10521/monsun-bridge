@@ -1040,6 +1040,44 @@ main,.marq2,footer{position:relative}
 .reach~.note,#reach .note{color:var(--ink2)}
 .stg p{color:#1F3246}
 .whys p{font-size:1rem;color:#1F3246}
+
+/* About: centred intro with three cards */
+.about{position:relative}
+.about-waves{position:absolute;left:0;right:0;bottom:4%;width:100%;height:26%;z-index:0;pointer-events:none;opacity:.55}
+.about-waves path{fill:none;stroke-width:1.4}
+.about-waves path:nth-child(1){stroke:rgba(98,198,211,.45)}
+.about-waves path:nth-child(2){stroke:rgba(226,163,42,.35)}
+.about-waves path:nth-child(3){stroke:rgba(31,111,178,.22)}
+.about .col{text-align:center}
+.about-eye{display:inline-flex;align-items:center;gap:.6rem;font-weight:800;font-size:.86rem;letter-spacing:.16em;text-transform:uppercase;color:var(--goldd)}
+.about-eye::before,.about-eye::after{content:"";width:2.2rem;height:2px;background:linear-gradient(90deg,transparent,var(--gold))}
+.about-eye::after{transform:scaleX(-1)}
+.about h2{margin:.6rem auto 0;max-width:none}
+.about .lede{margin-left:auto;margin-right:auto;max-width:64ch}
+.about-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.6rem;margin-top:2.6rem;text-align:left}
+.ac{position:relative;background:#fff;border:1px solid var(--rule);border-radius:16px;padding:1.5rem 1.6rem 1.5rem;box-shadow:0 14px 40px rgba(13,34,54,.07);overflow:hidden;transition:transform .35s cubic-bezier(.2,.75,.15,1),box-shadow .35s}
+.ac::before{content:"";position:absolute;left:0;right:0;top:0;height:4px;background:var(--acc)}
+.ac::after{content:"";position:absolute;right:-60px;top:-60px;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,var(--acc-soft),transparent 70%);pointer-events:none}
+.ac:hover{transform:translateY(-4px);box-shadow:0 22px 50px rgba(13,34,54,.13)}
+.ac.c1{--acc:#1F6FB2;--acc-soft:rgba(31,111,178,.12)}
+.ac.c2{--acc:linear-gradient(90deg,#16703B,#0E6488,#A3460A,#882A6B);--acc-soft:rgba(226,163,42,.14)}
+.ac.c3{--acc:#0E8A9A;--acc-soft:rgba(14,138,154,.12)}
+.ac-ic{width:3.1rem;height:3.1rem;border-radius:12px;display:grid;place-items:center;background:#F1F5F8;border:1px solid var(--rule)}
+.ac-ic svg{width:1.7rem;height:1.7rem}
+.ac.c1 .ac-ic{color:#1F6FB2}.ac.c3 .ac-ic{color:#0E8A9A}
+.ac-k{margin-top:1rem;font-weight:800;font-size:.82rem;letter-spacing:.12em;text-transform:uppercase;color:var(--goldd)}
+.ac-big{display:flex;align-items:baseline;flex-wrap:wrap;gap:.2rem .6rem;margin-top:.25rem}
+.ac-big b{font-family:var(--disp);font-stretch:68%;font-weight:800;font-size:3rem;line-height:1;color:var(--ink)}
+.ac-big span:not(.g){font-weight:700;color:var(--ink2);font-size:1rem}
+.ac h3{font-size:1.3rem;margin-top:.7rem}
+.ac p:not(.ac-k){color:#1F3246;margin-top:.45rem;font-size:1rem}
+.about-flow{list-style:none;margin:2.2rem auto 0;padding:0;display:flex;justify-content:center;flex-wrap:wrap;gap:.6rem 0}
+.about-flow li{display:flex;align-items:center;gap:.55rem;font-weight:700;color:var(--ink);font-size:.98rem;padding:.55rem 1rem;background:rgba(255,255,255,.75);border:1px solid var(--rule);border-radius:999px}
+.about-flow li+li{margin-left:2.4rem;position:relative}
+.about-flow li+li::before{content:"";position:absolute;left:-2.1rem;top:50%;width:1.8rem;height:2px;background:linear-gradient(90deg,var(--rule2),var(--gold))}
+.about-flow li+li::after{content:"";position:absolute;left:-.55rem;top:50%;width:.45rem;height:.45rem;border-top:2px solid var(--gold);border-right:2px solid var(--gold);transform:translate(-50%,-50%) rotate(45deg)}
+.about-flow i{font-style:normal;width:1.6rem;height:1.6rem;border-radius:50%;display:grid;place-items:center;background:var(--ink);color:#fff;font-size:.8rem;font-weight:800}
+@media (max-width:1080px){.about-cards{grid-template-columns:1fr}.about-flow{flex-direction:column;align-items:center}.about-flow li+li{margin-left:0;margin-top:1.4rem}.about-flow li+li::before{left:50%;top:-1.25rem;width:2px;height:1rem}.about-flow li+li::after{left:50%;top:-.35rem;transform:translate(-50%,-50%) rotate(135deg)}}
 </style>
 </head>
 <body>
@@ -1077,17 +1115,47 @@ main,.marq2,footer{position:relative}
 <div class="marq2" aria-hidden="true"><div class="trk"><span>DOSM Domestic Tourism Survey</span><span>METMalaysia Northeast Monsoon Reviews</span><span>DOF Monthly Marine Fish Landings</span><span>MASCO 2020 task descriptions</span><span>Principal Labour Force by District</span><span>Household Income by District</span><span>Tourism Satellite Account 2024</span><span>118 official records</span><span>0 fabricated values</span><span>DOSM Domestic Tourism Survey</span><span>METMalaysia Northeast Monsoon Reviews</span><span>DOF Monthly Marine Fish Landings</span><span>MASCO 2020 task descriptions</span><span>Principal Labour Force by District</span><span>Household Income by District</span><span>Tourism Satellite Account 2024</span><span>118 official records</span><span>0 fabricated values</span></div></div>
 
 <!-- What it is -->
-<section class="chap" id="about">
+<section class="chap about" id="about">
+  <svg class="about-waves" viewBox="0 0 1440 260" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0,150 C240,90 480,210 720,150 C960,90 1200,210 1440,150"/>
+    <path d="M0,190 C240,130 480,250 720,190 C960,130 1200,250 1440,190"/>
+    <path d="M0,110 C240,50 480,170 720,110 C960,50 1200,170 1440,110"/>
+  </svg>
   <div class="wrap">
     <div></div>
     <div class="col">
+      <p class="about-eye">About Monsun Bridge</p>
       <h2>A plan for the months the islands close.</h2>
       <p class="lede">Monsun Bridge is a planning tool for state and district planners. It takes the monsoon window that METMalaysia already publishes and turns it into a plan a district can budget, with every number stating whether it was measured or assumed.</p>
-      <dl class="defs">
-        <div><dt>Core cohort</dt><dd><h3>Seasonal tourism workers</h3><p>13,703 in the planning cohort: boat operators, dive and snorkel crew, homestay and island-vendor staff.</p></dd></div>
-        <div><dt>Trust mechanism</dt><dd><h3>Four-grade evidence ledger</h3><p>Every figure on every page declares <span class="g obs">Observed</span>, <span class="g der">Derived</span>, <span class="g mod">Modelled</span> or <span class="g scn">Scenario</span>.</p></dd></div>
-        <div><dt>Scope</dt><dd><h3>Four east-coast districts</h3><p>Besut, Marang and Kuala Nerus in Terengganu, and Rompin in Pahang.</p></dd></div>
-      </dl>
+      <div class="about-cards">
+        <article class="ac c1">
+          <div class="ac-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v10"/><path d="M12 4.5l5.5 8.5H12"/><path d="M3.5 14.5h17l-2 4h-13z"/><path d="M2 21.5c1.7 0 1.7-1 3.3-1s1.7 1 3.4 1 1.7-1 3.3-1 1.7 1 3.3 1 1.7-1 3.4-1 1.6 1 3.3 1"/></svg></div>
+          <p class="ac-k">Core cohort</p>
+          <div class="ac-big"><b class="num">13,703</b><span class="g mod">Modelled</span></div>
+          <h3>Seasonal tourism workers</h3>
+          <p>In the planning cohort: boat operators, dive and snorkel crew, homestay and island-vendor staff.</p>
+        </article>
+        <article class="ac c2">
+          <div class="ac-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 2.6l3.4 2v3.9L7 10.4 3.6 8.5V4.6z" fill="#16703B"/><path d="M17 2.6l3.4 2v3.9L17 10.4l-3.4-1.9V4.6z" fill="#0E6488"/><path d="M7 13.6l3.4 2v3.9L7 21.4l-3.4-1.9v-3.9z" fill="#A3460A"/><path d="M17 13.6l3.4 2v3.9L17 21.4l-3.4-1.9v-3.9z" fill="#882A6B"/></svg></div>
+          <p class="ac-k">Trust mechanism</p>
+          <div class="ac-big"><b class="num">4</b><span>evidence grades</span></div>
+          <h3>Four-grade evidence ledger</h3>
+          <p>Every figure on every page declares <span class="g obs">Observed</span>, <span class="g der">Derived</span>, <span class="g mod">Modelled</span> or <span class="g scn">Scenario</span>.</p>
+        </article>
+        <article class="ac c3">
+          <div class="ac-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-6.5-5.8-6.5-10.6a6.5 6.5 0 0 1 13 0C18.5 15.2 12 21 12 21z"/><circle cx="12" cy="10.2" r="2.4"/></svg></div>
+          <p class="ac-k">Scope</p>
+          <div class="ac-big"><b class="num">4</b><span>districts, 5 islands</span></div>
+          <h3>Four east-coast districts</h3>
+          <p>Besut, Marang and Kuala Nerus in Terengganu, and Rompin in Pahang.</p>
+        </article>
+      </div>
+      <ol class="about-flow" aria-label="How it works">
+        <li><i>1</i>Published monsoon window</li>
+        <li><i>2</i>Who is exposed</li>
+        <li><i>3</i>Where they can work</li>
+        <li><i>4</i>What it costs</li>
+      </ol>
     </div>
   </div>
 </section>
@@ -2034,7 +2102,7 @@ main,.marq2,footer{position:relative}
 
   /* ── 1. pointer effects: spotlight, 3D tilt, magnetic buttons, cursor glow ── */
   if(fine&&!reduce){
-    $$('.panel,.mapcard,.scen,.wk,.robust,.lvl,.gapline,.opt').forEach(function(el){el.classList.add('sp')});
+    $$('.panel,.mapcard,.scen,.wk,.robust,.lvl,.gapline,.opt,.ac').forEach(function(el){el.classList.add('sp')});
     $$('.sp,.st-in,.ring').forEach(function(el){
       el.addEventListener('pointermove',function(e){var r=el.getBoundingClientRect();el.style.setProperty('--mx',(e.clientX-r.left)+'px');el.style.setProperty('--my',(e.clientY-r.top)+'px')});
     });
@@ -2278,7 +2346,7 @@ main,.marq2,footer{position:relative}
   $$('.cn').forEach(function(c){G.from(c,{x:-40,opacity:0,duration:1,ease:'power3.out',scrollTrigger:{trigger:c,start:'top 88%',once:true}})});
 
   /* ── 6. content blocks rise in, in batches ── */
-  var sel='.lede,.find,.say,.ctitle,.csub,.note,.aside,.gapline,.opt,.rows .row,.needs p,.defs>div,.steps>div,.grades>div,.figs .f,.glance>div,.whys>div,.lvl,.stg,.x28,.wk,.next,.mapcard,.panel,.scen,.robust,.kf>div,.parts>div,.pipe2 li,details.more,.badge,.propose,.chain .r,.dc,.costkey>div,.method,.sdgrow,.t tbody tr,.cal,.tl,.wf2 .r,.fp .r,.be2 .r,.fc .r,.sens .r,.rk,.hb,.qbar,.gantt .gr,.adv-dl>div,.reach .circ';
+  var sel='.ac,.about-flow li,.about-eye,.lede,.find,.say,.ctitle,.csub,.note,.aside,.gapline,.opt,.rows .row,.needs p,.defs>div,.steps>div,.grades>div,.figs .f,.glance>div,.whys>div,.lvl,.stg,.x28,.wk,.next,.mapcard,.panel,.scen,.robust,.kf>div,.parts>div,.pipe2 li,details.more,.badge,.propose,.chain .r,.dc,.costkey>div,.method,.sdgrow,.t tbody tr,.cal,.tl,.wf2 .r,.fp .r,.be2 .r,.fc .r,.sens .r,.rk,.hb,.qbar,.gantt .gr,.adv-dl>div,.reach .circ';
   var els=$$(sel).filter(function(el){return !el.closest('.hero')&&!el.closest('.dash')&&!el.closest('.close')});
   G.set(els,{opacity:0,y:26});
   ST.batch(els,{start:'top 92%',once:true,onEnter:function(b){G.to(b,{opacity:1,y:0,duration:.8,ease:'power3.out',stagger:.06,overwrite:true})}});
