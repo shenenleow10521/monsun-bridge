@@ -79,6 +79,27 @@ Applied from the skill's polish playbook and craft-floor rules (pbakaus/impeccab
 - **Measure.** Prose lines are capped at about 70 characters.
 - **Intentional exception.** The hero wordmark stays at 170px, above the skill's 6rem display cap, because it is web.html's own identity.
 
+### Independent judge review, and what changed
+
+A separate reviewer scored the deck from screenshots against C1–C5. Changes made from it:
+- **−35.4% labelling (slides 1 and 6).** It is now labelled "panel estimate" with its 95% CI. It is not the ratio of the 0.639 and 0.977 dots, and a statistician would check that.
+- **Slide 2.**
+  - Hedged title: "An estimated 13,703 workers exposed. Besut first."
+  - The map is redrawn from the repo's own DOSM district polygons, with large labels and Besut in gold to match the table.
+  - RM 315.5M moved here, marked as an upper bound.
+- **Slide 3.** The evidence ladder is now the headline ("Every number says how sure it is"); the record counts sit below it.
+- **Slide 5.** One name for the rule ("seasonal exclusion"). Excluded fishing bars are now solid; hatching only marks the analyst setting.
+- **Slide 6.** The grey Sabah/Sarawak/Labuan line is gone, so the control story reads at a glance. The −35.4% sits above the connector, not on the axis.
+- **Slide 7.** The title is the finding ("Break-even at about one-third placed"). The RM 242 segment is labelled, the step reads "÷ 3-month programme", and break-even bars are ink rather than the green that means Observed.
+- **Slide 8.** Only ML cards remain: NLP heatmap with column labels, nowcast with model names and "lower is better", stress test, and maps. Ranking and the data pipeline are referenced in one line.
+- **Slide 9.** "Too late to enrol this season"; the last gate now names what is checked locally.
+- **dashboard.html (labels only).** The page 00 "Why five tests" note and the page 06 "What these tests show" note now name the exact permutation test (p = 0.0083) as the headline, matching rule (c) and the slides. The label check passes with 19 changed text fields.
+
+Not applied, because they conflict with the brief:
+- removing the fish-landings numbers from the hook;
+- swapping slides 5 and 6;
+- removing the p = 0.0025 tile.
+
 ### Consistency rules applied (Task 2)
 
 | Rule | In pitch.html | In dashboard.html |
@@ -107,6 +128,8 @@ Applied from the skill's polish playbook and craft-floor rules (pbakaus/impeccab
 | 00 Executive Summary | header textbox (`header0x`) | subtitle | One screen: what is at stake, what it costs, and the two thresholds at which it pays for itself. | One screen: what is at stake, what it costs, and the break-even placement rate (participant earnings = programme cost). |
 | 00 | card (`p0_income`) | title and field name | Household income exposed | Income exposed, upper bound (shortened so it fits the narrow card) |
 | 00 | card (`p0_p`), value p = 0.0025 | title and field name | Fisheries test (exact p) | 2023 per-state Mann-Whitney test |
+| 00 | "Why five tests and not one" textbox (`p0_testread`) | second paragraph | The headline therefore rests on the state-by-season panel (…) and is corroborated by an exact permutation test (…) p = 0.0083 is the design floor, attained. | The headline therefore rests on an exact permutation test over all C(10,3) = 120 possible east/west labellings (…) p = 0.0083 (…). The state-by-season panel agrees (…, p = 0.00062), but three treated states make its cluster-robust errors anti-conservative. |
+| 06 | "What these tests show" textbox (`p6_honest`) | Inference sentence | The headline is therefore the state-by-season panel (−35.4% retention gap, p = 0.00062), corroborated by exact randomisation inference (…) | The headline is therefore exact randomisation inference over all 120 possible assignments (p = 0.0083, the design floor, attained), corroborated by the state-by-season panel (−35.4% retention gap, p = 0.00062). |
 | 00 | "The four claims" textbox (`p0_claim`) | claim 4, second sentence | The programme returns what it costs once roughly a third of participants are placed at the published national median wage for their destination occupation group. | Break-even placement rate (participant earnings = programme cost): about a third of participants, at the national median wage for their destination group. |
 | 01 Monsoon Clock | header textbox (`header0`) | subtitle | When does the east-coast tourism window close, and why does the national series not show it? | When does the monsoon stop east-coast island tourism, and why does the national series not show it? |
 | 01 | "Reading this ledger" textbox (`p1_readledger`) | last paragraph | …the national series cannot see a district-level closure. … | …the national series cannot see a district-level suspension. … |

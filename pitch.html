@@ -162,7 +162,7 @@ table.t{width:100%;border-collapse:collapse}
 .rk .t i{display:block;height:100%;width:var(--w);background:var(--ink)}
 .rk b{font-variant-numeric:tabular-nums;text-align:right}
 .rk.co span{color:var(--storm);font-weight:600}
-.rk.co .t i{background:repeating-linear-gradient(135deg,var(--storm) 0 8px,#E8857A 8px 14px)}
+.rk.co .t i{background:#E3988E}
 .rk.co .t::after{content:"→ 0 allocation";position:absolute;left:calc(var(--w) + 10px);top:50%;transform:translateY(-50%);font-size:18px;font-weight:800;color:var(--storm);white-space:nowrap}
 .rk.top span,.rk.top b{font-weight:800;color:var(--ink)}
 .rk.top .t i{background:var(--sea)}
@@ -170,12 +170,12 @@ table.t{width:100%;border-collapse:collapse}
 .sk2{display:grid;grid-template-columns:200px 1fr;gap:14px;align-items:center;font-size:21px;margin-top:8px}
 .sk2 .t{display:flex;height:46px;overflow:hidden;font-size:20px;font-weight:800;color:#fff}
 .sk2 .t span{display:grid;place-items:center}
-.key{display:flex;gap:24px;flex-wrap:wrap;font-size:19px;color:var(--ink3);margin-top:12px}
+.key{display:flex;gap:24px;flex-wrap:wrap;font-size:20px;color:var(--ink3);margin-top:12px}
 .key i{display:inline-block;width:14px;height:14px;vertical-align:-1px;margin-right:8px}
 .wf2{margin-top:12px}
 .wf2 .r{display:grid;grid-template-columns:250px 1fr 92px;gap:14px;align-items:center;padding:11px 0}
 .wf2 .nm{font-weight:600;font-size:22px;line-height:1.15}
-.wf2 .nm small{display:block;font-weight:400;font-size:19px;color:var(--ink3);font-variant-numeric:tabular-nums}
+.wf2 .nm small{display:block;font-weight:400;font-size:20px;color:var(--ink3);font-variant-numeric:tabular-nums}
 .wf2 .t{position:relative;height:32px;background:repeating-linear-gradient(90deg,transparent 0 calc(12.5% - 1px),#E3E9EE calc(12.5% - 1px) 12.5%)}
 .wf2 .t i{position:absolute;top:0;bottom:0;left:var(--l);width:var(--w);background:var(--ink)}
 .wf2 .r.flag .t i{background:repeating-linear-gradient(135deg,var(--scn) 0 8px,#C77DB2 8px 14px)}
@@ -205,7 +205,9 @@ table.t{width:100%;border-collapse:collapse}
 .db .pl span{font-size:19px;color:var(--ink3);font-weight:700}
 .db .pl.e{left:var(--a);transform:translateX(-18px)}.db .pl.e b{color:var(--storm)}
 .db .pl.w{left:var(--b);transform:translateX(calc(-100% + 18px));text-align:right}.db .pl.w b{color:var(--sea)}
-.db .gaplab{position:absolute;top:116px;left:var(--m);transform:translateX(-50%);font-family:var(--disp);font-stretch:75%;font-weight:800;font-size:40px;white-space:nowrap;background:var(--paper);padding:0 12px}
+.db .gaplab{position:absolute;top:2px;left:var(--m);transform:translateX(-50%);text-align:center;white-space:nowrap}
+.db .gaplab b{display:block;font-size:48px;line-height:1;color:var(--ink)}
+.db .gaplab span{display:block;font-size:20px;font-weight:600;color:var(--ink2);margin-top:4px}
 .db .ticks{display:flex;justify-content:space-between;font-size:19px;color:var(--ink3);margin-top:6px}
 .ciline{font-size:21px;color:var(--ink2);margin-top:6px}
 .fish .two{display:grid;grid-template-columns:660px 1fr;gap:72px;margin-top:26px;align-items:start}
@@ -403,6 +405,57 @@ body.timer-on #demo .bar{padding-right:clamp(150px,13vw,230px)}
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
 }
+
+/* review pass */
+.map2{position:relative;padding:0;overflow:hidden;background:#EAF1F6}
+.map2 canvas{position:absolute;inset:0;width:100%;height:100%}
+#mapl{position:absolute;inset:0;pointer-events:none}
+#mapl .dl{position:absolute;transform:translate(-100%,-50%);text-align:right;white-space:nowrap;font-size:21px;font-weight:700;color:var(--ink);line-height:1.1;padding-right:10px}
+#mapl .dl b{font-family:var(--disp);font-stretch:80%;font-weight:800;font-size:26px;margin-left:8px}
+#mapl .dl.bes b{color:var(--goldd)}
+#mapl .il{position:absolute;transform:translate(14px,-50%);white-space:nowrap;font-size:19px;font-weight:700;color:var(--storm)}
+#mapl .il.l{transform:translate(calc(-100% - 14px),-50%)}
+#mapl .sea{position:absolute;font-style:italic;font-size:19px;color:#5C7A93}
+.call3{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;margin-top:34px}
+.call3 b{display:block;font-size:64px;line-height:1;color:var(--goldd)}
+.call3 div+div b{color:var(--sea)}
+.call3 div:last-child b{color:var(--mod)}
+.call3 p{font-size:21px;color:var(--ink2);margin-top:8px;line-height:1.3}
+.call3 p strong{color:var(--ink)}
+.costlab{display:flex;font-size:19px;color:var(--ink2);margin-top:6px}
+.costlab span{text-align:center;white-space:nowrap}
+.costlab span:last-child{text-align:right}
+.ml4{display:grid;grid-template-columns:1.15fr .85fr;gap:34px 56px}
+.ml4 article{border-top:2px solid var(--ink);padding-top:12px;display:flex;flex-direction:column}
+.ml4 h3{font-size:29px;line-height:1.1;color:var(--ink)}
+.ml4 .vz{height:190px;margin-top:12px;display:flex;align-items:center}
+.ml4 .vz.nv{align-items:flex-start;padding-top:22px}
+.ml4 .cp{font-size:20px;line-height:1.3;color:var(--ink2);margin-top:10px}
+.ml4 .cp b{color:var(--ink)}
+.ml4 .hm{margin-top:12px;display:grid;grid-template-columns:118px repeat(8,1fr);gap:3px;font-size:19px;line-height:1.1;color:var(--ink2);align-items:center}
+.ml4 .hm .grp{font-size:18px;color:var(--ink3);border-bottom:2px solid var(--rule2);padding-bottom:3px;text-align:center}
+.ml4 .hm .grp.f{color:var(--storm);border-color:var(--storm)}
+.ml4 .hm .cl{font-size:19px;color:var(--ink2);text-align:center;padding:4px 0 2px}
+.ml4 .hm .cl.fs,.ml4 .hm i.fs{box-shadow:inset 2px 0 0 var(--storm)}
+.ml4 .hm i{display:block;height:24px;border-radius:2px}
+.ml4 .hm i.best{box-shadow:inset 0 0 0 3px var(--gold)}
+.ml4 .hm i.na{background:#E3E9EE}
+.ml4 .vbars{height:130px;gap:40px}
+.ml4 .vbars .bn{bottom:calc(130px * .667)}
+.ml4 .vbars .vb{flex:0 0 230px}
+.ml4 .vbars .vb i{width:130px}
+.ml4 .geo{gap:22px}
+.ml4 .geo figure{margin:0;display:flex;flex-direction:column;align-items:center}
+.ml4 .geo img{height:160px;width:auto}
+.ml4 .geo figcaption{font-size:18px;color:var(--ink2);margin-top:4px}
+.also{font-size:21px;color:var(--ink2);margin-top:28px}
+.also b{color:var(--ink)}
+.rungs b{font-size:96px}
+.rungs>div{padding:30px 28px 30px}
+.proof{margin-top:56px}
+.proof b{font-size:96px}
+.refuse{margin-top:44px}
+.be2 .t i{background:var(--ink)}
 </style>
 </head>
 <body>
@@ -427,11 +480,11 @@ body.timer-on #demo .bar{padding-right:clamp(150px,13vw,230px)}
     <p class="lede">Every November, island operators suspend and boat services stop. Tourism work stops for about four months.</p>
     <div class="kpis">
       <div class="kpi">
-        <div class="k">The fallback? Monsoon fish landings vs rest of year <span class="g der">Derived</span></div>
+        <div class="k">The fallback fails: monsoon fish landings vs rest of year <span class="g der">Derived</span></div>
         <div class="pair">
           <div class="e"><b class="num">0.639</b><span>East coast</span></div>
           <div class="w"><b class="num">0.977</b><span>West-coast control</span></div>
-          <div class="gap"><b class="num">−35.4%</b><span>gap</span></div>
+          <div class="gap"><b class="num">−35.4%</b><span>panel estimate</span></div>
         </div>
       </div>
       <div class="kpi">
@@ -451,7 +504,7 @@ body.timer-on #demo .bar{padding-right:clamp(150px,13vw,230px)}
     <ul>
       <li>"Every November the Northeast Monsoon reaches Malaysia's east coast. <b>Island operators suspend, boat services stop</b>, and tourism work stops for about four months."</li>
       <li>"This is not a forecast. METMalaysia dated the 2024/25 window: <b>133 days</b>."</li>
-      <li>"And the obvious fallback fails. In official fish-landings data the east coast falls to <b>0.639</b> of a normal month while the sheltered west coast holds <b>0.977</b>: a <b>35.4%</b> gap. Fishing slumps in the same months."</li>
+      <li>"And the obvious fallback fails. In official fish-landings data the east coast falls to <b>0.639</b> of a normal month while the sheltered west coast holds <b>0.977</b>. Our panel estimate of the gap is <b>−35.4%</b>. Fishing slumps in the same months."</li>
       <li>"We are Team DATAVENGERS from Universiti Malaya. Monsun Bridge turns that published calendar into a costed plan before the window opens. This year it opens in [read the countdown] days."</li>
     </ul>
     <p class="warn">Never say the islands "close": Terengganu issues no official closure order. Say operators suspend and boat services stop. 0.639 / 0.977 are graded Derived (computed from observed DOF landings); 133 days is Observed.</p>
@@ -461,9 +514,9 @@ body.timer-on #demo .bar{padding-right:clamp(150px,13vw,230px)}
 
 <!-- 2 Who is exposed -->
 <section class="slide" id="s2" data-title="Who is exposed" data-dur="40" aria-label="2 Who is exposed">
-  <header class="hd"><h2>13,703 workers exposed, and one clear place to start.</h2></header>
+  <header class="hd"><h2>An estimated 13,703 workers exposed. Besut first.</h2></header>
   <div class="body exp">
-    <div class="mapcard"><img src="img/deck/pilot-map.png" width="1100" height="1164" alt="Map of the four pilot districts with worker-month exposure, and the islands Perhentian, Lang Tengah, Redang, Kapas and Tioman"></div>
+    <div class="mapcard map2" role="img" aria-label="Map of the four pilot districts, Besut highlighted, with the islands Perhentian, Lang Tengah, Redang, Kapas and Tioman"><canvas id="mapd"></canvas><div id="mapl"></div></div>
     <div>
       <div class="dt">
         <div class="r h"><span>District</span><span>Island affected</span><span class="n">Workers</span><span>Worker-months</span><span></span></div>
@@ -473,11 +526,12 @@ body.timer-on #demo .bar{padding-right:clamp(150px,13vw,230px)}
         <div class="r"><span>Kuala Nerus</span><span class="isn">Redang, Lang Tengah</span><span class="n">3,065</span><div class="bar"><i style="--w:43.4%"></i></div><span class="wm">9,375</span></div>
         <div class="r tot"><span>Total</span><span></span><span class="n">13,703</span><span></span><span class="wm">52,655</span></div>
       </div>
-      <div class="call2">
+      <div class="call3">
         <div><b class="num">41%</b><p>of worker-months are in <strong>Besut</strong>: the pilot starts there</p></div>
         <div><b class="num">0.392%</b><p>of Malaysia's tourism jobs: <strong>pilot-sized</strong></p></div>
+        <div><b class="num">RM 315.5M</b><p>household income exposed: an <strong>upper bound</strong></p></div>
       </div>
-      <p class="gnote"><span class="g mod">Modelled</span> Employment observed (DOSM); tourism share and dependency weight are declared assumptions. A planning envelope, not a register.</p>
+      <p class="gnote"><span class="g mod">Modelled</span> Employment observed (DOSM); tourism share and dependency weight assumed; income assumes one worker per household. A planning envelope, not a register.</p>
     </div>
   </div>
   <div class="pn" hidden>
@@ -485,7 +539,7 @@ body.timer-on #demo .bar{padding-right:clamp(150px,13vw,230px)}
       <li>"Who is exposed? <b>13,703</b> tourism-linked workers across Besut, Marang, Kuala Nerus and Rompin: <b>52,655 worker-months</b> inside that 133-day window."</li>
       <li>"Besut alone carries <b>21,603</b>, or 41%, so the pilot starts in Besut."</li>
       <li>"The grade is honest: Modelled. District employment is observed DOSM data; the tourism planning share and dependency weight are our declared assumptions. Malaysia has no register of tourism workers, so this is a planning envelope, not a register."</li>
-      <li>"It is <b>0.392%</b> of Malaysia's tourism jobs: small enough to pilot, large enough to matter."</li>
+      <li>"It is <b>0.392%</b> of Malaysia's tourism jobs: small enough to pilot, large enough to matter. The household income exposed is RM 315.5M, and that is an <b>upper bound</b>: it assumes one tourism-linked worker per household."</li>
     </ul>
     <p class="warn">The cohort includes mainland tourism-linked work, not only island operators (see QA_NOTES card 4 if a judge compares it with press figures).</p>
     <p class="cue">Next: why you can trust these numbers.</p>
@@ -494,11 +548,9 @@ body.timer-on #demo .bar{padding-right:clamp(150px,13vw,230px)}
 
 <!-- 3 Trust -->
 <section class="slide" id="s3" data-title="Trust" data-dur="35" aria-label="3 Trust">
-  <header class="hd"><h2>Official inputs. Graded outputs. Zero fabrication.</h2></header>
+  <header class="hd"><h2>Every number says how sure it is.</h2></header>
   <div class="body">
-    <p class="proof"><span><b class="num">118</b>official records</span><span><b class="num">7</b>open datasets</span><span><b class="num">3</b>downloads SHA-256 verified</span><span class="z"><b class="num">0</b>fabricated values</span></p>
     <div class="ladder">
-      <p class="lt">Every number declares how sure it is</p>
       <div class="rungs">
         <div class="o"><b class="num">133 days</b><span><strong>Observed</strong> · METMalaysia window</span></div>
         <div class="d"><b class="num">−35.4%</b><span><strong>Derived</strong> · fishing gap, tested</span></div>
@@ -507,6 +559,7 @@ body.timer-on #demo .bar{padding-right:clamp(150px,13vw,230px)}
       </div>
       <div class="arrow"><span>measured</span><i></i><span>assumed</span></div>
     </div>
+    <p class="proof"><span><b class="num">118</b>official records</span><span><b class="num">7</b>open datasets</span><span><b class="num">3</b>downloads SHA-256 verified</span><span class="z"><b class="num">0</b>fabricated values</span></p>
     <p class="refuse">No register of tourism workers exists, so we measure exposure. We never invent it.</p>
   </div>
   <div class="pn" hidden>
@@ -525,7 +578,7 @@ body.timer-on #demo .bar{padding-right:clamp(150px,13vw,230px)}
   <div class="pn" hidden>
     <ul>
       <li><b>Drive it:</b> click inside the dashboard; ← → then change dashboard pages. Click the dark bar above it to give the keys back to the slides. The gold Full screen button makes it fill the screen (Esc to leave). Gold-outlined page buttons = the demo path.</li>
-      <li><b>00 Executive Summary, 10 s.</b> "Four claims, every tile carries its grade." The p = 0.0025 tile is the 2023 per-state Mann-Whitney test; our headline is the permutation test on slide 6.</li>
+      <li><b>00 Executive Summary, 10 s.</b> Point only at the KPI row: "every tile carries its grade." Do not read the text panels. The p = 0.0025 tile is the 2023 per-state Mann-Whitney test; our headline is the permutation test on slide 6.</li>
       <li><b>02 Exposure Map, 25 s.</b> The District slicer opens on Besut. Switch to Rompin and back: "every card recomputes from the same formulas as the .pbix."</li>
       <li><b>03 Skill Bridge, 35 s.</b> Boat Operator, Besut. "Top-ranked destination: Marine Operations Assistant, score 0.77." Point at the allocation table: "fishing destinations score about 0.26 and still receive exactly zero."</li>
       <li><b>04 Action Planner, 30 s.</b> Change participation from 20% to 30%. "Participants and programme cost recompute; the per-worker-month cost does not, because it is a unit cost."</li>
@@ -551,9 +604,9 @@ body.timer-on #demo .bar{padding-right:clamp(150px,13vw,230px)}
       <div class="rk co"><span>Aquaculture Operator</span><div class="t" style="--w:25.6%"><i></i></div><b>0.26</b></div>
       <div class="rk"><span>Guest Service Coordinator</span><div class="t" style="--w:25%"><i></i></div><b>0.25</b></div>
       <div class="sk2w">
-        <p class="ctitle">Allocation without vs with the seasonal rule</p>
-        <div class="sk2"><span>Without the rule</span><div class="t"><span style="width:28%;background:var(--sea)">28%</span><span style="width:43.9%;background:#6E8EB0">44%</span><span style="width:28.1%;background:var(--storm)">28% fishing</span></div></div>
-        <div class="sk2"><span>With the rule</span><div class="t"><span style="width:38.9%;background:var(--sea)">39%</span><span style="width:61.1%;background:#6E8EB0">61%</span></div></div>
+        <p class="ctitle">Allocation without vs with the seasonal exclusion</p>
+        <div class="sk2"><span>Without exclusion</span><div class="t"><span style="width:28%;background:var(--sea)">28%</span><span style="width:43.9%;background:#6E8EB0">44%</span><span style="width:28.1%;background:var(--storm)">28% fishing</span></div></div>
+        <div class="sk2"><span>With exclusion</span><div class="t"><span style="width:38.9%;background:var(--sea)">39%</span><span style="width:61.1%;background:#6E8EB0">61%</span></div></div>
         <div class="key"><span><i style="background:var(--sea)"></i>Marine ops</span><span><i style="background:#6E8EB0"></i>Other jobs</span><span><i style="background:var(--storm)"></i>Fishing</span></div>
       </div>
     </div>
@@ -568,8 +621,8 @@ body.timer-on #demo .bar{padding-right:clamp(150px,13vw,230px)}
         <div class="r tot"><span class="nm">Final score</span><div class="t"><i style="--l:0%;--w:96.1%"></i></div><b>0.77</b></div>
       </div>
       <div class="honest">
-        <p><b>Weakest input, shown openly:</b> seasonal fit 0.80 is one analyst setting (no official monthly series). Cut it 25% → 4 of 20 top ranks move.</p>
-        <p><b>Why marine fits:</b> MASCO tasks include marine-engine servicing and boat registration, i.e. off-season maintenance work.</p>
+        <p><b>Weakest input:</b> seasonal fit 0.80 is one analyst setting (no official monthly series). −25% moves 4 of 20 ranks.</p>
+        <p><b>Why marine fits:</b> its MASCO tasks are marine-engine servicing and boat registration: off-season maintenance.</p>
       </div>
     </div>
   </div>
@@ -596,16 +649,15 @@ body.timer-on #demo .bar{padding-right:clamp(150px,13vw,230px)}
         <div class="pl w"><b class="num">0.977</b><span>West coast, the control</span></div>
         <div class="seg"></div>
         <div class="pt e"></div><div class="pt w"></div>
-        <div class="gaplab num">−35.4%</div>
+        <div class="gaplab"><b class="num">−35.4%</b><span>panel estimate · 95% CI −46.8% to −21.7%</span></div>
       </div>
       <div class="ticks"><span>0.5</span><span>0.6</span><span>0.7</span><span>0.8</span><span>0.9</span><span>1.0 = no drop</span></div>
     </div>
-    <p class="ciline">95% confidence interval −46.8% to −21.7%</p>
     <div class="two">
       <div>
         <p class="csub" style="margin:0 0 6px">Each month vs that coast's average month, 2018–2023 <span class="g obs">Observed</span></p>
-        <svg class="chart" viewBox="0 0 600 320" role="img" aria-label="Seasonal landings profile by coast: east coast falls to about 0.5 in December and January; west coast stays between 0.94 and 1.07"><rect x="211.6" y="14" width="250.9" height="278" fill="rgba(207,59,44,.07)"/><line x1="36" x2="588" y1="292.0" y2="292.0" stroke="rgba(13,34,54,0.09)"/><text x="28" y="296.0" text-anchor="end">0.4</text><line x1="36" x2="588" y1="236.4" y2="236.4" stroke="rgba(13,34,54,0.09)"/><text x="28" y="240.4" text-anchor="end">0.6</text><line x1="36" x2="588" y1="180.8" y2="180.8" stroke="rgba(13,34,54,0.09)"/><text x="28" y="184.8" text-anchor="end">0.8</text><line x1="36" x2="588" y1="125.2" y2="125.2" stroke="rgba(13,34,54,0.35)" stroke-dasharray="4 4"/><text x="28" y="129.2" text-anchor="end">1.0</text><line x1="36" x2="588" y1="69.6" y2="69.6" stroke="rgba(13,34,54,0.09)"/><text x="28" y="73.6" text-anchor="end">1.2</text><line x1="36" x2="588" y1="14.0" y2="14.0" stroke="rgba(13,34,54,0.09)"/><text x="28" y="18.0" text-anchor="end">1.4</text><text x="36.0" y="314" text-anchor="middle">Jul</text><text x="86.2" y="314" text-anchor="middle">Aug</text><text x="136.4" y="314" text-anchor="middle">Sep</text><text x="186.5" y="314" text-anchor="middle">Oct</text><text x="236.7" y="314" text-anchor="middle">Nov</text><text x="286.9" y="314" text-anchor="middle">Dec</text><text x="337.1" y="314" text-anchor="middle">Jan</text><text x="387.3" y="314" text-anchor="middle">Feb</text><text x="437.5" y="314" text-anchor="middle">Mar</text><text x="487.6" y="314" text-anchor="middle">Apr</text><text x="537.8" y="314" text-anchor="middle">May</text><text x="588.0" y="314" text-anchor="middle">Jun</text><polyline class="ln" points="36.0,93.0 86.2,97.4 136.4,127.1 186.5,135.5 236.7,149.1 286.9,178.3 337.1,192.8 387.3,179.1 437.5,87.4 487.6,79.3 537.8,82.4 588.0,101.3" stroke="#9AA6B6"/><polyline class="ln" points="36.0,106.6 86.2,111.6 136.4,118.5 186.5,111.0 236.7,109.1 286.9,137.7 337.1,142.4 387.3,133.8 437.5,138.3 487.6,138.5 537.8,137.2 588.0,117.7" stroke="#1F6FB2"/><polyline class="ln" points="36.0,86.8 86.2,72.7 136.4,40.7 186.5,41.0 236.7,156.9 286.9,261.7 337.1,253.9 387.3,208.3 437.5,129.4 487.6,71.8 537.8,89.3 588.0,90.2" stroke="#CF3B2C"/><text class="anno" x="312.0" y="283.7" text-anchor="middle">about half an average month</text></svg>
-        <div class="key" style="margin-top:6px"><span><i style="background:var(--storm)"></i>East coast</span><span><i style="background:var(--sea)"></i>West coast (control)</span><span><i style="background:#9AA6B6"></i>Sabah, Sarawak, Labuan</span></div>
+        <svg class="chart" viewBox="0 0 600 320" role="img" aria-label="Seasonal landings profile by coast: east coast falls to about 0.5 in December and January; west coast stays between 0.94 and 1.07"><rect x="211.6" y="14" width="250.9" height="278" fill="rgba(207,59,44,.07)"/><line x1="36" x2="588" y1="292.0" y2="292.0" stroke="rgba(13,34,54,0.09)"/><text x="28" y="296.0" text-anchor="end">0.4</text><line x1="36" x2="588" y1="236.4" y2="236.4" stroke="rgba(13,34,54,0.09)"/><text x="28" y="240.4" text-anchor="end">0.6</text><line x1="36" x2="588" y1="180.8" y2="180.8" stroke="rgba(13,34,54,0.09)"/><text x="28" y="184.8" text-anchor="end">0.8</text><line x1="36" x2="588" y1="125.2" y2="125.2" stroke="rgba(13,34,54,0.35)" stroke-dasharray="4 4"/><text x="28" y="129.2" text-anchor="end">1.0</text><line x1="36" x2="588" y1="69.6" y2="69.6" stroke="rgba(13,34,54,0.09)"/><text x="28" y="73.6" text-anchor="end">1.2</text><line x1="36" x2="588" y1="14.0" y2="14.0" stroke="rgba(13,34,54,0.09)"/><text x="28" y="18.0" text-anchor="end">1.4</text><text x="36.0" y="314" text-anchor="middle">Jul</text><text x="86.2" y="314" text-anchor="middle">Aug</text><text x="136.4" y="314" text-anchor="middle">Sep</text><text x="186.5" y="314" text-anchor="middle">Oct</text><text x="236.7" y="314" text-anchor="middle">Nov</text><text x="286.9" y="314" text-anchor="middle">Dec</text><text x="337.1" y="314" text-anchor="middle">Jan</text><text x="387.3" y="314" text-anchor="middle">Feb</text><text x="437.5" y="314" text-anchor="middle">Mar</text><text x="487.6" y="314" text-anchor="middle">Apr</text><text x="537.8" y="314" text-anchor="middle">May</text><text x="588.0" y="314" text-anchor="middle">Jun</text><polyline class="ln" points="36.0,106.6 86.2,111.6 136.4,118.5 186.5,111.0 236.7,109.1 286.9,137.7 337.1,142.4 387.3,133.8 437.5,138.3 487.6,138.5 537.8,137.2 588.0,117.7" stroke="#1F6FB2"/><polyline class="ln" points="36.0,86.8 86.2,72.7 136.4,40.7 186.5,41.0 236.7,156.9 286.9,261.7 337.1,253.9 387.3,208.3 437.5,129.4 487.6,71.8 537.8,89.3 588.0,90.2" stroke="#CF3B2C"/><text class="anno" x="312.0" y="283.7" text-anchor="middle">about half an average month</text></svg>
+        <div class="key" style="margin-top:6px"><span><i style="background:var(--storm)"></i>East coast</span><span><i style="background:var(--sea)"></i>West coast (control)</span></div>
       </div>
       <div>
         <p class="ctitle">Chance? Four two-sided tests</p>
@@ -623,7 +675,7 @@ body.timer-on #demo .bar{padding-right:clamp(150px,13vw,230px)}
   </div>
   <div class="pn" hidden>
     <ul>
-      <li>"Is the fishing drop real? East coast <b>0.639</b> against the sheltered west-coast control at <b>0.977</b>: a <b>−35.4%</b> gap, 95% confidence interval −46.8% to −21.7%. And the chart shows when: December and January, about half an average month."</li>
+      <li>"Is the fishing drop real? East coast <b>0.639</b> against the sheltered west-coast control at <b>0.977</b>. Our state-by-season panel puts the gap at <b>−35.4%</b>, 95% confidence interval −46.8% to −21.7%. And the chart shows when: December and January, about half an average month."</li>
       <li>"Our headline p is <b>0.0083</b>, an exact permutation test: of all 120 ways to label three of ten states as east coast, ours is the most extreme."</li>
       <li>"We lead with it because with three treated states, clustered standard errors are anti-conservative, so the panel's smaller p, 0.00062, is the weaker evidence. The 0.0025 is the 2023 per-state Mann-Whitney test. The coast-pair test is not significant: five pairs cannot reach it, and we show it anyway."</li>
       <li>"It is an association, not a causal estimate. But it is enough to set fishing pathways to zero: good for workers, SDG 8, and for fish stocks, SDG 14."</li>
@@ -635,12 +687,13 @@ body.timer-on #demo .bar{padding-right:clamp(150px,13vw,230px)}
 
 <!-- 7 Cost -->
 <section class="slide" id="s7" data-title="Cost" data-dur="45" aria-label="7 Cost">
-  <header class="hd"><h2>RM 887 covers one worker for one monsoon month.</h2></header>
+  <header class="hd"><h2>Break-even at about one-third placed.</h2></header>
   <div class="body">
     <p class="ctitle" style="margin-bottom:12px">Per participant, default scenario <span class="g scn">Scenario</span></p>
     <div class="eqrow">
-      <div class="costbar"><span style="width:41.3%;background:var(--ink)">RM 1,100 training</span><span style="width:49.6%;background:var(--sea)">RM 1,320 stipend</span><span style="width:9.1%;background:#9AA6B6">242</span></div>
-      <div class="eq"><i>=</i><b>RM 2,662</b><i>÷ 3 months =</i><b class="big">RM 887</b></div>
+      <div><div class="costbar"><span style="width:41.3%;background:var(--ink)">RM 1,100 training</span><span style="width:49.6%;background:var(--sea)">RM 1,320 stipend</span><span style="width:9.1%;background:#5E6F82;font-size:18px">RM 242</span></div>
+      <div class="costlab"><span style="width:41.3%">1 month</span><span style="width:49.6%">2 months at 60%</span><span style="width:9.1%">admin 10%</span></div></div>
+      <div class="eq"><i>=</i><b>RM 2,662</b><i>÷ 3-month programme =</i><b class="big">RM 887</b></div>
     </div>
     <div class="cov">
       <div class="k"><b class="num">2,741</b><span>participants (20%)</span></div>
@@ -650,6 +703,7 @@ body.timer-on #demo .bar{padding-right:clamp(150px,13vw,230px)}
     </div>
     <div class="be">
       <p class="ctitle">Break-even placement rate (participant earnings = programme cost)</p>
+      <p class="csub">At each destination group's median wage. Arithmetic, not a measured return.</p>
       <div class="be2">
         <div class="ref"><span>One-third</span></div>
         <div class="r"><span>Clerical support<small>median wage RM 2,931</small></span><div class="t"><i style="--w:60.6%"></i></div><b>30.3%</b></div>
@@ -658,14 +712,13 @@ body.timer-on #demo .bar{padding-right:clamp(150px,13vw,230px)}
         <div class="ax"><span></span><div class="tk"><i style="left:0">0%</i><i style="left:20%">10%</i><i style="left:40%">20%</i><i style="left:60%">30%</i><i style="left:80%">40%</i><i style="left:100%">50%</i></div><span></span></div>
       </div>
     </div>
-    <p class="fine">Arithmetic, not a measured return. <span class="g mod">Modelled</span> <b>RM 315.5M</b> income exposure is an <b>upper bound</b> (one worker per household).</p>
   </div>
   <div class="pn" hidden>
     <ul>
       <li>"<b>RM 887</b> covers one worker for one monsoon month: one training month at RM 1,100, two support months at 60% of that, plus 10% administration. That is RM 2,662 per participant over three months."</li>
       <li>"At 20% participation that is <b>2,741</b> workers, <b>RM 7.30M</b>, and <b>8,223</b> worker-months covered, about 16% of the exposure."</li>
       <li>"The <b>break-even placement rate</b>, where participant earnings equal programme cost, is about <b>one-third</b>: 30.3% to 35.4% depending on the destination wage."</li>
-      <li>"This is arithmetic, not a measured return; earnings are not a return to government budgets. And the RM 315.5M household income figure is an <b>upper bound</b>: it assumes one tourism-linked worker per household."</li>
+      <li>"This is arithmetic, not a measured return; earnings are not a return to government budgets." (The RM 315.5M upper bound is on slide 2.)</li>
     </ul>
     <p class="warn">Never say "pays for itself" or "returns what it costs". Every value here is Scenario: it moves with the slicers on dashboard page 04.</p>
     <p class="cue">Next: where machine learning earns its place.</p>
@@ -676,46 +729,28 @@ body.timer-on #demo .bar{padding-right:clamp(150px,13vw,230px)}
 <section class="slide" id="s8" data-title="Where ML earns its place" data-dur="50" aria-label="8 Where ML earns its place">
   <header class="hd"><h2>Machine learning only where it earns its place.</h2></header>
   <div class="body">
-    <div class="mlg">
+    <div class="ml4">
       <article>
-        <h3>Checksum-verified data pipeline</h3>
-        <div class="vz"><div class="flowv"><div><b>7</b><span>datasets</span></div><em>→</em><div><b>3</b><span>SHA-256</span></div><em>→</em><div><b>118</b><span>records</span></div><em>→</em><div class="z"><b>0</b><span>fabricated</span></div></div></div>
-        <p class="cp">Official data only, reproducible to the byte.</p>
+        <h3>NLP job matching: TF-IDF → SVD → cosine on MASCO task text</h3>
+        <div class="hm">
+          <span></span><span class="grp" style="grid-column:span 5">land and coastal jobs</span><span class="grp f" style="grid-column:span 3">fishing-related</span>
+          <span></span><span class="cl">Marine ops</span><span class="cl">Safety</span><span class="cl">Heritage</span><span class="cl">Guest</span><span class="cl">Market</span><span class="cl fs">Fishery</span><span class="cl">Process</span><span class="cl">Aqua</span>
+          <span>Boat</span><i class="best" style="background:rgba(16,58,98,.96)"></i><i style="background:rgba(16,58,98,.11)"></i><i style="background:rgba(16,58,98,.18)"></i><i style="background:rgba(16,58,98,.05)"></i><i style="background:rgba(16,58,98,.05)"></i><i class="fs" style="background:rgba(16,58,98,.05)"></i><i style="background:rgba(16,58,98,.07)"></i><i style="background:rgba(16,58,98,.05)"></i>
+          <span>Dive</span><i style="background:rgba(16,58,98,.13)"></i><i class="best" style="background:rgba(16,58,98,.91)"></i><i style="background:rgba(16,58,98,.05)"></i><i style="background:rgba(16,58,98,.10)"></i><i style="background:rgba(16,58,98,.06)"></i><i class="fs" style="background:rgba(16,58,98,.05)"></i><i style="background:rgba(16,58,98,.05)"></i><i style="background:rgba(16,58,98,.34)"></i>
+          <span>Homestay</span><i style="background:rgba(16,58,98,.11)"></i><i style="background:rgba(16,58,98,.06)"></i><i class="best" style="background:rgba(16,58,98,.23)"></i><i class="na"></i><i style="background:rgba(16,58,98,.05)"></i><i class="fs" style="background:rgba(16,58,98,.06)"></i><i style="background:rgba(16,58,98,.05)"></i><i style="background:rgba(16,58,98,.08)"></i>
+          <span>Snorkel</span><i style="background:rgba(16,58,98,.05)"></i><i class="best" style="background:rgba(16,58,98,.49)"></i><i class="na"></i><i style="background:rgba(16,58,98,.05)"></i><i style="background:rgba(16,58,98,.06)"></i><i class="fs" style="background:rgba(16,58,98,.15)"></i><i style="background:rgba(16,58,98,.05)"></i><i style="background:rgba(16,58,98,.05)"></i>
+          <span>Vendor</span><i style="background:rgba(16,58,98,.08)"></i><i style="background:rgba(16,58,98,.06)"></i><i style="background:rgba(16,58,98,.05)"></i><i class="best" style="background:rgba(16,58,98,.13)"></i><i class="na"></i><i class="fs" style="background:rgba(16,58,98,.06)"></i><i style="background:rgba(16,58,98,.07)"></i><i style="background:rgba(16,58,98,.11)"></i>
+        </div>
+        <p class="cp"><b>Boat → marine ops 0.96 · dive → coastal safety 0.90.</b> 13 documents · 417 terms · 8 components · 70.5% variance.</p>
       </article>
       <article>
-        <h3>NLP job matching: TF-IDF → SVD → cosine</h3>
-        <div class="vz"><div class="hm">
-          <span></span><span style="grid-column:span 5;border-bottom:2px solid var(--rule2)">land and coastal jobs</span><span style="grid-column:span 3;border-bottom:2px solid var(--storm);color:var(--storm)">fishing-related</span>
-          <span>Boat</span><i class="best" style="background:rgba(16,58,98,.96)"></i><i style="background:rgba(16,58,98,.11)"></i><i style="background:rgba(16,58,98,.18)"></i><i style="background:rgba(16,58,98,.05)"></i><i style="background:rgba(16,58,98,.05)"></i><i style="background:rgba(16,58,98,.05)"></i><i style="background:rgba(16,58,98,.07)"></i><i style="background:rgba(16,58,98,.05)"></i>
-          <span>Dive</span><i style="background:rgba(16,58,98,.13)"></i><i class="best" style="background:rgba(16,58,98,.91)"></i><i style="background:rgba(16,58,98,.05)"></i><i style="background:rgba(16,58,98,.10)"></i><i style="background:rgba(16,58,98,.06)"></i><i style="background:rgba(16,58,98,.05)"></i><i style="background:rgba(16,58,98,.05)"></i><i style="background:rgba(16,58,98,.34)"></i>
-          <span>Homestay</span><i style="background:rgba(16,58,98,.11)"></i><i style="background:rgba(16,58,98,.06)"></i><i class="best" style="background:rgba(16,58,98,.23)"></i><i class="na"></i><i style="background:rgba(16,58,98,.05)"></i><i style="background:rgba(16,58,98,.06)"></i><i style="background:rgba(16,58,98,.05)"></i><i style="background:rgba(16,58,98,.08)"></i>
-          <span>Snorkel</span><i style="background:rgba(16,58,98,.05)"></i><i class="best" style="background:rgba(16,58,98,.49)"></i><i class="na"></i><i style="background:rgba(16,58,98,.05)"></i><i style="background:rgba(16,58,98,.06)"></i><i style="background:rgba(16,58,98,.15)"></i><i style="background:rgba(16,58,98,.05)"></i><i style="background:rgba(16,58,98,.05)"></i>
-          <span>Vendor</span><i style="background:rgba(16,58,98,.08)"></i><i style="background:rgba(16,58,98,.06)"></i><i style="background:rgba(16,58,98,.05)"></i><i class="best" style="background:rgba(16,58,98,.13)"></i><i class="na"></i><i style="background:rgba(16,58,98,.06)"></i><i style="background:rgba(16,58,98,.07)"></i><i style="background:rgba(16,58,98,.11)"></i>
-        </div></div>
-        <p class="cp"><b>13 documents · 417 terms · 8 components · 70.5% variance.</b> Boat → marine ops: 0.96.</p>
-      </article>
-      <article>
-        <h3>Five-criteria ranking, one hard exclusion</h3>
-        <div class="vz"><div class="mini">
-          <div class="r top"><div class="t"><i style="--w:77%"></i></div><b>0.77</b></div>
-          <div class="r"><div class="t"><i style="--w:34%"></i></div><b></b></div>
-          <div class="r"><div class="t"><i style="--w:32%"></i></div><b></b></div>
-          <div class="r"><div class="t"><i style="--w:29%"></i></div><b></b></div>
-          <div class="r co"><div class="t"><i style="--w:26%"></i></div><b><svg class="ic"><use href="#i-x"/></svg></b></div>
-          <div class="r co"><div class="t"><i style="--w:25.7%"></i></div><b><svg class="ic"><use href="#i-x"/></svg></b></div>
-          <div class="r co"><div class="t"><i style="--w:25.6%"></i></div><b><svg class="ic"><use href="#i-x"/></svg></b></div>
-          <div class="r"><div class="t"><i style="--w:25%"></i></div><b></b></div>
-        </div></div>
-        <p class="cp">Fishing jobs (red) get <b>zero allocation</b>, enforced in the model.</p>
-      </article>
-      <article>
-        <h3>Nowcast: ridge / GBR, held-out 2023</h3>
-        <div class="vz" style="align-items:flex-start;padding-top:18px"><div class="vbars">
+        <h3>Nowcast of fish landings, held-out 2023</h3>
+        <div class="vz nv"><div class="vbars">
           <div class="bn"><span>seasonal naive = 1.0</span></div>
-          <div class="vb ok"><i style="--h:48.7%"><b>0.731</b></i><small><svg class="ic"><use href="#i-check"/></svg> 1 month ahead</small></div>
-          <div class="vb no" style="margin-left:30px"><i style="--h:70%"><b>1.050</b></i><small><svg class="ic"><use href="#i-x"/></svg> pre-season</small></div>
+          <div class="vb ok"><i style="--h:48.7%"><b>0.731</b></i><small><svg class="ic"><use href="#i-check"/></svg> ridge, 1 month ahead</small></div>
+          <div class="vb no"><i style="--h:70%"><b>1.050</b></i><small><svg class="ic"><use href="#i-x"/></svg> GBR, pre-season</small></div>
         </div></div>
-        <p class="cp">Relative MAE, CV on 2018–2022. <b>Pre-season not claimed.</b></p>
+        <p class="cp">Relative MAE vs seasonal naive, lower is better; models chosen by rolling-origin CV on 2018–2022. <b>Pre-season not claimed.</b></p>
       </article>
       <article>
         <h3>Stress test: 32 weight combinations</h3>
@@ -724,14 +759,15 @@ body.timer-on #demo .bar{padding-right:clamp(150px,13vw,230px)}
           <div class="r"><span>All five weights together</span><div class="t"><i style="--w:0%"></i></div><b>0</b></div>
           <div class="r hi"><span>Seasonal-fit setting −25%</span><div class="t"><i style="--w:20%"></i></div><b>4</b></div>
         </div></div>
-        <p class="cp">Top-20 ranks that change. <b>Weak spot published.</b></p>
+        <p class="cp">Top-20 ranks that change. The weak spot is shown, not hidden.</p>
       </article>
       <article>
-        <h3>Geospatial: exposure and landings</h3>
-        <div class="vz" style="gap:16px"><img src="img/deck/pilot-map.png" alt="Pilot-district exposure map"><img src="img/deck/retention-map.png" alt="State landings retention map"></div>
-        <p class="cp">DOSM boundaries: verify where exposure is highest.</p>
+        <h3>Geospatial: exposure and landings, mapped</h3>
+        <div class="vz geo"><figure><img src="img/deck/pilot-map.png" alt="Pilot-district exposure map"><figcaption>exposure by district</figcaption></figure><figure><img src="img/deck/retention-map.png" alt="State landings retention map"><figcaption>landings retention by state</figcaption></figure></div>
+        <p class="cp">On DOSM district and state boundaries.</p>
       </article>
     </div>
+    <p class="also">Also in the plan: <b>multi-criteria ranking with seasonal exclusion</b> (slide 5) and a <b>checksum-verified pipeline</b> (slide 3).</p>
     <div class="proposed">
       <p class="plab">Proposed next,<br>not built yet</p>
       <ol>
@@ -744,9 +780,9 @@ body.timer-on #demo .bar{padding-right:clamp(150px,13vw,230px)}
   </div>
   <div class="pn" hidden>
     <ul>
-      <li>"Where does machine learning earn its place? It starts with <b>verified data</b>: seven official datasets, three checksum-verified, zero fabricated."</li>
+      <li>"Where does machine learning earn its place? Four places, all on this slide, built on the checksum-verified data from slide 3."</li>
       <li>"<b>NLP job matching</b>: TF-IDF, truncated SVD and cosine similarity over MASCO task text. 13 documents, 417 terms, 8 components keeping 70.5% of the variance. The heatmap: a boat operator matches marine operations at 0.96, and nobody is steered to fishing."</li>
-      <li>"A <b>multi-criteria ranking</b> with a hard seasonal exclusion. A <b>time-series nowcast</b>: ridge and gradient boosting, chosen by rolling-origin cross-validation on 2018 to 2022, scored once on held-out 2023. One month ahead: 0.731 relative MAE, 27% lower error. Before the season it scored 1.050, worse than naive, so we do not claim it."</li>
+      <li>"A <b>time-series nowcast</b>: ridge and gradient boosting, chosen by rolling-origin cross-validation on 2018 to 2022, scored once on held-out 2023. One month ahead, ridge: 0.731 relative MAE, 27% lower error than seasonal naive. Before the season, GBR scored 1.050, worse than naive, so we do not claim it." The multi-criteria ranking with seasonal exclusion is slide 5.</li>
       <li>"A <b>stress test</b> across 32 weight combinations: weights never flip a top rank; one analyst setting does, and we publish it. And a <b>geospatial</b> layer on DOSM boundaries."</li>
       <li>"Clearly labelled as <b>proposed</b>, not built: learn the weights from pilot placements; map free-text job descriptions to MASCO with embeddings or an LLM plus human review; Malay-language pathway cards; and the nowcast as an in-season severity monitor."</li>
     </ul>
@@ -760,10 +796,10 @@ body.timer-on #demo .bar{padding-right:clamp(150px,13vw,230px)}
   <header class="hd"><h2>Dry-run now. Pilot Besut. Scale on evidence.</h2></header>
   <div class="body roll">
     <div class="stages4">
-      <div class="st now"><p class="when">2026/27 · this season</p><h3>Desk dry-run</h3><p class="det">Rehearse verification with district officers. <b>No enrolment.</b></p><p class="why">Lead time passed; window opens in <span class="days">—</span>.</p></div>
+      <div class="st now"><p class="when">2026/27 · this season</p><h3>Desk dry-run</h3><p class="det">Rehearse verification with district officers. <b>No enrolment.</b></p><p class="why">Too late to enrol this season; window opens in <span class="days">—</span>.</p></div>
       <div class="st"><p class="when">2027/28</p><h3>Besut pilot</h3><p class="det"><b>100</b> participants · <b>RM 266,200</b> indicative</p><div class="gate"><b>Gate</b>At least 43 of 100 placed, under the pre-specified pilot rule.</div></div>
       <div class="st"><p class="when">2028/29</p><h3>Four districts</h3><p class="det">About <b>2,741</b> participants · <b>RM 7.30M</b> indicative</p><div class="gate"><b>Gate</b>Pilot passes; employers reconfirm vacancies.</div></div>
-      <div class="st"><p class="when">2029/30 onward</p><h3>Wider adoption</h3><p class="det">Recalibrated on observed outcomes</p><div class="gate"><b>Gate</b>Validate locally first.</div></div>
+      <div class="st"><p class="when">2029/30 onward</p><h3>Wider adoption</h3><p class="det">Recalibrated on observed outcomes</p><div class="gate"><b>Gate</b>Data, seasonality and employer demand checked locally.</div></div>
     </div>
     <p class="prop">All stages proposed, subject to partner agreement.</p>
     <div class="ask">
@@ -887,6 +923,33 @@ body.timer-on #demo .bar{padding-right:clamp(150px,13vw,230px)}
     return {start:function(){if(run||reduce)return;run=true;requestAnimationFrame(frame)},stop:function(){run=false}};
   })($('windc'),{max:900,speed:1.4,fade:.075,lw:1.4,alpha:.38,rgb:'170,225,240',goldEvery:9});
   drawMap();if(document.fonts&&document.fonts.ready)document.fonts.ready.then(drawMap);
+
+  /* ── slide 2: the four pilot districts on DOSM boundaries ── */
+  function drawDistricts(){
+    var c=$('mapd'),host=c&&c.parentNode;if(!host)return;
+    var W=host.clientWidth,H=host.clientHeight,dpr=Math.min(2,window.devicePixelRatio||1);c.width=W*dpr;c.height=H*dpr;
+    var x=c.getContext('2d');x.setTransform(dpr,0,0,dpr,0,0);
+    var L0=100.9,L1=104.55,B0=2.35,B1=6.1,pad=26,s=Math.min((W-2*pad)/(L1-L0),(H-2*pad)/(B1-B0)),ox=(W-(L1-L0)*s)/2,oy=(H-(B1-B0)*s)/2;
+    function Q(lon,lat){return [ox+(lon-L0)*s,oy+(B1-lat)*s]}
+    function poly(f,fill,stroke,lw){var ps=f.g==='M'?f.k:[f.k];x.beginPath();ps.forEach(function(pp){pp.forEach(function(r){r.forEach(function(pt,i){var q=Q(pt[0],pt[1]);if(i)x.lineTo(q[0],q[1]);else x.moveTo(q[0],q[1])});x.closePath()})});if(fill){x.fillStyle=fill;x.fill()}if(stroke){x.strokeStyle=stroke;x.lineWidth=lw;x.stroke()}}
+    x.clearRect(0,0,W,H);
+    GEO.s.forEach(function(f){poly(f,'#FFFFFF','#C3CFDA',1)});
+    var wm={Besut:'21,603',Marang:'12,168','Kuala Nerus':'9,375',Rompin:'9,509'},labs=[];
+    GEO.d.forEach(function(f){var b=f.n==='Besut';poly(f,b?'#E2A32A':'rgba(31,111,178,.82)',b?'#8A5E08':'#0D2236',b?2:1);
+      var r=f.k[0][0],sx=0,sy=0;r.forEach(function(pt){sx+=pt[0];sy+=pt[1]});var q=Q(sx/r.length,sy/r.length);labs.push({n:f.n,q:q})});
+    var l=$('mapl'),html='',colX=Q(102.18,0)[0];
+    labs.sort(function(a,b){return a.q[1]-b.q[1]});var lastY=-99;
+    labs.forEach(function(d){var y=Math.max(d.q[1],lastY+40);lastY=y;
+      x.strokeStyle='rgba(13,34,54,.55)';x.lineWidth=1.2;x.beginPath();x.moveTo(colX,y);x.lineTo(d.q[0],d.q[1]);x.stroke();
+      x.fillStyle='#0D2236';x.beginPath();x.arc(d.q[0],d.q[1],3,0,6.283);x.fill();
+      html+='<div class="dl'+(d.n==='Besut'?' bes':'')+'" style="left:'+colX+'px;top:'+y+'px">'+d.n+'<b>'+wm[d.n]+'</b></div>'});
+    [['Perhentian',102.73,5.91,1],['Lang Tengah',102.9,5.8,0],['Redang',103.01,5.78,0],['Kapas',103.27,5.22,0],['Tioman',104.16,2.79,0]].forEach(function(s){var q=Q(s[1],s[2]);
+      x.fillStyle='#B5301F';x.strokeStyle='#fff';x.lineWidth=2;x.beginPath();x.arc(q[0],q[1],7,0,6.283);x.fill();x.stroke();
+      if(s[0]!=='Lang Tengah')html+='<div class="il'+(s[3]?' l':'')+'" style="left:'+q[0]+'px;top:'+(q[1]-(s[3]?12:0))+'px">'+s[0]+'</div>'});
+    var sea=Q(103.75,4.35);html+='<div class="sea" style="left:'+sea[0]+'px;top:'+sea[1]+'px">South China Sea</div>';
+    l.innerHTML=html;
+  }
+  drawDistricts();if(document.fonts&&document.fonts.ready)document.fonts.ready.then(drawDistricts);
 
   /* ── live dashboard layer ── */
   var dpages=[['00','Executive Summary','Summary'],['01','Monsoon Clock','Clock'],['02','Exposure Map','Exposure'],['03','Skill Bridge','Skills'],['04','Action Planner','Planner'],['05','Risk, Cost and Return','Cost'],['06','Robustness','Robust'],['07','Evidence','Evidence']];

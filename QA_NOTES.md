@@ -59,6 +59,21 @@ Short answers for the 5-minute Q&A. Every figure is quoted from web.html (W), da
 - **Not causal.** "Coast is not randomly assigned, so this is an association under exchangeability. No causal effect is claimed." [D page 00]
 - **Watch out.** The dashboard text says "600 state-months" (page 03), but its data grade says "720 monthly landings". TO CONFIRM which count is right.
 
+### 7b. Is −35.4% simply 0.639 vs 0.977? (slides 1, 3, 6)
+- No. A judge who divides 0.639 by 0.977 gets a slightly smaller gap.
+- **−35.4% is the state × season panel estimate**: a difference-in-differences with season fixed effects over 50 state-seasons, 95% CI −46.8% to −21.7%. [W 06b]
+- 0.639 and 0.977 are the five-season average ratios for each coast. [W 06b]
+- The slides now label it "panel estimate" for exactly this reason. Do not call it the ratio of the two dots.
+
+### 7c. Which test is the headline? (slides 4, 6)
+- **The exact permutation test, p = 0.0083.**
+- The panel test (p = 0.00062) agrees, but with three treated states its clustered errors are anti-conservative. [W 06b]
+- The dashboard's two explanatory notes (pages 00 and 06) were relabelled to say the same, so the demo and the slides now agree.
+
+### 7d. Why are only 3 of the 7 datasets checksum-verified? (slide 3)
+- Those three were downloaded programmatically from data.gov.my (labour force, household income, fish landings), so their bytes can be hashed. [W 03]
+- The other four were transcribed from published releases or reviews: the DOSM tourism survey, the METMalaysia review, MASCO and the Tourism Satellite Account. Each is cited to its publisher. [W 03]
+
 ### 8. Your forecast fails before the season. Why keep it? (slide 8)
 - **What was tested.** Models were chosen on 2018–2022 with rolling-origin cross-validation; held-out 2023 was scored once. [W 08]
 - **One month ahead.** Relative MAE 0.731, i.e. 27% lower error than seasonal naive. The pooled test gives p = 0.004, but clustered by state (3 clusters) it is not significant. [W 08]
