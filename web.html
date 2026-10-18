@@ -1255,6 +1255,31 @@ main,.marq2,footer{position:relative}
 @media (min-width:1081px){
   .webed .dash .lamp h2,.webed .dash .lamp p{margin-left:0;margin-right:0}
 }
+/* every heading level is one size on every page; only body text, tables and charts grow into free space */
+@media (min-width:1081px){
+  .webed .chap .lede{font-size:calc(1.2rem / var(--z))!important}
+  .webed .chap .ctitle,.webed .chap .ctitle.big,.webed .chap .x28 .ctitle,.webed .chap .sbchart .ctitle{font-size:calc(1.4rem / var(--z))!important}
+  .webed .chap h3{font-size:calc(1.3rem / var(--z))!important}
+  .webed .chap .find{font-size:calc(1.28rem / var(--z))!important}
+  .webed .chap .say{font-size:calc(1.42rem / var(--z))!important}
+  .webed .dash .lamp p{font-size:1.2rem}
+}
+/* very short windows (e.g. 125% Windows scaling with the browser bar showing) */
+@media (min-width:1081px) and (max-height:760px){
+  .chap,.dash{padding-block:3.9vh 1.2vh}
+  .chap .blk{margin-top:1.6vh}
+  .adv-sec,.team-sec{padding-block:4.6vh 2.6vh}
+  .adv-pic{max-width:min(100%,calc((100vh - 9vh) * .59))}
+  .sb{gap:1.6rem}
+  .wf2 .t{height:24px}
+  .next{padding-top:4px;padding-bottom:4px}
+  #impact .gantt .gr{padding:.1rem 0}
+  #impact .whys{row-gap:.4rem}
+  #impact .whys>div:nth-child(n+3){padding-top:.5rem!important}
+  .reach{gap:2rem}
+  .circ{max-height:calc(100vh - 16rem);width:auto;margin-inline:auto}
+  .hero .bulletin{margin-top:18px}
+}
 </style>
 </head>
 <body>
@@ -2467,7 +2492,7 @@ main,.marq2,footer{position:relative}
           var now=over();for(var i=0;i<now.length;i++){if(now[i]>Math.max(base[i],0)+2)return false}
           return true};
         if(!ok(1)){w.style.zoom='';w.style.setProperty('--z',1);return}
-        var lo=1,hi=1.35;for(var k=0;k<7;k++){var m=(lo+hi)/2;if(ok(m))lo=m;else hi=m}
+        var lo=1,hi=1.22;for(var k=0;k<7;k++){var m=(lo+hi)/2;if(ok(m))lo=m;else hi=m}
         var zf=Math.floor(lo*100)/100;w.style.zoom=zf.toString();w.style.setProperty('--z',zf);
       });
       if(window.ScrollTrigger)window.ScrollTrigger.refresh();

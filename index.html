@@ -2241,7 +2241,7 @@ main,.marq2,footer{position:relative}
           var now=over();for(var i=0;i<now.length;i++){if(now[i]>Math.max(base[i],0)+2)return false}
           return true};
         if(!ok(1)){w.style.zoom='';w.style.setProperty('--z',1);return}
-        var lo=1,hi=1.35;for(var k=0;k<7;k++){var m=(lo+hi)/2;if(ok(m))lo=m;else hi=m}
+        var lo=1,hi=1.22;for(var k=0;k<7;k++){var m=(lo+hi)/2;if(ok(m))lo=m;else hi=m}
         var zf=Math.floor(lo*100)/100;w.style.zoom=zf.toString();w.style.setProperty('--z',zf);
       });
       if(window.ScrollTrigger)window.ScrollTrigger.refresh();
